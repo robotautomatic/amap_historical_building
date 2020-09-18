@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+    <LinearLayout android:id="@+id/main_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+        <com.xuexiang.xui.widget.actionbar.TitleBar
+                android:id="@+id/title_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tb_actionPadding="5dp"
+                app:tb_barHeight="52dp"
+                app:tb_titleText="历史建筑测绘"
+                app:tb_useThemeColor="false"
+                android:background="@color/colorPrimaryDark"
+                app:tb_centerGravity="left"
+                app:tb_sideTextPadding="5dp"/>
+        <com.amap.api.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </com.amap.api.maps.MapView>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/linear_bt"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="right"
+                  android:orientation="vertical">
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                app:rb_backgroundColor="@drawable/color_button"
+                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+                android:id="@+id/switchLayer"
+                android:drawableBottom="@drawable/ic_tuceng"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="112dp"
+                android:layout_marginRight="16dp"/>
+
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                app:rb_backgroundColor="@drawable/color_button"
+                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+                android:id="@+id/btn_draw"
+                android:drawableBottom="@drawable/ic_draw"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"/>
+
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                app:rb_backgroundColor="@drawable/color_button"
+                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+                android:id="@+id/btn_select"
+                android:drawableBottom="@drawable/ic_select"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"/>
+
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+                app:rb_backgroundColor="@drawable/color_button"
+                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+                android:id="@+id/btn_overlay"
+                android:drawableBottom="@drawable/ic_show_overlay"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

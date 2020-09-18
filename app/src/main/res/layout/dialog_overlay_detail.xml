@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="基础信息"
+            android:textSize="18dp"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="所在城市类型："/>
+    <TextView
+            android:id="@+id/text_city_type"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑编号："/>
+    <TextView
+            android:id="@+id/text_build_number"
+            style="@style/TextStyle.Explain"/>
+
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑名称："/>
+    <TextView
+            android:id="@+id/text_build_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑地址："/>
+    <TextView
+            android:id="@+id/text_build_address"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="位置坐标："/>
+    <TextView
+            android:id="@+id/text_position_coordinates"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑年代："/>
+    <TextView
+            android:id="@+id/text_architectural_age"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑类别："/>
+    <TextView
+            android:id="@+id/text_building_category"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑价值特色描述："/>
+    <TextView
+            android:id="@+id/text_building_description"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="历史沿革或相关历史事件、历史人物："/>
+    <TextView
+            android:id="@+id/text_historical_evolution"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑师、建造商名称："/>
+    <TextView
+            android:id="@+id/text_architect_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="核心保护信息"
+            android:textSize="18dp"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="价值要素："/>
+    <TextView
+            android:id="@+id/text_value_elements"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="现状信息"
+            android:textSize="18dp"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="现状功能："/>
+    <TextView
+            android:id="@+id/text_status_function"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="结构类型："/>
+    <TextView
+            android:id="@+id/text_structure_type"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑层数："/>
+    <TextView
+            android:id="@+id/text_building_floors"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="建筑面积："/>
+    <TextView
+            android:id="@+id/text_building_area"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="占地面积："/>
+    <TextView
+            android:id="@+id/text_area_covered"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="保存状况描述："/>
+    <TextView
+            android:id="@+id/text_status_description"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="影响因素："
+            android:textSize="16dp"/>
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="自然因素："/>
+    <TextView
+            android:id="@+id/text_natural_factor"
+            style="@style/TextStyle.Explain"/>
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="人为因素："/>
+    <TextView
+            android:id="@+id/text_human_factor"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="使用信息："
+            android:textSize="18dp"/>
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="产权类别："/>
+    <TextView
+            android:id="@+id/text_property_type"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="产权人（单位）名称："/>
+    <TextView
+            android:id="@+id/text_property_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="使用人（单位）名称："/>
+    <TextView
+            android:id="@+id/text_user_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="产权变更情况描述："/>
+    <TextView
+            android:id="@+id/text_property_description"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="测绘图纸档案"
+            android:textSize="18dp"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="图纸名称："/>
+    <TextView
+            android:id="@+id/text_file_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="比例："/>
+    <TextView
+            android:id="@+id/text_draw_proportion"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="绘制人："/>
+    <TextView
+            android:id="@+id/text_draw_name"
+            style="@style/TextStyle.Explain"/>
+
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="绘制时间："/>
+    <TextView
+            android:id="@+id/text_draw_path"
+            style="@style/TextStyle.Explain"/>
+
+
+
+</LinearLayout>
