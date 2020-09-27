@@ -3,19 +3,24 @@ package com.hyht.amap_historical_building.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.LatLng;
 import com.hyht.amap_historical_building.MainActivity;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.adapter.DrawRecyclerAdapter;
+import com.hyht.amap_historical_building.adapter.SelectDrawRecyclerAdapter;
 import com.hyht.amap_historical_building.callback.SingleButtonCallbackSaveOrUpdate;
+import com.hyht.amap_historical_building.entity.TDraw;
 import com.hyht.amap_historical_building.utils.GlideEngine;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
+import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.List;
 public class DialogSaveOverlay {
     private Context context;
     private List<LatLng> latLngList = new ArrayList<>();
+    private AMap aMap;
 
     public DialogSaveOverlay(Context context, List<LatLng> latLngList) {
         this.context = context;
@@ -38,13 +44,15 @@ public class DialogSaveOverlay {
     }
 
     private MaterialDialog getDialog() {
+        List<LocalMedia> drawMediaList = new ArrayList<>();
+        List<LocalMedia> imageMediaList = new ArrayList<>();
         MaterialDialog materialDialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_save_overlay, true)
                 .iconRes(R.drawable.ic_save)
                 .title("建筑物信息保存")
                 .positiveText("确认")
                 .negativeText("取消")
-                .onPositive(new SingleButtonCallbackSaveOrUpdate(SingleButtonCallbackSaveOrUpdate.Type.SAVE))
+                .onPositive(new SingleButtonCallbackSaveOrUpdate(context, aMap, drawMediaList, imageMediaList))
                 .show();
 
         String coordinates = "";
@@ -55,32 +63,19 @@ public class DialogSaveOverlay {
         }
         edit_position_coordinates.setText(coordinates);
 
-        RecyclerView recyclerView = materialDialog.getCustomView().findViewById(R.id.rv_draw);
+        RecyclerView drawRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_draw);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        List<String> stringList = new ArrayList<>();
-        stringList.add("111");
-        stringList.add("2222");
-        System.out.println("adddddddddddddd");
-        DrawRecyclerAdapter adapter = new DrawRecyclerAdapter(stringList);
-        recyclerView.setAdapter(adapter);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        drawRecyclerView.setLayoutManager(linearLayoutManager);
+        SelectDrawRecyclerAdapter drawAdapter = new SelectDrawRecyclerAdapter(drawMediaList, context);
+        drawRecyclerView.setAdapter(drawAdapter);
 
-/*        PictureSelector.create((Activity) context)
-                .openGallery(PictureMimeType.ofImage())
-                .loadImageEngine(GlideEngine.createGlideEngine())
-                .selectionMode(PictureConfig.SINGLE)
-                .forResult(new OnResultCallbackListener<LocalMedia>() {
-                    @Override
-                    public void onResult(List<LocalMedia> result) {
-                        // 结果回调
-                        System.out.println("pic ====="+ result);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // 取消
-                    }
-                });*/
+        RecyclerView imageRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_image);
+        LinearLayoutManager imageLinearLayoutManager = new LinearLayoutManager(context);
+        imageLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        imageRecyclerView.setLayoutManager(imageLinearLayoutManager);
+        SelectDrawRecyclerAdapter imageAdapter = new SelectDrawRecyclerAdapter(imageMediaList, context);
+        imageRecyclerView.setAdapter(imageAdapter);
 
         return materialDialog;
     }

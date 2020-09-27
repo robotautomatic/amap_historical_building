@@ -1,6 +1,8 @@
 package com.hyht.amap_historical_building.callback;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -8,34 +10,58 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.Marker;
 import com.hyht.amap_historical_building.Constant;
+import com.hyht.amap_historical_building.MainActivity;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.dialog.DialogOverlayDetail;
+import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
+import com.hyht.amap_historical_building.entity.TDraw;
 import com.hyht.amap_historical_building.utils.VolleyUtils;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xui.widget.toast.XToast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.xuexiang.xui.XUI.getContext;
+
 public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleButtonCallback {
-    public enum Type {SAVE, UPDATE}
-    private Type type;
-    private TBasic tBasic;
     private Context context;
     private AMap aMap;
+    private int getBasicId;
+    private Marker marker = null;
+    private List<LocalMedia> drawMediaList;
+    private List<LocalMedia> imageMediaList;
 
-    public SingleButtonCallbackSaveOrUpdate(Type type, TBasic tBasic, Context context, AMap aMap) {
-        this.type = type;
-        this.tBasic = tBasic;
+    public SingleButtonCallbackSaveOrUpdate(Context context, AMap aMap, List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
         this.context = context;
         this.aMap = aMap;
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
     }
 
-    public SingleButtonCallbackSaveOrUpdate(Type type) {
-        this.type = type;
+    public SingleButtonCallbackSaveOrUpdate(Context context, AMap aMap, int getBasicId, List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
+        this.context = context;
+        this.aMap = aMap;
+        this.getBasicId = getBasicId;
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
+    }
+
+    public SingleButtonCallbackSaveOrUpdate(Context context, AMap aMap, Marker marker, List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
+        this.context = context;
+        this.aMap = aMap;
+        this.marker = marker;
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
     }
 
     @Override
@@ -57,6 +83,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("cityType", "非历史文化名城");
             }
             break;
+            default:
+                mapBuilding.put("cityType", "");
         }
 
         EditText edit_build_number = view.findViewById(R.id.edit_build_number);
@@ -94,6 +122,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("architecturalAge", "改革开放后（1979年以后）");
             }
             break;
+            default:
+                mapBuilding.put("architecturalAge", "");
         }
 
         RadioGroup rg_building_category = view.findViewById(R.id.rg_building_category);
@@ -114,6 +144,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("buildingCategory", "构筑物");
             }
             break;
+            default:
+                mapBuilding.put("buildingCategory", "");
         }
 
         EditText edit_building_description = view.findViewById(R.id.edit_building_description);
@@ -150,6 +182,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("valueElements", "历史环境要素," + rg_value_elements_5_et.getText());
             }
             break;
+            default:
+                mapBuilding.put("valueElements", "");
         }
 
         RadioGroup rg_status_function = view.findViewById(R.id.rg_status_function);
@@ -203,6 +237,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("statusFunction", "其他," + rg_status_function_12_et.getText());
             }
             break;
+            default:
+                mapBuilding.put("statusFunction", "");
         }
 
         RadioGroup rg_structure_type = view.findViewById(R.id.rg_structure_type);
@@ -293,6 +329,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("naturalFactor", "其他自然因素," + rg_natural_factor_12_et.getText());
             }
             break;
+            default:
+                mapBuilding.put("naturalFactor", "");
         }
 
         RadioGroup rg_human_factor = view.findViewById(R.id.rg_human_factor);
@@ -330,6 +368,8 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("humanFactor", "其他人为因素," + rg_human_factor_8_et.getText());
             }
             break;
+            default:
+                mapBuilding.put("humanFactor", "");
         }
 
         CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
@@ -364,37 +404,131 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         volleyNetwork(context, mapBuilding);
     }
 
-    private void volleyNetwork(Context context, Map mapBuilding){
-        String url = null;
-        switch (type){
-            case SAVE:{
-                url = Constant.TB_ADD;
+    private void volleyNetwork(Context context, Map mapBuilding) {
+        String url = "";
+        if (getBasicId > 0) {
+            url = Constant.TB_ADD;
+        }else {
+            url = Constant.TB_UPDATE;
+            TBasic tBasic;
+            if (marker.getObject() instanceof TBasic) {
+                tBasic = (TBasic) marker.getObject();
+            }else {
+                PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
+                tBasic = polygonBasic.getTBasic();
             }
-            break;
-            case UPDATE:{
-                url = Constant.TB_UPDATE;
-                mapBuilding.put("basicId", String.valueOf(tBasic.getBasicId()));
-            }
-            break;
+            mapBuilding.put("basicId", String.valueOf(tBasic.getBasicId()));
         }
+
+
         VolleyUtils.create(context).post(url, TBasic.class, new VolleyUtils.OnResponse<TBasic>() {
             @Override
             public void OnMap(Map<String, String> map) {
                 map.putAll(mapBuilding);
-                System.out.println(map + "/////" + map.size());
             }
 
             @Override
             public void onSuccess(TBasic response) {
-                Log.e("TAG", "response---->" + response);
-                XToast.normal(context,"保存成功").show();
-                DialogOverlayDetail dialogOverlayDetail = new DialogOverlayDetail(context, tBasic, aMap);
+                Log.e("success", "response---->" + response);
+                XToast.normal(context, "保存成功").show();
+                int id = response.getBasicId();
+
+                FileInputStream fis = null;
+                String picture = "";
+
+                if (drawMediaList.size() > 0) {
+                    for (LocalMedia drawMedia : drawMediaList
+                    ) {
+                        try {
+                            fis = new FileInputStream(drawMedia.getAndroidQToPath());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                        picture = VolleyUtils.create(getContext()).bitmapToBase64(bitmap);
+                        String finalPicture = picture;
+                        VolleyUtils.create(context).post(Constant.TD_ADD, TDraw.class, new VolleyUtils.OnResponse<TDraw>() {
+
+                            @Override
+                            public void OnMap(Map<String, String> map) {
+                                map.put("basicId", String.valueOf(id));
+                                map.put("fileName", "");
+                                map.put("drawProportion", "");
+                                map.put("drawName", "");
+                                map.put("drawPath", finalPicture);
+                                map.put("drawDate", "");
+                            }
+
+                            @Override
+                            public void onSuccess(TDraw response) {
+                                Log.e("draw success", "TDraw response---->" + response);
+                                XToast.normal(context, "测绘图纸保存成功").show();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                Log.e("draw error", "TDraw error---->" + error);
+                                XToast.normal(context, "测绘图纸保存失败" + error).show();
+                            }
+                        });
+                    }
+                }
+
+                if (imageMediaList.size() > 0) {
+                    for (LocalMedia imageMedia : imageMediaList
+                    ) {
+                        try {
+                            fis = new FileInputStream(imageMedia.getAndroidQToPath());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                        picture = VolleyUtils.create(getContext()).bitmapToBase64(bitmap);
+                        String finalPicture = picture;
+                        VolleyUtils.create(context).post(Constant.TD_ADD, TDraw.class, new VolleyUtils.OnResponse<TDraw>() {
+
+                            @Override
+                            public void OnMap(Map<String, String> map) {
+                                map.put("basicId", String.valueOf(id));
+                                map.put("imageName", "");
+                                map.put("photoName", "");
+                                map.put("imagePath", finalPicture);
+                                map.put("imageDate", "");
+                            }
+
+                            @Override
+                            public void onSuccess(TDraw response) {
+                                Log.e("draw success", "TDraw response---->" + response);
+                                XToast.normal(context, "影像保存成功").show();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                Log.e("draw error", "TDraw error---->" + error);
+                                XToast.normal(context, "影像保存失败" + error).show();
+                            }
+                        });
+                    }
+                }
+
+                if(marker != null){
+                    TBasic tBasic;
+                    if (marker.getObject() instanceof TBasic) {
+                        marker.setObject(response);
+                    }else {
+                        PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
+                        polygonBasic.setTBasic(response);
+                    }
+                }
+
             }
 
             @Override
             public void onError(String error) {
-                Log.e("TAG", "error---->" + error);
-                XToast.normal(context,"保存失败").show();
+                Log.e("error", "error---->" + error);
+                XToast.normal(context, "保存失败").show();
             }
         });
 

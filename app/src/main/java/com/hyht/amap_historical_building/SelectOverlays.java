@@ -37,6 +37,7 @@ public class SelectOverlays {
                 }.getType();
                 final Gson gson = new Gson();
                 final List<TBasic> basicList = gson.fromJson(result, type);
+
                 EntityToOverlay entityToOverlay;
                 for (TBasic tBasic : basicList
                 ) {

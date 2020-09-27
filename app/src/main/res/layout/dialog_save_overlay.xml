@@ -636,36 +636,41 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/linear_checkbox_property_type"
+                android:orientation="vertical"
                 android:layout_height="wrap_content">
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="国有"
-                    android:id="@+id/checkbox_property_type_1"
-            />
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="集体"
-                    android:id="@+id/checkbox_property_type_2"
-            />
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="个人"
-                    android:id="@+id/checkbox_property_type_3"
-            />
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="其他"
-                    android:id="@+id/checkbox_property_type_4"
-            />
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/checkbox_property_type_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="国有"
+                        android:id="@+id/checkbox_property_type_1"
+                />
+                <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="集体"
+                        android:id="@+id/checkbox_property_type_2"
+                />
+                <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个人"
+                        android:id="@+id/checkbox_property_type_3"
+                />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="其他"
+                        android:id="@+id/checkbox_property_type_4"
+                />
+                <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                        android:id="@+id/checkbox_property_type_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:met_maxCharacters="12"/>
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -695,52 +700,25 @@
                 android:layout_height="wrap_content"
                 app:met_maxCharacters="12"/>
 
-<!--        <TextView
+        <TextView
                 style="@style/TextStyle.Content"
                 android:text="测绘图纸档案"
                 android:textSize="18dp"/>
-
-        <TextView
-                style="@style/TextStyle.Content"
-                android:text="图纸名称："/>
-        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/edit_file_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_maxCharacters="12"/>
-
-        <TextView
-                style="@style/TextStyle.Content"
-                android:text="比例："/>
-        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/edit_draw_proportion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_maxCharacters="12"/>
-
-        <TextView
-                style="@style/TextStyle.Content"
-                android:text="绘制人："/>
-        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/edit_draw_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_maxCharacters="12"/>
-
-        <TextView
-                style="@style/TextStyle.Content"
-                android:text="绘制时间："/>
-        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                android:id="@+id/edit_draw_path"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_maxCharacters="12"/>-->
 
         <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
                                                    android:id="@+id/rv_draw"
                                                    android:orientation="horizontal"
                                                    android:scrollbars="horizontal"/>
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="影像档案"
+                android:textSize="18dp"/>
 
+        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:id="@+id/rv_image"
+                                                   android:orientation="horizontal"
+                                                   android:scrollbars="horizontal"/>
     </LinearLayout>
 </LinearLayout>

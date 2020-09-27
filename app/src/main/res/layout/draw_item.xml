@@ -9,7 +9,7 @@
             android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:background="#F4F4F4"
-            app:srcCompat="@drawable/ic_add_image" />
+                app:srcCompat="@drawable/ic_add_image" />
 
     <LinearLayout
             android:id="@+id/ll_delete"

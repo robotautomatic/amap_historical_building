@@ -1,18 +1,45 @@
 package com.hyht.amap_historical_building.dialog;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
+import com.hyht.amap_historical_building.Constant;
 import com.hyht.amap_historical_building.R;
+import com.hyht.amap_historical_building.WebActivity;
+import com.hyht.amap_historical_building.adapter.PreviewRecycleAdapter;
+import com.hyht.amap_historical_building.adapter.SelectDrawRecyclerAdapter;
 import com.hyht.amap_historical_building.callback.DialogSingleButtonCallBackEditor;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackHideOverlayOnMap;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackShowOverlayOnMap;
+import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
+import com.hyht.amap_historical_building.entity.TDraw;
+import com.hyht.amap_historical_building.entity.TImage;
+import com.hyht.amap_historical_building.utils.DefaultButton;
+import com.hyht.amap_historical_building.utils.VolleyUtils;
+import com.just.agentweb.AgentWeb;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xutil.app.ActivityUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class DialogOverlayDetail {
     private Context context;
@@ -32,34 +59,45 @@ public class DialogOverlayDetail {
         this.context = context;
         this.aMap = aMap;
         this.marker = marker;
+        if (marker.getObject() instanceof TBasic) {
+            tBasic = (TBasic) marker.getObject();
+        }else {
+            PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
+            tBasic = polygonBasic.getTBasic();
+        }
         getDialog();
     }
 
     private void getDialog() {
+        List<LocalMedia> drawMediaList = new ArrayList<>();
+        List<LocalMedia> imageMediaList = new ArrayList<>();
         MaterialDialog.SingleButtonCallback singleButtonCallback = null;
+        MaterialDialog materialDialog;
         if (marker == null){
             negativeText = "显示在地图上";
             singleButtonCallback = new SingleButtonCallBackShowOverlayOnMap(aMap, tBasic, context);
+            materialDialog = new MaterialDialog.Builder(context)
+                    .customView(R.layout.dialog_overlay_detail, true)
+                    .positiveText("确认")
+                    .negativeText(negativeText)
+                    .onNegative(singleButtonCallback)
+                    .neutralText("编辑")
+                    .onNeutral(new DialogSingleButtonCallBackEditor(tBasic, context, aMap, drawMediaList, imageMediaList))
+                    .cancelable(false)
+                    .show();
         }else {
             negativeText = "在地图上隐藏";
-            tBasic = (TBasic) marker.getObject();
             singleButtonCallback = new SingleButtonCallBackHideOverlayOnMap(marker, aMap);
+            materialDialog = new MaterialDialog.Builder(context)
+                    .customView(R.layout.dialog_overlay_detail, true)
+                    .positiveText("确认")
+                    .negativeText(negativeText)
+                    .onNegative(singleButtonCallback)
+                    .neutralText("编辑")
+                    .onNeutral(new DialogSingleButtonCallBackEditor(context, aMap, marker, drawMediaList, imageMediaList))
+                    .cancelable(false)
+                    .show();
         }
-        assert singleButtonCallback != null;
-        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
-                .customView(R.layout.dialog_overlay_detail, true)
-                .positiveText("确认")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    }
-                })
-                .negativeText(negativeText)
-                .onNegative(singleButtonCallback)
-                .neutralText("编辑")
-                .onNeutral(new DialogSingleButtonCallBackEditor(tBasic, context, aMap))
-                .cancelable(false)
-                .show();
 
         View view = materialDialog.getCustomView();
 
@@ -131,5 +169,73 @@ public class DialogOverlayDetail {
 
         TextView propertyDescription = view.findViewById(R.id.text_property_description);
         propertyDescription.setText(tBasic.getPropertyDescription());
+
+        List<Uri> drawUriList =  new ArrayList<>();
+        VolleyUtils.create(context).get(Constant.TD_GET, TDraw.class, new VolleyUtils.OnResponses<TDraw>() {
+            @Override
+            public void OnMap(Map<String, String> map) {
+                map.put("basicId", String.valueOf(tBasic.getBasicId()));
+            }
+
+            @Override
+            public void onSuccess(List<TDraw> response) {
+                System.out.println("td rrrr = "+ response);
+                for (TDraw tDraw : response
+                     ) {
+                   drawUriList.add(Uri.parse(Constant.BASE_URL + tDraw.getDrawPath()));
+                }
+
+                RecyclerView drawRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_draw);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                drawRecyclerView.setLayoutManager(linearLayoutManager);
+                PreviewRecycleAdapter drawAdapter = new PreviewRecycleAdapter(context, drawUriList);
+                drawRecyclerView.setAdapter(drawAdapter);
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+
+        List<Uri> imageUriList =  new ArrayList<>();
+        VolleyUtils.create(context).get(Constant.TI_GET, TImage.class, new VolleyUtils.OnResponses<TImage>() {
+            @Override
+            public void OnMap(Map<String, String> map) {
+                map.put("basicId", String.valueOf(tBasic.getBasicId()));
+            }
+
+            @Override
+            public void onSuccess(List<TImage> response) {
+                for (TImage tImage : response
+                ) {
+                    imageUriList.add(Uri.parse(tImage.getImagePath()));
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+        RecyclerView imageRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_image);
+        LinearLayoutManager imageLinearLayoutManager = new LinearLayoutManager(context);
+        imageLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        imageRecyclerView.setLayoutManager(imageLinearLayoutManager);
+        PreviewRecycleAdapter imageAdapter = new PreviewRecycleAdapter(context, imageUriList);
+        imageRecyclerView.setAdapter(imageAdapter);
+
+        Button panoramaSketchButton = view.findViewById(R.id.bt_panorama_sketch);
+        panoramaSketchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://39.98.192.41:8083/index?id="+ tBasic.getBasicId();
+                Intent intent = new Intent(context,WebActivity.class);
+                intent.putExtra("url", "http://39.98.192.41:8083/index?id=1");
+                context.startActivity(intent);
+            }
+        });
+
     }
 }

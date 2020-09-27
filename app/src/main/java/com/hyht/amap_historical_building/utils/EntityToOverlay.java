@@ -2,6 +2,7 @@ package com.hyht.amap_historical_building.utils;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.*;
+import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class EntityToOverlay {
             return marker;
         }
         if (latLngList.size() > 1){
+
             PolygonOptions polygonOptions = new PolygonOptions();
             polygonOptions.strokeWidth(5) // 多边形的边框
                     .strokeColor(0xAA000000) // 边框颜色
@@ -43,8 +45,10 @@ public class EntityToOverlay {
             marker = aMap.addMarker(new MarkerOptions().position(centerPoint)
                     .title("建筑名称：" + tBasic.getBuildingName())
                     .snippet("建筑编号：" + tBasic.getBuildingNumber()));
-            marker.setObject(tBasic);
-            aMap.getMapScreenMarkers();
+            PolygonBasic polygonBasic = new PolygonBasic();
+            polygonBasic.setPolygon(polygon);
+            polygonBasic.setTBasic(tBasic);
+            marker.setObject(polygonBasic);
             
             return marker;
         }

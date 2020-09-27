@@ -40,21 +40,12 @@ public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCa
                 .positiveText("删除").positiveColor(getColor(R.color.colorAccent)).onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        RequestQueue requestQueue = Volley.newRequestQueue(context);
-                        StringRequest request_Delete = new StringRequest(StringRequest.Method.DELETE, Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId(), new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                XToast.normal(context, "删除成功！").show();
-                                DialogSelectAllOverlays dialogSelectAllOverlays = new DialogSelectAllOverlays(context, aMap);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                XToast.normal(context,"删除失败！").show();
-                                DialogSelectAllOverlays dialogSelectAllOverlays = new DialogSelectAllOverlays(context, aMap);
-                            }
-                        });
-                        requestQueue.add(request_Delete);
+                        String basicUrl = Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId();
+                        deleteNetwork(basicUrl);
+                        String drawUrl = Constant.TD_DELETE + "?basicId=" + tBasic.getBasicId();
+                        deleteNetwork(basicUrl);
+                        String imageUrl = Constant.TI_DELETE + "?basicId=" + tBasic.getBasicId();
+                        deleteNetwork(basicUrl);
                     }
                 })
                 .negativeText("取消")
@@ -66,5 +57,20 @@ public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCa
                 })
                 .cancelable(false)
                 .show();
+    }
+    private void deleteNetwork(String url){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest request_Delete = new StringRequest(StringRequest.Method.DELETE, Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                XToast.normal(context, "删除成功！").show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                XToast.normal(context,"删除失败！" + error).show();
+            }
+        });
+        requestQueue.add(request_Delete);
     }
 }

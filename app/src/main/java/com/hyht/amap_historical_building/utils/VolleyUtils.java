@@ -10,11 +10,15 @@ import androidx.collection.LruCache;
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.hyht.amap_historical_building.R;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +80,13 @@ public class VolleyUtils {
             public void onResponse(String response) {
                 Log.e("onResponse", "response-->" + response);
                 Gson gson = new Gson();
-                List<T> newsList_new = gson.fromJson(response, new TypeToken<List<T>>() {}.getType());
+                List<T> newsList_new = new ArrayList<>();
+                JsonArray array = new JsonParser().parse(response).getAsJsonArray();
+                for(final JsonElement elem : array){
+                    newsList_new.add(new Gson().fromJson(elem, clazz));
+                }
                 System.out.println("gson.fromJson(response, clazz) ======= "+newsList_new);
-                listener.onSuccess((List<T>) newsList_new);
+                listener.onSuccess(newsList_new);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -145,14 +153,14 @@ public class VolleyUtils {
         StringRequest stringRequest = new StringRequest(StringRequest.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Volley", "response-->" + response);
+                Log.e("VolleyUtil", "response-->" + response);
                 Gson gson = new Gson();
                 listener.onSuccess(gson.fromJson(response, clazz));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Volley", "response-->" + error.getMessage());
+                Log.e("VolleyUtil", "response-->" + error.getMessage());
                 listener.onError(error.getMessage());
             }
         }) {

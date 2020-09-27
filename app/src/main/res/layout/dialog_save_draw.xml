@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:id="@+id/linear_save"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="测绘图纸档案"
+                android:textSize="18dp"/>
+
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="图纸名称："/>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/edit_file_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="比例："/>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/edit_draw_proportion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="绘制人："/>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/edit_draw_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                style="@style/TextStyle.Content"
+                android:text="绘制时间："/>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/edit_draw_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_get_draw"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="#F4F4F4"
+                app:srcCompat="@drawable/ic_add_image" />
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

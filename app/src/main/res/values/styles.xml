@@ -7,8 +7,12 @@
     </style>
 
     <!--窗体背景，这个背景能在第一时间显示, 避免启动时白屏，黑屏问题-->
-    <style name="XUITheme.Launch.Demo">
+    <style name="XUITheme.Launch.Demo" parent="XUITheme.Launch">
         <item name="android:windowBackground">@drawable/xui_config_bg_splash</item>
+        <!--<item name="xui_config_splash_app_logo">@drawable/logo</item>-->
+        <item name="xui_config_splash_company_logo">@drawable/logo</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
 </resources>

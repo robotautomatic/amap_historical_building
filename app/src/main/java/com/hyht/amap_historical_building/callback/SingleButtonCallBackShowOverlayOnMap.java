@@ -11,6 +11,7 @@ import com.hyht.amap_historical_building.listener.OnInFoWindowClickListenerShowD
 import com.hyht.amap_historical_building.utils.EntityToOverlay;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xui.widget.toast.XToast;
 
 public class SingleButtonCallBackShowOverlayOnMap implements MaterialDialog.SingleButtonCallback {
     private AMap aMap;
@@ -26,9 +27,14 @@ public class SingleButtonCallBackShowOverlayOnMap implements MaterialDialog.Sing
     @Override
     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
         dialog.dismiss();
-        Marker marker = new EntityToOverlay(aMap, tBasic).transform();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(marker.getPosition());
-        aMap.animateCamera(cameraUpdate);
-        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
+        if (tBasic.getPositionCoordinates() == null || tBasic.getPositionCoordinates().isEmpty() || tBasic.getPositionCoordinates().length() <35){
+            XToast.normal(context,"没有坐标数据").show();
+
+        }else {
+            Marker marker = new EntityToOverlay(aMap, tBasic).transform();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(marker.getPosition());
+            aMap.animateCamera(cameraUpdate);
+            aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
+        }
     }
 }

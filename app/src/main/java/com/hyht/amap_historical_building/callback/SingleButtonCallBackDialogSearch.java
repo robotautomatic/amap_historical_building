@@ -47,7 +47,7 @@ public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleBu
     @Override
     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
         DialogLoader.getInstance().showInputDialog(context,
-                R.drawable.zhexian,
+                R.drawable.layout,
                 "搜索",
                 "根据输入的值进行模糊查询",
                 new InputInfo(InputType.TYPE_CLASS_TEXT, "请输入"),

@@ -18,14 +18,9 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.*;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hyht.amap_historical_building.dialog.DialogSaveOverlay;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
-import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.utils.DefaultButton;
-import com.hyht.amap_historical_building.utils.GetCoordinateUtil;
 import com.xuexiang.xui.adapter.simple.AdapterItem;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
 import com.xuexiang.xui.utils.DensityUtils;
@@ -36,7 +31,6 @@ import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheetItemView;
 import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
 import com.xuexiang.xui.widget.toast.XToast;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
     void drawBottomSheetGrid() {
         final BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(this);
         builder
-                .addItem(R.drawable.huizhidian, "绘制点", 0, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-                .addItem(R.drawable.huizhimian, "绘制多边形", 1, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.draw_point, "绘制点", 0, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.draw_polygon, "绘制多边形", 1, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
                 .setOnSheetItemClickListener(new BottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
                     @Override
                     public void onClick(BottomSheet dialog, BottomSheetItemView itemView) {
@@ -204,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
                         aMap.clear();
                         aMap.setOnMarkerClickListener(null);
                         aMap.setOnInfoWindowClickListener(null);
-                        Marker marker = aMap.addMarker(new MarkerOptions().position(null).title(null).snippet(null));
-                        marker.setDraggable(true);
 
                         Button btn_save = new DefaultButton(MainActivity.this).getDefaultButton();
                         btn_save.setText("保存");
@@ -218,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
                         DialogSaveOverlay dialogSaveOverlay;
                         switch (tag) {
                             case 0: {
+                                Marker marker = aMap.addMarker(new MarkerOptions().position(null).title(null).snippet(null));
+                                marker.setDraggable(true);
                                 AMap.OnMapClickListener mapClickListener_point = new AMap.OnMapClickListener() {
                                     @Override
                                     public void onMapClick(LatLng latLng) {
@@ -263,20 +257,52 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onMapClick(LatLng latLng) {
                                         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("删除").snippet(null));
-                                        System.out.println(marker);
                                         markers.add(marker);
                                         latLngs.add(latLng);
                                         polygonDraw.setPoints(latLngs);
                                     }
                                 };
                                 aMap.setOnMapClickListener(mapClickListener_point);
-                                aMap.addOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
+                                aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
                                     @Override
                                     public void onInfoWindowClick(Marker marker) {
                                         markers.remove(marker);
                                         latLngs.remove(marker.getPosition());
                                         polygonDraw.setPoints(latLngs);
                                         marker.destroy();
+                                    }
+                                });
+
+                                Button btn_rollback = new DefaultButton(MainActivity.this).getDefaultButton();
+                                btn_rollback.setText("回退 ");
+                                linearLayout.addView(btn_rollback);
+                                btn_rollback.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (markers.size() > 0 && latLngs.size() > 0) {
+                                            markers.get(latLngs.size() - 1).destroy();
+                                            markers.remove(latLngs.size() - 1);
+                                            latLngs.remove(latLngs.size() - 1);
+                                            polygonDraw.setPoints(latLngs);
+                                        }
+                                    }
+                                });
+
+                                Button btn_clear = new DefaultButton(MainActivity.this).getDefaultButton();
+                                btn_clear.setText("清空 ");
+                                linearLayout.addView(btn_clear);
+                                btn_clear.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        for (Marker marker : markers
+                                             ) {
+                                            marker.destroy();
+                                        }
+
+                                        polygonDraw.setPoints(latLngs.subList(0,1));
+                                        latLngs.clear();
+                                        polygonDraw.setPoints(latLngs);
+                                        aMap.runOnDrawFrame();
                                     }
                                 });
 
@@ -292,22 +318,6 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                Button btn_rollback = new DefaultButton(MainActivity.this).getDefaultButton();
-                                btn_rollback.setText("回退 ");
-                                linearLayout.addView(btn_rollback);
-                                btn_rollback.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (markers.size() > 0 && latLngs.size() > 0) {
-                                            markers.get(latLngs.size() - 1).destroy();
-                                            System.out.println("mk=  "+markers.get(latLngs.size() - 1));
-                                            markers.remove(latLngs.size() - 1);
-                                            latLngs.remove(latLngs.size() - 1);
-                                            polygonDraw.setPoints(latLngs);
-                                        }
-                                    }
-                                });
-
                                 linearLayout.addView(btn_exit);
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -315,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                                         aMap.clear(true);
                                         aMap.removeOnMapClickListener(mapClickListener_point);
                                         linearLayout.removeView(btn_save);
-                                        linearLayout.removeView(btn_exit);
+                                        linearLayout.removeView(btn_exit);linearLayout.removeView(btn_clear);
                                         linearLayout.removeView(btn_rollback);
                                     }
                                 });
@@ -329,6 +339,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void selectAllOverlays(){
+        aMap.clear(true);
+        aMap.setOnMarkerClickListener(null);
+        aMap.setOnInfoWindowClickListener(null);
+        aMap.setOnMapClickListener(null);
+        LinearLayout linearLayout = findViewById(R.id.linear_bt);
+        while(linearLayout.getChildCount() > 4){
+            linearLayout.removeViewAt(linearLayout.getChildCount()-1);
+        }
         DialogSelectAllOverlays dialogSelectAllOverlays = new DialogSelectAllOverlays(MainActivity.this, aMap);
     }
 
@@ -341,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
                         aMap.clear(true);
                         aMap.setOnMarkerClickListener(null);
                         aMap.setOnInfoWindowClickListener(null);
+                        aMap.setOnMapClickListener(null);
                         LinearLayout linearLayout = findViewById(R.id.linear_bt);
                         while(linearLayout.getChildCount() > 4){
                             linearLayout.removeViewAt(linearLayout.getChildCount()-1);

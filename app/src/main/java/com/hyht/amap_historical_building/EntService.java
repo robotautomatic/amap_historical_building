@@ -11,8 +11,8 @@ import com.xuexiang.xui.widget.toast.XToast;
 import static com.xuexiang.xui.XUI.getContext;
 
 public class EntService {
-    Context context;
-    String urlStr = Constant.TB_GETAll;
+    private Context context;
+    private String urlStr = Constant.TB_GETAll;
 
     public void setUrlStr(String urlStr) {
         this.urlStr = urlStr;

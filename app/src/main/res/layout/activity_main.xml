@@ -39,7 +39,7 @@
                 app:rb_backgroundColor="@drawable/color_button"
                 app:rb_borderColor="@color/xui_btn_gray_normal_color"
                 android:id="@+id/switchLayer"
-                android:drawableBottom="@drawable/ic_tuceng"
+                android:drawableBottom="@drawable/layout"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="112dp"

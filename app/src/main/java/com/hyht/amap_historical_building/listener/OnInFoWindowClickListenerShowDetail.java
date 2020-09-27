@@ -17,7 +17,6 @@ public class OnInFoWindowClickListenerShowDetail implements AMap.OnInfoWindowCli
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        TBasic tBasic = (TBasic) marker.getObject();
         DialogOverlayDetail dialogOverlayDetail = new DialogOverlayDetail(context, aMap, marker);
     }
 }

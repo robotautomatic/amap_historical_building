@@ -11,7 +11,7 @@ public class GetCoordinateUtil {
     public List<LatLng> getGeoPointList(TBasic tBasic){
         List<LatLng> points = new ArrayList<>();
         String addition = tBasic.getPositionCoordinates();
-        if (addition != null && addition != "") {
+        if (addition != null && addition != "" && !addition.isEmpty()) {
             List<String> additionList = new ArrayList<>();
             String[] strArr = addition.split("/");
             for (String s : strArr

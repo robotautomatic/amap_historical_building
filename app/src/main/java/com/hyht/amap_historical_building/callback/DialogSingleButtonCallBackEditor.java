@@ -5,32 +5,68 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.Marker;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.dialog.DialogOverlayDetail;
+import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleButtonCallback {
     private TBasic tBasic;
     private Context context;
     private AMap aMap;
+    private Marker marker = null;
+    private List<LocalMedia> drawMediaList = null;
+    private List<LocalMedia> imageMediaList = null;
 
-    public DialogSingleButtonCallBackEditor(TBasic tBasic, Context context, AMap aMap) {
+    public DialogSingleButtonCallBackEditor(List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
+    }
+
+    public DialogSingleButtonCallBackEditor(Context context, AMap aMap, Marker marker, List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
+        this.context = context;
+        this.aMap = aMap;
+        this.marker = marker;
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
+        if (marker.getObject() instanceof TBasic) {
+            tBasic = (TBasic) marker.getObject();
+        }else {
+            PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
+            tBasic = polygonBasic.getTBasic();
+        }
+    }
+
+    public DialogSingleButtonCallBackEditor(TBasic tBasic, Context context, AMap aMap, List<LocalMedia> drawMediaList, List<LocalMedia> imageMediaList) {
         this.tBasic = tBasic;
         this.context = context;
         this.aMap = aMap;
+        this.drawMediaList = drawMediaList;
+        this.imageMediaList = imageMediaList;
     }
 
     @Override
     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+        MaterialDialog.SingleButtonCallback singleButtonCallback = null;
+        if (marker == null){
+            singleButtonCallback = new SingleButtonCallbackSaveOrUpdate(context, aMap, tBasic.getBasicId(), drawMediaList, imageMediaList);
+        }else {
+            singleButtonCallback = new SingleButtonCallbackSaveOrUpdate(context, aMap, marker, drawMediaList, imageMediaList);
+        }
         MaterialDialog fatherDialog = dialog;
-        dialog.dismiss();
+        fatherDialog.dismiss();
         RadioButton radioButton;
         MaterialDialog materialDialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_save_overlay, true)
                 .positiveText("确认")
-                .onPositive(new SingleButtonCallbackSaveOrUpdate(SingleButtonCallbackSaveOrUpdate.Type.UPDATE, tBasic, context, aMap))
+                .onPositive(singleButtonCallback)
                 .negativeText("取消")
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -45,6 +81,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 .show();
         View view = materialDialog.getCustomView();
 
+        if (tBasic.getCityType() != null)
         switch (tBasic.getCityType()) {
             case "国家历史文化名城" :{
                 radioButton = view.findViewById(R.id.radio_city_type_1);
@@ -75,6 +112,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         EditText edit_position_coordinates = view.findViewById(R.id.edit_position_coordinates);
         edit_position_coordinates.setText(tBasic.getPositionCoordinates());
 
+        if (tBasic.getArchitecturalAge() != null)
         switch (tBasic.getArchitecturalAge()) {
             case "清代以前（1644年以前）": {
                 radioButton = view.findViewById(R.id.rg_architectural_age_1);
@@ -103,6 +141,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
             break;
         }
 
+        if (tBasic.getBuildingCategory() != null)
         switch (tBasic.getBuildingCategory()) {
             case "居住建筑": {
                 radioButton = view.findViewById(R.id.rg_building_category_1);
@@ -137,6 +176,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
 
 
         String valueElements = tBasic.getValueElements();
+        if (tBasic.getValueElements() != null)
         switch (valueElements.substring(0,4)) {
             case "平面布局": {
                 radioButton = view.findViewById(R.id.rg_value_elements_1);
@@ -171,6 +211,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
             break;
         }
 
+        if (tBasic.getStatusFunction() != null)
         switch (tBasic.getStatusFunction()) {
             case "居住": {
                 radioButton = view.findViewById(R.id.rg_status_function_1);
@@ -231,11 +272,13 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_status_function_12);
                 radioButton.setChecked(true);
                 EditText rg_status_function_12_et = view.findViewById(R.id.rg_status_function_12_et);
-                rg_status_function_12_et.setText(tBasic.getStatusFunction().substring(3));
+                if (tBasic.getStatusFunction().length() > 3)
+                    rg_status_function_12_et.setText(tBasic.getStatusFunction().substring(3));
             }
             break;
         }
 
+        if (tBasic.getStructureType() != null)
         switch (tBasic.getStructureType()) {
             case "木结构": {
                 radioButton = view.findViewById(R.id.rg_structure_type_1);
@@ -261,7 +304,8 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_structure_type_5);
                 radioButton.setChecked(true);
                 EditText rg_structure_type_5_et = view.findViewById(R.id.rg_structure_type_5_et);
-                rg_structure_type_5_et.setText(tBasic.getStructureType().substring(5));
+                if (tBasic.getStructureType().length() > 5)
+                    rg_structure_type_5_et.setText(tBasic.getStructureType().substring(5));
             }
             break;
         }
@@ -278,6 +322,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         EditText edit_status_description = view.findViewById(R.id.edit_status_description);
         edit_status_description.setText(tBasic.getStatusDescription());
 
+        if (tBasic.getNaturalFactor() != null)
         switch (tBasic.getNaturalFactor()) {
             case "地震": {
                 radioButton = view.findViewById(R.id.rg_natural_factor_1);
@@ -338,11 +383,13 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_natural_factor_12);
                 radioButton.setChecked(true);
                 EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
+                if (tBasic.getNaturalFactor().length() > 7)
+                    rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
             }
             break;
         }
 
+        if (tBasic.getHumanFactor() != null)
         switch (tBasic.getHumanFactor()) {
             case "战争动乱": {
                 radioButton = view.findViewById(R.id.rg_human_factor_1);
@@ -383,40 +430,39 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_human_factor_8);
                 radioButton.setChecked(true);
                 EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
+                if (tBasic.getStructureType().length() > 7)
+                    rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
             }
             break;
         }
 
         String propertyType = tBasic.getPropertyType();
-        String[] strings = propertyType.split(",");
-        String s = propertyType;
+        String[] strings = new String[0];
+        if (propertyType != null && propertyType.length() > 0)
+        strings = propertyType.split(",");
+        if (strings != null && strings.length > 0)
         for (String string : strings) {
             switch (string) {
                 case "国有": {
                     CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
                     checkbox_property_type_1.setChecked(true);
-                    s = s.substring(3);
                 }
                 break;
                 case "集体": {
                     CheckBox checkbox_property_type_2 = view.findViewById(R.id.checkbox_property_type_2);
                     checkbox_property_type_2.setChecked(true);
-                    s = s.substring(3);
                 }
                 break;
                 case "个人": {
                     CheckBox checkbox_property_type_3 = view.findViewById(R.id.checkbox_property_type_3);
                     checkbox_property_type_3.setChecked(true);
-                    s = s.substring(3);
                 }
                 break;
                 default: {
                     CheckBox checkbox_property_type_4 = view.findViewById(R.id.checkbox_property_type_4);
                     checkbox_property_type_4.setChecked(true);
                     EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-                    s = s.substring(3);
-                    checkbox_property_type_et.setText(s);
+                    checkbox_property_type_et.setText(string);
                 }
             }
         }
