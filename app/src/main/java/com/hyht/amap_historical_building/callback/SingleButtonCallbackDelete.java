@@ -1,6 +1,7 @@
 package com.hyht.amap_historical_building.callback;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
 import com.android.volley.RequestQueue;
@@ -63,12 +64,12 @@ public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCa
         StringRequest request_Delete = new StringRequest(StringRequest.Method.DELETE, Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                XToast.normal(context, "删除成功！").show();
+                Log.e("delete success", "删除成功---->" + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                XToast.normal(context,"删除失败！" + error).show();
+                Log.e("delete success", "删除失败---->" + error);
             }
         });
         requestQueue.add(request_Delete);

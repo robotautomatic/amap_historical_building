@@ -189,6 +189,7 @@
             android:id="@+id/text_property_description"
             style="@style/TextStyle.Explain"/>
 
+<!--
     <TextView
             style="@style/TextStyle.Content"
             android:text="测绘图纸档案"
@@ -221,6 +222,7 @@
     <TextView
             android:id="@+id/text_draw_path"
             style="@style/TextStyle.Explain"/>
+-->
 
     <TextView
             style="@style/TextStyle.Content"

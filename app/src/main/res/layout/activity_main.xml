@@ -35,44 +35,67 @@
                   android:layout_height="match_parent"
                   android:gravity="right"
                   android:orientation="vertical">
-        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-                app:rb_backgroundColor="@drawable/color_button"
-                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Blue"
+                android:text=""
+                app:sShapeType="oval"
+                app:sSelectorNormalColor="#FFFFFFFF"
+                app:sSelectorPressedColor="#FFEEEEEE"
+                android:elevation="3dp"
+                android:paddingVertical="5dp"
                 android:id="@+id/switchLayer"
                 android:drawableBottom="@drawable/layout"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="112dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="8dp"/>
 
-        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-                app:rb_backgroundColor="@drawable/color_button"
-                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Blue"
+                android:text=""
+                app:sShapeType="oval"
+                app:sSelectorNormalColor="#FFFFFFFF"
+                app:sSelectorPressedColor="#FFEEEEEE"
+                android:elevation="3dp"
+                android:paddingVertical="5dp"
                 android:id="@+id/btn_draw"
                 android:drawableBottom="@drawable/ic_draw"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"/>
 
-        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-                app:rb_backgroundColor="@drawable/color_button"
-                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Blue"
+                android:text=""
+                app:sShapeType="oval"
+                app:sSelectorNormalColor="#FFFFFFFF"
+                app:sSelectorPressedColor="#FFEEEEEE"
+                android:elevation="3dp"
+                android:paddingVertical="5dp"
                 android:id="@+id/btn_select"
                 android:drawableBottom="@drawable/ic_select"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"/>
 
-        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-                app:rb_backgroundColor="@drawable/color_button"
-                app:rb_borderColor="@color/xui_btn_gray_normal_color"
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+                style="@style/SuperButton.Blue"
+                android:text=""
+                app:sShapeType="oval"
+                app:sSelectorNormalColor="#FFFFFFFF"
+                app:sSelectorPressedColor="#FFEEEEEE"
+                android:elevation="3dp"
+                android:paddingVertical="5dp"
                 android:id="@+id/btn_overlay"
                 android:drawableBottom="@drawable/ic_show_overlay"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 package com.hyht.amap_historical_building;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,40 +16,47 @@ import butterknife.OnClick;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.*;
 import com.amap.api.maps.model.*;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.district.DistrictItem;
+import com.amap.api.services.district.DistrictResult;
+import com.amap.api.services.district.DistrictSearch;
+import com.amap.api.services.district.DistrictSearchQuery;
 import com.hyht.amap_historical_building.dialog.DialogSaveOverlay;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
 import com.hyht.amap_historical_building.utils.DefaultButton;
+import com.luck.picture.lib.tools.ValueOf;
 import com.xuexiang.xui.adapter.simple.AdapterItem;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
 import com.xuexiang.xui.utils.DensityUtils;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 import com.xuexiang.xui.widget.button.roundbutton.RoundButton;
+import com.xuexiang.xui.widget.button.shadowbutton.ShadowButton;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheetItemView;
 import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
+import com.xuexiang.xui.widget.textview.supertextview.SuperButton;
 import com.xuexiang.xui.widget.toast.XToast;
+import com.xuexiang.xutil.system.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.xuexiang.xui.XUI.getContext;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @BindView(R.id.map)
     MapView map;
     @BindView(R.id.switchLayer)
-    RoundButton switchLayer;
+    SuperButton switchLayer;
     @BindView(R.id.btn_draw)
-    RoundButton btnDraw;
+    SuperButton btnDraw;
     @BindView(R.id.btn_select)
-    RoundButton btnSelect;
+    SuperButton btnSelect;
     @BindView(R.id.btn_overlay)
-    RoundButton btnOverlay;
+    SuperButton btnOverlay;
     @BindView(R.id.title_main)
     TitleBar titleBar;
 
@@ -72,18 +81,24 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CAMERA,
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addPermission();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         aMap = mapView.getMap();
-        addPermission();
+        //义乌市坐标
+        LatLng centerYiWuPoint= new LatLng(29.306863,120.074911);
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerYiWuPoint,10.5f));
+
+
 
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
@@ -117,21 +132,46 @@ public class MainActivity extends AppCompatActivity {
 
 //        title.setText("historical building Geomatics");
         titleBar.disableLeftView();
+
+        DistrictSearch search = new DistrictSearch(MainActivity.this);
+        DistrictSearchQuery query = new DistrictSearchQuery();
+        query.setKeywords("义乌市");//传入关键字
+        query.setShowBoundary(true);//是否返回边界值
+        query.setShowChild(false);
+        search.setQuery(query);
+        search.setOnDistrictSearchListener(new DistrictSearch.OnDistrictSearchListener() {
+            @Override
+            public void onDistrictSearched(DistrictResult districtResult) {
+                ArrayList<DistrictItem> districtItems =districtResult.getDistrict();
+                String[] boundary = districtItems.get(0).districtBoundary();
+                String[] points = boundary[0].split(";");
+                ArrayList<LatLng> latLngs = new ArrayList<>();
+                for (String point : points
+                     ) {
+                    String[] latAndLng = point.split(",");
+                    LatLng latLng = new LatLng(ValueOf.toDouble(latAndLng[1]), ValueOf.toDouble(latAndLng[0]));
+                    latLngs.add(latLng);
+                }
+                PolylineOptions polylineOptions = new PolylineOptions();
+                polylineOptions.width(5).color(Color.BLUE);
+                polylineOptions.addAll(latLngs);
+                aMap.addPolyline(polylineOptions);
+            }
+        });//绑定监听器
+        search.searchDistrictAnsy();//开始搜索
     }
 
-    public void addPermission() {
+    public void addPermission() {/*
+        System.out.println(PermissionUtils.getPermissions());PermissionUtils.getPermissions();
+        PermissionUtils.isGranted();
+        PermissionUtils.permission(PERMISSIONS_STORAGE).request();*/
         int permission = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE,
+            ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS_STORAGE,
                     REQUEST_EXTERNAL_STORAGE);
         }
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
@@ -155,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     void selectLayer(View v) {
         mListPopup = new XUISimplePopup(this, new String[]{
-                "普通地图","卫星地图","导航地图","夜景地图",})
+                "普通地图", "卫星地图", "导航地图", "夜景地图",})
                 .create(DensityUtils.dp2px(getContext(), 170), new XUISimplePopup.OnPopupItemClickListener() {
                     @Override
                     public void onItemClick(XUISimpleAdapter adapter, AdapterItem item, int position) {
@@ -204,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
                         Button btn_exit = new DefaultButton(MainActivity.this).getDefaultButton();
                         btn_exit.setText("退出");
 
-                        while(linearLayout.getChildCount() > 4){
-                            linearLayout.removeViewAt(linearLayout.getChildCount()-1);
+                        while (linearLayout.getChildCount() > 4) {
+                            linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }
                         DialogSaveOverlay dialogSaveOverlay;
                         switch (tag) {
@@ -225,9 +265,9 @@ public class MainActivity extends AppCompatActivity {
                                 btn_save.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (marker.getPosition() == null){
+                                        if (marker.getPosition() == null) {
                                             XToast.normal(getContext(), "请正确绘制").show();
-                                        }else {
+                                        } else {
                                             DialogSaveOverlay dialogSaveOverlay = new DialogSaveOverlay(MainActivity.this, marker.getPosition());
                                         }
                                     }
@@ -245,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                             break;
-                            case 1 :{
+                            case 1: {
                                 PolygonOptions polygonOptions = new PolygonOptions();
                                 polygonOptions.strokeWidth(5) // 多边形的边框
                                         .strokeColor(0xAA000000) // 边框颜色
@@ -295,11 +335,11 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         for (Marker marker : markers
-                                             ) {
+                                        ) {
                                             marker.destroy();
                                         }
 
-                                        polygonDraw.setPoints(latLngs.subList(0,1));
+                                        polygonDraw.setPoints(latLngs.subList(0, 1));
                                         latLngs.clear();
                                         polygonDraw.setPoints(latLngs);
                                         aMap.runOnDrawFrame();
@@ -310,9 +350,9 @@ public class MainActivity extends AppCompatActivity {
                                 btn_save.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (latLngs.size() < 3){
+                                        if (latLngs.size() < 3) {
                                             XToast.normal(getContext(), "请正确绘制").show();
-                                        }else {
+                                        } else {
                                             DialogSaveOverlay dialogSaveOverlay = new DialogSaveOverlay(MainActivity.this, latLngs);
                                         }
                                     }
@@ -325,7 +365,8 @@ public class MainActivity extends AppCompatActivity {
                                         aMap.clear(true);
                                         aMap.removeOnMapClickListener(mapClickListener_point);
                                         linearLayout.removeView(btn_save);
-                                        linearLayout.removeView(btn_exit);linearLayout.removeView(btn_clear);
+                                        linearLayout.removeView(btn_exit);
+                                        linearLayout.removeView(btn_clear);
                                         linearLayout.removeView(btn_rollback);
                                     }
                                 });
@@ -338,21 +379,21 @@ public class MainActivity extends AppCompatActivity {
                 }).build().show();
     }
 
-    void selectAllOverlays(){
+    void selectAllOverlays() {
         aMap.clear(true);
         aMap.setOnMarkerClickListener(null);
         aMap.setOnInfoWindowClickListener(null);
         aMap.setOnMapClickListener(null);
         LinearLayout linearLayout = findViewById(R.id.linear_bt);
-        while(linearLayout.getChildCount() > 4){
-            linearLayout.removeViewAt(linearLayout.getChildCount()-1);
+        while (linearLayout.getChildCount() > 4) {
+            linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
         }
         DialogSelectAllOverlays dialogSelectAllOverlays = new DialogSelectAllOverlays(MainActivity.this, aMap);
     }
 
-    void showOverlays(View v){
+    void showOverlays(View v) {
         mListPopup = new XUISimplePopup(this, new String[]{
-                "全部显示","点覆盖物","面覆盖物","取消显示",})
+                "全部显示", "点覆盖物", "面覆盖物", "取消显示",})
                 .create(DensityUtils.dp2px(getContext(), 170), new XUISimplePopup.OnPopupItemClickListener() {
                     @Override
                     public void onItemClick(XUISimpleAdapter adapter, AdapterItem item, int position) {
@@ -361,8 +402,8 @@ public class MainActivity extends AppCompatActivity {
                         aMap.setOnInfoWindowClickListener(null);
                         aMap.setOnMapClickListener(null);
                         LinearLayout linearLayout = findViewById(R.id.linear_bt);
-                        while(linearLayout.getChildCount() > 4){
-                            linearLayout.removeViewAt(linearLayout.getChildCount()-1);
+                        while (linearLayout.getChildCount() > 4) {
+                            linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }
                         switch (position) {
                             case 0: {
