@@ -234,7 +234,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
             break;
             case R.id.rg_status_function_12: {
                 EditText rg_status_function_12_et = view.findViewById(R.id.rg_status_function_12_et);
-                mapBuilding.put("statusFunction", "其他," + rg_status_function_12_et.getText());
+                mapBuilding.put("statusFunction", rg_status_function_12_et.getText().toString());
             }
             break;
             default:
@@ -261,9 +261,11 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
             break;
             case R.id.rg_structure_type_5: {
                 EditText rg_structure_type_5_et = view.findViewById(R.id.rg_structure_type_5_et);
-                mapBuilding.put("structureType", "其他结构," + rg_structure_type_5_et.getText());
+                mapBuilding.put("structureType", rg_structure_type_5_et.getText().toString());
             }
             break;
+            default:
+                mapBuilding.put("structureType", "");
         }
 
         EditText edit_building_floors = view.findViewById(R.id.edit_historical_evolution);
@@ -365,7 +367,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
             break;
             case R.id.rg_human_factor_8: {
                 EditText rg_human_factor_8_et = view.findViewById(R.id.rg_human_factor_8_et);
-                mapBuilding.put("humanFactor", "其他人为因素," + rg_human_factor_8_et.getText());
+                mapBuilding.put("humanFactor", rg_human_factor_8_et.getText().toString());
             }
             break;
             default:
@@ -388,7 +390,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         }
         if (checkbox_property_type_4.isChecked()) {
             EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-            propertyType = propertyType + "其他：" + checkbox_property_type_et.getText();
+            propertyType = propertyType + checkbox_property_type_et.getText();
         }
         mapBuilding.put("propertyType", propertyType);
 
@@ -406,18 +408,22 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
 
     private void volleyNetwork(Context context, Map mapBuilding) {
         String url = "";
-        if (getBasicId > 0) {
+        if (getBasicId == 0) {
             url = Constant.TB_ADD;
         }else {
             url = Constant.TB_UPDATE;
             TBasic tBasic;
-            if (marker.getObject() instanceof TBasic) {
-                tBasic = (TBasic) marker.getObject();
+            if (marker != null) {
+                if (marker.getObject() instanceof TBasic) {
+                    tBasic = (TBasic) marker.getObject();
+                } else {
+                    PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
+                    tBasic = polygonBasic.getTBasic();
+                }
+                mapBuilding.put("basicId", String.valueOf(tBasic.getBasicId()));
             }else {
-                PolygonBasic polygonBasic = (PolygonBasic) marker.getObject();
-                tBasic = polygonBasic.getTBasic();
+                mapBuilding.put("basicId", String.valueOf(getBasicId));
             }
-            mapBuilding.put("basicId", String.valueOf(tBasic.getBasicId()));
         }
 
 
@@ -436,11 +442,12 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 FileInputStream fis = null;
                 String picture = "";
 
+                System.out.println("ddddme"        + drawMediaList.size());
                 if (drawMediaList.size() > 0) {
                     for (LocalMedia drawMedia : drawMediaList
                     ) {
                         try {
-                            fis = new FileInputStream(drawMedia.getAndroidQToPath());
+                            fis = new FileInputStream(drawMedia.getRealPath());
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -479,7 +486,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                     for (LocalMedia imageMedia : imageMediaList
                     ) {
                         try {
-                            fis = new FileInputStream(imageMedia.getAndroidQToPath());
+                            fis = new FileInputStream(imageMedia.getRealPath());
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -487,7 +494,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
                         picture = VolleyUtils.create(getContext()).bitmapToBase64(bitmap);
                         String finalPicture = picture;
-                        VolleyUtils.create(context).post(Constant.TD_ADD, TDraw.class, new VolleyUtils.OnResponse<TDraw>() {
+                        VolleyUtils.create(context).post(Constant.TI_ADD, TDraw.class, new VolleyUtils.OnResponse<TDraw>() {
 
                             @Override
                             public void OnMap(Map<String, String> map) {

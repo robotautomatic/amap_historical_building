@@ -10,6 +10,7 @@ public class Constant {
     public final static String TB_GETAll = TB_BASE_URL+"findAll";
     public final static String TB_GETAllLike = TB_BASE_URL+"findAllLike";
     public final static String TB_DELETE = TB_BASE_URL+"deleteById";
+    public final static String TB_fuzzy_select = TB_BASE_URL+"findByCondition";
 
     private final static String TD_BASE_URL = "http://39.98.192.41:8085/hba/td/";
     public final static String TD_ADD = TD_BASE_URL+"insert";
@@ -28,6 +29,11 @@ public class Constant {
     public final static String TI_GETAll = TI_BASE_URL+"findAll";
     public final static String TI_GETAllLike = TI_BASE_URL+"findAllLike";
     public final static String TI_DELETE = TI_BASE_URL+"deleteById";
+
+    public final static String TTD_BASE_URL = "http://39.98.192.41:8083/";
+    public final static String TTD_GET = TTD_BASE_URL+"hba/ttd/findAllByBasicId";
+    public final static String TTD_PREVIEW = TTD_BASE_URL+"/3DImages/";
+    public final static String TTD_GET_Panorama_Sketch = TTD_BASE_URL+"index?id=";
 
 
 }

@@ -1,6 +1,7 @@
 package com.hyht.amap_historical_building.dialog;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.util.Log;
 import com.amap.api.maps.AMap;
 import com.android.volley.RequestQueue;
@@ -48,9 +49,9 @@ public class DialogSelectAllOverlays {
                 final Gson gson = new Gson();
                 final List<TBasic> basicList = gson.fromJson(response, type);
                 MaterialDialog materialDialog = new MaterialDialog.Builder(context)
-                        .customView(R.layout.dialog_select_overlay, true)
-                        .iconRes(R.drawable.ic_save)
-                        .title("查询所有覆盖物")
+                        .customView(R.layout.dialog_select_overlay, false)
+                        .iconRes(R.drawable.ic_build)
+                        .title("历史建筑列表")
                         .positiveText("确认")
                         .neutralText("搜索")
                         .onNeutral(new SingleButtonCallBackDialogSearch(context, aMap))
@@ -66,6 +67,7 @@ public class DialogSelectAllOverlays {
                 //设置数据
                 SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
                 table.getConfig().setShowXSequence(false).setShowYSequence(false);
+                table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
                 //table.setZoom(true,3);是否缩放
                 table.setTableData(tableData);
 

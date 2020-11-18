@@ -25,10 +25,7 @@ import com.hyht.amap_historical_building.adapter.SelectDrawRecyclerAdapter;
 import com.hyht.amap_historical_building.callback.DialogSingleButtonCallBackEditor;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackHideOverlayOnMap;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackShowOverlayOnMap;
-import com.hyht.amap_historical_building.entity.PolygonBasic;
-import com.hyht.amap_historical_building.entity.TBasic;
-import com.hyht.amap_historical_building.entity.TDraw;
-import com.hyht.amap_historical_building.entity.TImage;
+import com.hyht.amap_historical_building.entity.*;
 import com.hyht.amap_historical_building.utils.DefaultButton;
 import com.hyht.amap_historical_building.utils.VolleyUtils;
 import com.just.agentweb.AgentWeb;
@@ -210,7 +207,58 @@ public class DialogOverlayDetail {
             public void onSuccess(List<TImage> response) {
                 for (TImage tImage : response
                 ) {
-                    imageUriList.add(Uri.parse(tImage.getImagePath()));
+                    imageUriList.add(Uri.parse(Constant.BASE_URL + tImage.getImagePath()));
+                }
+                System.out.println("iiiiii"+imageUriList);
+                RecyclerView imageRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_image);
+                LinearLayoutManager imageLinearLayoutManager = new LinearLayoutManager(context);
+                imageLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                imageRecyclerView.setLayoutManager(imageLinearLayoutManager);
+                PreviewRecycleAdapter imageAdapter = new PreviewRecycleAdapter(context, imageUriList);
+                imageRecyclerView.setAdapter(imageAdapter);
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+
+
+        List<Uri> panoramaSketchUriList =  new ArrayList<>();
+        List<Integer> panoramaSketchID = new ArrayList<>();
+        VolleyUtils.create(context).get(Constant.TTD_GET+"/"+tBasic.getBasicId(), TTD.class, new VolleyUtils.OnResponses<TTD>() {
+            @Override
+            public void OnMap(Map<String, String> map) {
+            }
+
+            @Override
+            public void onSuccess(List<TTD> response) {
+                for (TTD ttd : response
+                ) {
+                    panoramaSketchUriList.add(Uri.parse(Constant.TTD_PREVIEW+ttd.getTdPath()));
+                    panoramaSketchID.add(ttd.getTdId());
+
+                    RecyclerView panoramaSketch = materialDialog.getCustomView().findViewById(R.id.rv_panorama_sketch);
+                    LinearLayoutManager panoramaSketchManager = new LinearLayoutManager(context);
+                    panoramaSketchManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                    panoramaSketch.setLayoutManager(panoramaSketchManager);
+                    PreviewRecycleAdapter panoramaSketchAdapter = new PreviewRecycleAdapter(context, panoramaSketchUriList);
+                    panoramaSketchAdapter.setViewClickListener(new PreviewRecycleAdapter.OnAdapterItemClickListener() {
+                        @Override
+                        public View.OnClickListener onItemClick(int i) {
+                            return new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String url = Constant.TTD_GET_Panorama_Sketch + panoramaSketchID.get(i);
+                                    Intent intent = new Intent(context,WebActivity.class);
+                                    intent.putExtra("url", url);
+                                    context.startActivity(intent);
+                                }
+                            };
+                        }
+                    });
+                    panoramaSketch.setAdapter(panoramaSketchAdapter);
                 }
             }
 
@@ -219,23 +267,5 @@ public class DialogOverlayDetail {
 
             }
         });
-        RecyclerView imageRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_image);
-        LinearLayoutManager imageLinearLayoutManager = new LinearLayoutManager(context);
-        imageLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        imageRecyclerView.setLayoutManager(imageLinearLayoutManager);
-        PreviewRecycleAdapter imageAdapter = new PreviewRecycleAdapter(context, imageUriList);
-        imageRecyclerView.setAdapter(imageAdapter);
-
-        Button panoramaSketchButton = view.findViewById(R.id.bt_panorama_sketch);
-        panoramaSketchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "http://39.98.192.41:8083/index?id="+ tBasic.getBasicId();
-                Intent intent = new Intent(context,WebActivity.class);
-                intent.putExtra("url", "http://39.98.192.41:8083/index?id=1");
-                context.startActivity(intent);
-            }
-        });
-
     }
 }

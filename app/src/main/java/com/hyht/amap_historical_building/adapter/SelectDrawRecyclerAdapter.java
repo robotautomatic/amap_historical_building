@@ -58,9 +58,11 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
                                 @Override
                                 public void onResult(List<LocalMedia> result) {
                                     // 结果回调
-                                    localMediaList = result;
+                                    localMediaList.clear();
+                                    localMediaList.addAll(result);
                                     System.out.println("result=="+result);
                                     System.out.println("localMediaList=="+localMediaList);
+                                    System.out.println(localMediaList.toString());
                                     notifyDataSetChanged();
                                 }
 
@@ -73,7 +75,7 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
             });
         } else {
             holder.llDelete.setVisibility(View.VISIBLE);
-            holder.ivSelectPic.setImageURI(Uri.parse(localMediaList.get(position - 1).getAndroidQToPath()));
+            holder.ivSelectPic.setImageURI(Uri.parse(localMediaList.get(position - 1).getRealPath()));
             holder.ivSelectPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

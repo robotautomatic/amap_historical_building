@@ -15,6 +15,8 @@
             android:text="所在城市类型："/>
     <TextView
             android:id="@+id/text_city_type"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -22,14 +24,19 @@
             android:text="建筑编号："/>
     <TextView
             android:id="@+id/text_build_number"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
 
     <TextView
             style="@style/TextStyle.Content"
+            android:singleLine="false"
             android:text="建筑名称："/>
     <TextView
             android:id="@+id/text_build_name"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -37,6 +44,8 @@
             android:text="建筑地址："/>
     <TextView
             android:id="@+id/text_build_address"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -44,6 +53,8 @@
             android:text="位置坐标："/>
     <TextView
             android:id="@+id/text_position_coordinates"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -51,6 +62,8 @@
             android:text="建筑年代："/>
     <TextView
             android:id="@+id/text_architectural_age"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -58,6 +71,8 @@
             android:text="建筑类别："/>
     <TextView
             android:id="@+id/text_building_category"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -65,6 +80,8 @@
             android:text="建筑价值特色描述："/>
     <TextView
             android:id="@+id/text_building_description"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -72,6 +89,8 @@
             android:text="历史沿革或相关历史事件、历史人物："/>
     <TextView
             android:id="@+id/text_historical_evolution"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -79,6 +98,8 @@
             android:text="建筑师、建造商名称："/>
     <TextView
             android:id="@+id/text_architect_name"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -91,6 +112,8 @@
             android:text="价值要素："/>
     <TextView
             android:id="@+id/text_value_elements"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -103,6 +126,8 @@
             android:text="现状功能："/>
     <TextView
             android:id="@+id/text_status_function"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -110,6 +135,8 @@
             android:text="结构类型："/>
     <TextView
             android:id="@+id/text_structure_type"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -117,6 +144,8 @@
             android:text="建筑层数："/>
     <TextView
             android:id="@+id/text_building_floors"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -124,6 +153,8 @@
             android:text="建筑面积："/>
     <TextView
             android:id="@+id/text_building_area"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -131,6 +162,8 @@
             android:text="占地面积："/>
     <TextView
             android:id="@+id/text_area_covered"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -138,6 +171,8 @@
             android:text="保存状况描述："/>
     <TextView
             android:id="@+id/text_status_description"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -149,12 +184,16 @@
             android:text="自然因素："/>
     <TextView
             android:id="@+id/text_natural_factor"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
     <TextView
             style="@style/TextStyle.Content"
             android:text="人为因素："/>
     <TextView
             android:id="@+id/text_human_factor"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -166,6 +205,8 @@
             android:text="产权类别："/>
     <TextView
             android:id="@+id/text_property_type"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -173,6 +214,8 @@
             android:text="产权人（单位）名称："/>
     <TextView
             android:id="@+id/text_property_name"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -180,6 +223,8 @@
             android:text="使用人（单位）名称："/>
     <TextView
             android:id="@+id/text_user_name"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
     <TextView
@@ -187,6 +232,8 @@
             android:text="产权变更情况描述："/>
     <TextView
             android:id="@+id/text_property_description"
+            android:singleLine="false"
+            android:gravity="left"
             style="@style/TextStyle.Explain"/>
 
 <!--
@@ -245,11 +292,22 @@
                                                android:orientation="horizontal"
                                                android:scrollbars="horizontal"/>
 
-    <com.xuexiang.xui.widget.alpha.XUIAlphaButton
+    <TextView
+            style="@style/TextStyle.Content"
+            android:text="全景图"
+            android:textSize="18dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                               android:layout_height="wrap_content"
+                                               android:id="@+id/rv_panorama_sketch"
+                                               android:orientation="horizontal"
+                                               android:scrollbars="horizontal"/>
+
+<!--    <com.xuexiang.xui.widget.alpha.XUIAlphaButton
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/bt_panorama_sketch"
             style="@style/Button.Radius"
-            android:text="查看全景图" tools:ignore="MissingConstraints"/>
+            android:text="查看全景图" tools:ignore="MissingConstraints"/>-->
 
 
     <WebView

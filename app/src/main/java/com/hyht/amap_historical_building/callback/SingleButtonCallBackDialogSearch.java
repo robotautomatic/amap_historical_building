@@ -72,9 +72,9 @@ public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleBu
                                     final Gson gson = new Gson();
                                     final List<TBasic> basicList = gson.fromJson(response, type);
                                     MaterialDialog materialDialog = new MaterialDialog.Builder(context)
-                                            .customView(R.layout.dialog_select_overlay, true)
-                                            .iconRes(R.drawable.ic_save)
-                                            .title("查询所有覆盖物")
+                                            .customView(R.layout.dialog_select_overlay, false)
+                                            .iconRes(R.drawable.ic_build)
+                                            .title("历史建筑列表")
                                             .positiveText("确认")
                                             .neutralText("搜索")
                                             .onNeutral(new SingleButtonCallBackDialogSearch(context, aMap))
@@ -89,6 +89,7 @@ public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleBu
                                     final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", basicList, column1, column2);
                                     //设置数据
                                     SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
+                                    table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
                                     table.getConfig().setShowXSequence(false).setShowYSequence(false);
                                     table.setTableData(tableData);
 

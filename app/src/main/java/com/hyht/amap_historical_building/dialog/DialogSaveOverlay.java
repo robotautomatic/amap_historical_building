@@ -52,6 +52,12 @@ public class DialogSaveOverlay {
                 .title("建筑物信息保存")
                 .positiveText("确认")
                 .negativeText("取消")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        System.out.println(drawMediaList);
+                    }
+                })
                 .onPositive(new SingleButtonCallbackSaveOrUpdate(context, aMap, drawMediaList, imageMediaList))
                 .show();
 

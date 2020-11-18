@@ -1,10 +1,12 @@
 package com.hyht.amap_historical_building;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.KeyEvent;
 import android.view.View;
+import androidx.core.app.ActivityCompat;
 import com.xuexiang.xui.utils.KeyboardUtils;
 import com.xuexiang.xui.widget.activity.BaseSplashActivity;
 import com.xuexiang.xutil.app.ActivityUtils;
@@ -24,6 +26,7 @@ public class SplashActivity extends BaseSplashActivity {
         }
         initSplashView(R.drawable.bg_splash);
         startSplash(true);
+
     }
 
     @Override

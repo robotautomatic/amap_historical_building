@@ -176,7 +176,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
 
 
         String valueElements = tBasic.getValueElements();
-        if (tBasic.getValueElements() != null)
+        if (tBasic.getValueElements() != null && valueElements.length() > 4)
         switch (valueElements.substring(0,4)) {
             case "平面布局": {
                 radioButton = view.findViewById(R.id.rg_value_elements_1);
@@ -272,8 +272,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_status_function_12);
                 radioButton.setChecked(true);
                 EditText rg_status_function_12_et = view.findViewById(R.id.rg_status_function_12_et);
-                if (tBasic.getStatusFunction().length() > 3)
-                    rg_status_function_12_et.setText(tBasic.getStatusFunction().substring(3));
+                rg_status_function_12_et.setText(tBasic.getStatusFunction());
             }
             break;
         }
@@ -304,8 +303,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_structure_type_5);
                 radioButton.setChecked(true);
                 EditText rg_structure_type_5_et = view.findViewById(R.id.rg_structure_type_5_et);
-                if (tBasic.getStructureType().length() > 5)
-                    rg_structure_type_5_et.setText(tBasic.getStructureType().substring(5));
+                rg_structure_type_5_et.setText(tBasic.getStructureType());
             }
             break;
         }
@@ -383,8 +381,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_natural_factor_12);
                 radioButton.setChecked(true);
                 EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                if (tBasic.getNaturalFactor().length() > 7)
-                    rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
+                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor());
             }
             break;
         }
@@ -430,8 +427,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                 radioButton = view.findViewById(R.id.rg_human_factor_8);
                 radioButton.setChecked(true);
                 EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                if (tBasic.getStructureType().length() > 7)
-                    rg_natural_factor_12_et.setText(tBasic.getNaturalFactor().substring(7));
+                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor());
             }
             break;
         }

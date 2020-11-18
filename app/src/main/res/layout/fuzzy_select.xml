@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="根据输入进行模糊查询"/>
+    <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/et_fuzzy_select"
+            android:hint="请输入"
+            app:met_clearButton="true"
+            app:met_regexp=""
+            app:met_errorMessage="格式错误"
+            app:met_validateOnFocusLost="true"/>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="建筑层数"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_floor_1"
+                android:layout_width="48dp"
+                android:inputType="numberSigned"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="至"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_floor_2"
+                android:layout_width="48dp"
+                android:inputType="numberSigned"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="层"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="建筑面积"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_area_1"
+                android:layout_width="64dp"
+                android:inputType="numberDecimal"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="至"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_area_2"
+                android:layout_width="64dp"
+                android:inputType="numberDecimal"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="平方米"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="占地面积"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_ground_1"
+                android:layout_width="64dp"
+                android:inputType="numberDecimal"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="至"/>
+        <EditText
+                style="@style/EditText.Normal"
+                android:id="@+id/et_building_ground_2"
+                android:layout_width="64dp"
+                android:inputType="numberDecimal"
+                android:singleLine="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="平方米"/>
+    </LinearLayout>
+
+</LinearLayout>

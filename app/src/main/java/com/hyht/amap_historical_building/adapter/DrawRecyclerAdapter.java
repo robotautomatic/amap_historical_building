@@ -23,7 +23,9 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapter.ViewHolder> {
     private List<TDraw> drawList;
@@ -86,7 +88,7 @@ public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapte
                                         @Override
                                         public void onResult(List<LocalMedia> result) {
                                             // 结果回调
-                                            tDraw.setDrawPath(result.get(0).getAndroidQToPath());
+                                            tDraw.setDrawPath(result.get(0).getRealPath());
                                             getDraw.setImageURI(Uri.parse(tDraw.getDrawPath()));
                                         }
 
@@ -153,8 +155,8 @@ public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapte
                                         public void onResult(List<LocalMedia> result) {
                                             // 结果回调
                                             ImageView view = (ImageView) v;
-                                            view.setImageURI(Uri.parse(result.get(0).getAndroidQToPath()));
-                                            tDraw.setDrawPath(result.get(0).getAndroidQToPath());
+                                            view.setImageURI(Uri.parse(result.get(0).getRealPath()));
+                                            tDraw.setDrawPath(result.get(0).getRealPath());
                                         }
 
                                         @Override
