@@ -33,6 +33,8 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xutil.app.ActivityUtils;
+import me.jessyan.progressmanager.ProgressManager;
+import okhttp3.OkHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,6 +169,8 @@ public class DialogOverlayDetail {
         TextView propertyDescription = view.findViewById(R.id.text_property_description);
         propertyDescription.setText(tBasic.getPropertyDescription());
 
+        ProgressManager.getInstance().with(new OkHttpClient.Builder())
+                .build();
         List<Uri> drawUriList =  new ArrayList<>();
         VolleyUtils.create(context).get(Constant.TD_GET, TDraw.class, new VolleyUtils.OnResponses<TDraw>() {
             @Override

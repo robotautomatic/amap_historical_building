@@ -24,6 +24,10 @@ import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.entity.ImageViewInfo;
 import com.xuexiang.xui.widget.imageview.preview.PreviewBuilder;
 import com.xuexiang.xui.widget.toast.XToast;
+import me.jessyan.progressmanager.ProgressListener;
+import me.jessyan.progressmanager.ProgressManager;
+import me.jessyan.progressmanager.body.ProgressInfo;
+import okhttp3.OkHttpClient;
 
 import java.util.*;
 
@@ -43,11 +47,11 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
         this.uriList = uriList;
         previewInfos = new ArrayList<>();
         successUrl = new HashMap<>();
-        for (Uri s : uriList
+/*        for (Uri s : uriList
         ) {
             ImageViewInfo imageViewInfo = new ImageViewInfo(s.toString());
             previewInfos.add(imageViewInfo);
-        }
+        }*/
         viewClickListener = new OnAdapterItemClickListener() {
             @Override
             public View.OnClickListener onItemClick(int i) {
@@ -59,16 +63,14 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                         for (int j = 0; j < uriList.size(); j++) {
                             if (successUrl.getOrDefault(j,false) == true){
                                 ImageViewInfo imageViewInfo = new ImageViewInfo(uriList.get(j).toString());
+
                                 Rect rect = new Rect();
                                 imageView.getGlobalVisibleRect(rect);
-                                System.out.println("getGlobalVisibleRect"+rect);
-
-                                int[] a = new int[2];
-                                imageView.getLocationOnScreen(a);
-                                System.out.println(Arrays.toString(a));
-                                rect.set(a[0], a[1], rect.right+a[0]-rect.left, rect.bottom+a[1]-rect.top);
-
+                                int[] dialogLocation = new int[2];
+                                imageView.getLocationOnScreen(dialogLocation);
+                                rect.set(dialogLocation[0], dialogLocation[1], rect.right+dialogLocation[0]-rect.left, rect.bottom+dialogLocation[1]-rect.top);
                                 imageViewInfo.setBounds(rect);
+
                                 previewInfos.add(imageViewInfo);
                             }
                         }
@@ -84,6 +86,22 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 };
             }
         };
+        for (int i = 0; i < uriList.size(); i++) {
+            int finalI = i;
+            System.out.println(ProgressManager.getInstance());
+            ProgressManager.getInstance().addResponseListener(uriList.get(i).toString(), new ProgressListener() {
+                @Override
+                public void onProgress(ProgressInfo progressInfo) {
+                    System.out.println("the "+ finalI +"image is download -->"+progressInfo.getPercent());
+                    System.out.println("the "+ finalI +"image download speed -->"+progressInfo.getSpeed());
+                }
+
+                @Override
+                public void onError(long id, Exception e) {
+                    System.out.println("progress error");
+                }
+            });
+        }
     }
 
     @NonNull
@@ -113,11 +131,14 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                     }
                 });
 
+
+//.signature()
         Glide.with(context).load(uriList.get(position))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.picture_icon_no_data)
                 .error(R.drawable.picture_icon_data_error)
-                .thumbnail(thumbnailRequest)
+/*                .thumbnail(thumbnailRequest)*/
+
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -133,18 +154,13 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         successUrl.put(position, true);
+                        System.out.println("load "+ position);
                         holder.ivSelectPic.setOnClickListener(viewClickListener.onItemClick(position));
                         return false;
                     }
                 })
                 .into(holder.ivSelectPic);
         /*holder.ivSelectPic.setOnClickListener(viewClickListener.onItemClick(position));*/
-        holder.ivSelectPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XToast.normal(context,"缩略图加载中").show();
-            }
-        });
     }
 
     public interface OnAdapterItemClickListener {
@@ -163,6 +179,12 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSelectPic = itemView.findViewById(R.id.iv_select_pic);
+            ivSelectPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    XToast.normal(context,"图片加载中").show();
+                }
+            });
             llDelete = itemView.findViewById(R.id.ll_delete);
         }
     }

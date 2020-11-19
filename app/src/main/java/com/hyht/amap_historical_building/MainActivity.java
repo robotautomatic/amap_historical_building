@@ -1,7 +1,6 @@
 package com.hyht.amap_historical_building;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import com.bin.david.form.data.table.TableData;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackDialogSearch;
 import com.hyht.amap_historical_building.dialog.DialogSaveOverlay;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
-import com.hyht.amap_historical_building.entity.ImageViewInfo;
 import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.listener.OnColumnItemClickListener;
@@ -49,7 +47,6 @@ import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheetItemView;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
-import com.xuexiang.xui.widget.imageview.preview.PreviewBuilder;
 import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
 import com.xuexiang.xui.widget.textview.supertextview.SuperButton;
 import com.xuexiang.xui.widget.toast.XToast;
