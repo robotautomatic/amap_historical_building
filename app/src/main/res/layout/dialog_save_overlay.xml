@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
@@ -83,8 +83,7 @@
                 android:editable="false"
                 android:inputType="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:met_maxCharacters="12"/>
+                android:layout_height="wrap_content"/>
 
         <TextView
                 style="@style/TextStyle.Content"
@@ -132,38 +131,35 @@
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="建筑类别："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_building_category">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_building_category_1"
-                    android:text="居住建筑">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_building_category_2"
-                    android:text="公共建筑">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_building_category_3"
-                    android:text="工业建筑">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_building_category_4"
-                    android:text="构筑物">
-            </RadioButton>
-        </RadioGroup>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="居住建筑"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_building_category_1"
+        />
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公共建筑"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_building_category_2"
+        />
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工业建筑"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_building_category_3"
+        />
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="构筑物"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_building_category_4"
+        />
 
         <TextView
                 style="@style/TextStyle.Content"
@@ -172,7 +168,7 @@
                 android:id="@+id/edit_building_description"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:minLines="4"
+                android:minLines="3"
                 android:hint="500字以内。包括历史建筑的艺术特征、历史特征等；相关历史事件、历史名人或者著名设计师等。"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,7 +182,7 @@
                 android:id="@+id/edit_historical_evolution"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:minLines="4"
+                android:minLines="3"
                 android:hint="如有资料请注明出处"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,60 +206,58 @@
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="价值要素："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_value_elements">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_value_elements_1"
-                    android:text="平面布局">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_value_elements_2"
-                    android:text="主要立面（须注明具体立面方位）">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_value_elements_2_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_value_elements_3"
-                    android:text="主体结构">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_value_elements_4"
-                    android:text="特色材料装饰和部位（须注明具体部位）">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_value_elements_4_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_value_elements_5"
-                    android:text="历史环境要素（须注明所有历史环境要素）">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_value_elements_5_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-        </RadioGroup>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平面布局"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_value_elements_1"
+        />
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主要立面"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_value_elements_2"
+        />
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_value_elements_2_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主体结构"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_value_elements_3"
+        />
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="特色材料装饰和部位"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_value_elements_4"
+        />
+
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_value_elements_4_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="历史环境要素"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_value_elements_5"
+        />
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_value_elements_5_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
+
 
         <TextView
                 style="@style/TextStyle.Content"
@@ -273,147 +267,140 @@
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="现状功能："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_status_function">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_1"
-                    android:text="居住">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_2"
-                    android:text="商业">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_3"
-                    android:text="商住混合">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_4"
-                    android:text="办公">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_5"
-                    android:text="教育科研">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_6"
-                    android:text="文化展览">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_7"
-                    android:text="文娱设施">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_8"
-                    android:text="医疗卫生">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_9"
-                    android:text="宗教纪念">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_10"
-                    android:text="工业仓储">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_11"
-                    android:text="闲置空置">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_status_function_12"
-                    android:text="其他">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_status_function_12_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-        </RadioGroup>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_1"
+                android:text="居住">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_2"
+                android:text="商业">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_3"
+                android:text="商住混合">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_4"
+                android:text="办公">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_5"
+                android:text="教育科研">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_6"
+                android:text="文化展览">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_7"
+                android:text="文娱设施">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_8"
+                android:text="医疗卫生">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_9"
+                android:text="宗教纪念">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_10"
+                android:text="工业仓储">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_11"
+                android:text="闲置空置">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_status_function_12"
+                android:text="其他">
+        </CheckBox>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_status_function_12_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
 
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="结构类型："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_structure_type">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_structure_type_1"
-                    android:text="木结构">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_structure_type_2"
-                    android:text="砖木结构">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_structure_type_3"
-                    android:text="砖混结构">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_structure_type_4"
-                    android:text="钢混结构">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_structure_type_5"
-                    android:text="其他结构">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_structure_type_5_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-        </RadioGroup>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_structure_type_1"
+                android:text="木结构">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_structure_type_2"
+                android:text="砖木结构">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_structure_type_3"
+                android:text="砖混结构">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_structure_type_4"
+                android:text="钢混结构">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_structure_type_5"
+                android:text="其他结构">
+        </CheckBox>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_structure_type_5_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
+
 
         <TextView
                 style="@style/TextStyle.Content"
@@ -464,167 +451,160 @@
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="自然因素："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_natural_factor">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_1"
-                    android:text="地震">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_2"
-                    android:text="水灾">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_3"
-                    android:text="火灾">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_4"
-                    android:text="生物破坏">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_5"
-                    android:text="污染">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_6"
-                    android:text="雷电">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_7"
-                    android:text="风灾">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_8"
-                    android:text="泥石流">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_9"
-                    android:text="冰雹">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_10"
-                    android:text="腐蚀">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_11"
-                    android:text="沙漠化">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_natural_factor_12"
-                    android:text="其他自然因素">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_natural_factor_12_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-        </RadioGroup>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_1"
+                android:text="地震">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_2"
+                android:text="水灾">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_3"
+                android:text="火灾">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_4"
+                android:text="生物破坏">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_5"
+                android:text="污染">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_6"
+                android:text="雷电">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_7"
+                android:text="风灾">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_8"
+                android:text="泥石流">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_9"
+                android:text="冰雹">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_10"
+                android:text="腐蚀">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_11"
+                android:text="沙漠化">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_natural_factor_12"
+                android:text="其他自然因素">
+        </CheckBox>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_natural_factor_12_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
+
         <TextView
                 style="@style/TextStyle.Content"
                 android:text="人为因素："/>
-        <RadioGroup android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rg_human_factor">
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_1"
-                    android:text="战争动乱">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_2"
-                    android:text="生产生活活动">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_3"
-                    android:text="盗掘盗窃">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_4"
-                    android:text="不合理利用">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_5"
-                    android:text="违规修缮">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_6"
-                    android:text="年久失修">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_7"
-                    android:text="长期空置">
-            </RadioButton>
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextStyle.Content"
-                    android:id="@+id/rg_human_factor_8"
-                    android:text="其他人为因素">
-            </RadioButton>
-            <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
-                    android:id="@+id/rg_human_factor_8_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:met_maxCharacters="12"/>
-        </RadioGroup>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_1"
+                android:text="战争动乱">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_2"
+                android:text="生产生活活动">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_3"
+                android:text="盗掘盗窃">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_4"
+                android:text="不合理利用">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_5"
+                android:text="违规修缮">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_6"
+                android:text="年久失修">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_7"
+                android:text="长期空置">
+        </CheckBox>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextStyle.Content"
+                android:id="@+id/checkbox_human_factor_8"
+                android:text="其他人为因素">
+        </CheckBox>
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+                android:id="@+id/checkbox_human_factor_8_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:met_maxCharacters="12"/>
 
         <TextView
                 style="@style/TextStyle.Content"
@@ -643,18 +623,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="国有"
+                        style="@style/TextStyle.Content"
                         android:id="@+id/checkbox_property_type_1"
                 />
                 <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="集体"
+                        style="@style/TextStyle.Content"
                         android:id="@+id/checkbox_property_type_2"
                 />
                 <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="个人"
+                        style="@style/TextStyle.Content"
                         android:id="@+id/checkbox_property_type_3"
                 />
             </LinearLayout>
@@ -663,6 +646,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="其他"
+                        style="@style/TextStyle.Content"
                         android:id="@+id/checkbox_property_type_4"
                 />
                 <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
