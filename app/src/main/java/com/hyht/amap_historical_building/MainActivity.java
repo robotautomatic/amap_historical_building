@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
                 .create(DensityUtils.dp2px(getContext(), 170), new XUISimplePopup.OnPopupItemClickListener() {
                     @Override
                     public void onItemClick(XUISimpleAdapter adapter, AdapterItem item, int position) {
-                        aMap.clear(true);
+                        //aMap.clear(true);
                         aMap.setOnMarkerClickListener(null);
                         aMap.setOnInfoWindowClickListener(null);
                         aMap.setOnMapClickListener(null);

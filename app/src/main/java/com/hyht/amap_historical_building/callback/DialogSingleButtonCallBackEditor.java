@@ -13,6 +13,7 @@ import com.hyht.amap_historical_building.entity.TBasic;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xutil.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         MaterialDialog fatherDialog = dialog;
         fatherDialog.dismiss();
         RadioButton radioButton;
+        CheckBox checkBox;
         MaterialDialog materialDialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_save_overlay, true)
                 .positiveText("确认")
@@ -141,28 +143,32 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
             break;
         }
 
-        if (tBasic.getBuildingCategory() != null)
-        switch (tBasic.getBuildingCategory()) {
-            case "居住建筑": {
-                radioButton = view.findViewById(R.id.rg_building_category_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getBuildingCategory())){
+            String[] buildingCategory = tBasic.getBuildingCategory().split(";");
+            for (String s : buildingCategory) {
+                switch (s) {
+                    case "居住建筑": {
+                        checkBox = view.findViewById(R.id.checkbox_building_category_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "公共建筑": {
+                        checkBox = view.findViewById(R.id.checkbox_building_category_2);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "工业建筑": {
+                        checkBox = view.findViewById(R.id.checkbox_building_category_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "构筑物": {
+                        checkBox = view.findViewById(R.id.checkbox_building_category_4);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                }
             }
-            break;
-            case "公共建筑": {
-                radioButton = view.findViewById(R.id.rg_building_category_2);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "工业建筑": {
-                radioButton = view.findViewById(R.id.rg_building_category_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "构筑物": {
-                radioButton = view.findViewById(R.id.rg_building_category_4);
-                radioButton.setChecked(true);
-            }
-            break;
         }
 
         EditText edit_building_description = view.findViewById(R.id.edit_building_description);
@@ -175,140 +181,157 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         edit_architect_name.setText(tBasic.getArchitectName());
 
 
-        String valueElements = tBasic.getValueElements();
-        if (tBasic.getValueElements() != null && valueElements.length() > 4)
-        switch (valueElements.substring(0,4)) {
-            case "平面布局": {
-                radioButton = view.findViewById(R.id.rg_value_elements_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getValueElements())){
+            String[] getValueElements = tBasic.getValueElements().split(";");
+            for (String s : getValueElements) {
+                switch (s) {
+                    case "平面布局": {
+                        checkBox = view.findViewById(R.id.checkbox_value_elements_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "主体结构": {
+                        checkBox = view.findViewById(R.id.checkbox_value_elements_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    default:{
+                        String[] getValueElementsExtra = s.split(":");
+                            switch (getValueElementsExtra[0]) {
+                                case "主要立面": {
+                                    checkBox = view.findViewById(R.id.checkbox_value_elements_2);
+                                    checkBox.setChecked(true);
+                                    EditText checkbox_value_elements_2_et = view.findViewById(R.id.checkbox_value_elements_2_et);
+                                    checkbox_value_elements_2_et.setText(s.substring(5));
+                                }
+                                break;
+                                case "特色材料": {
+                                    checkBox = view.findViewById(R.id.checkbox_value_elements_4);
+                                    checkBox.setChecked(true);
+                                    EditText checkbox_value_elements_4_et = view.findViewById(R.id.checkbox_value_elements_4_et);
+                                    checkbox_value_elements_4_et.setText(s.substring(5));
+                                }
+                                case "历史环境": {
+                                    checkBox = view.findViewById(R.id.checkbox_value_elements_5);
+                                    checkBox.setChecked(true);
+                                    EditText checkbox_value_elements_5_et = view.findViewById(R.id.checkbox_value_elements_5_et);
+                                    checkbox_value_elements_5_et.setText(s.substring(5));
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                }
             }
-            break;
-            case "主要立面": {
-                radioButton = view.findViewById(R.id.rg_value_elements_2);
-                radioButton.setChecked(true);
-                EditText rg_value_elements_2_et = view.findViewById(R.id.rg_value_elements_2_et);
-                rg_value_elements_2_et.setText(valueElements.substring(5));
-            }
-            break;
-            case "主体结构": {
-                radioButton = view.findViewById(R.id.rg_value_elements_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "特色材料": {
-                radioButton = view.findViewById(R.id.rg_value_elements_4);
-                radioButton.setChecked(true);
-                EditText rg_value_elements_4_et = view.findViewById(R.id.rg_value_elements_4_et);
-                rg_value_elements_4_et.setText(valueElements.substring(10));
-            }
-            break;
-            case "历史环境": {
-                radioButton = view.findViewById(R.id.rg_value_elements_5);
-                radioButton.setChecked(true);
-                EditText rg_value_elements_5_et = view.findViewById(R.id.rg_value_elements_5_et);
-                rg_value_elements_5_et.setText(valueElements.substring(7));
-            }
-            break;
         }
 
-        if (tBasic.getStatusFunction() != null)
-        switch (tBasic.getStatusFunction()) {
-            case "居住": {
-                radioButton = view.findViewById(R.id.rg_status_function_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getStatusFunction())) {
+            String[] getStatusFunction = tBasic.getStatusFunction().split(";");
+            for (String s : getStatusFunction) {
+
+                switch (tBasic.getStatusFunction()) {
+                    case "居住": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "商业": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_2);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "商住混合": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "办公": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_4);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "教育科研": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_5);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "文化展览": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_6);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "文娱设施": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_7);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "医疗卫生": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_8);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "宗教纪念": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_9);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "工业仓储": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_10);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "闲置空置": {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_11);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    default: {
+                        checkBox = view.findViewById(R.id.checkbox_status_function_12);
+                        checkBox.setChecked(true);
+                        EditText checkbox_status_function_12_et = view.findViewById(R.id.checkbox_status_function_12_et);
+                        checkbox_status_function_12_et.setText(s.substring(3));
+                    }
+                    break;
+                }
             }
-            break;
-            case "商业": {
-                radioButton = view.findViewById(R.id.rg_status_function_2);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "商住混合": {
-                radioButton = view.findViewById(R.id.rg_status_function_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "办公": {
-                radioButton = view.findViewById(R.id.rg_status_function_4);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "教育科研": {
-                radioButton = view.findViewById(R.id.rg_status_function_5);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "文化展览": {
-                radioButton = view.findViewById(R.id.rg_status_function_6);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "文娱设施": {
-                radioButton = view.findViewById(R.id.rg_status_function_7);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "医疗卫生": {
-                radioButton = view.findViewById(R.id.rg_status_function_8);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "宗教纪念": {
-                radioButton = view.findViewById(R.id.rg_status_function_9);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "工业仓储": {
-                radioButton = view.findViewById(R.id.rg_status_function_10);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "闲置空置": {
-                radioButton = view.findViewById(R.id.rg_status_function_11);
-                radioButton.setChecked(true);
-            }
-            break;
-            default: {
-                radioButton = view.findViewById(R.id.rg_status_function_12);
-                radioButton.setChecked(true);
-                EditText rg_status_function_12_et = view.findViewById(R.id.rg_status_function_12_et);
-                rg_status_function_12_et.setText(tBasic.getStatusFunction());
-            }
-            break;
         }
 
-        if (tBasic.getStructureType() != null)
-        switch (tBasic.getStructureType()) {
-            case "木结构": {
-                radioButton = view.findViewById(R.id.rg_structure_type_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getStructureType())) {
+            String[] getStructureType = tBasic.getStructureType().split(";");
+            for (String s : getStructureType) {
+                switch (s) {
+                    case "木结构": {
+                        checkBox = view.findViewById(R.id.checkbox_structure_type_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "砖木结构": {
+                        checkBox = view.findViewById(R.id.checkbox_structure_type_2);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "砖混结构": {
+                        checkBox = view.findViewById(R.id.checkbox_structure_type_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "钢混结构": {
+                        checkBox = view.findViewById(R.id.checkbox_structure_type_4);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    default: {
+                        checkBox = view.findViewById(R.id.checkbox_structure_type_5);
+                        checkBox.setChecked(true);
+                        EditText checkbox_structure_type_5_et = view.findViewById(R.id.checkbox_structure_type_5_et);
+                        checkbox_structure_type_5_et.setText(s.substring(5));
+                    }
+                    break;
+                }
             }
-            break;
-            case "砖木结构": {
-                radioButton = view.findViewById(R.id.rg_structure_type_2);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "砖混结构": {
-                radioButton = view.findViewById(R.id.rg_structure_type_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "钢混结构": {
-                radioButton = view.findViewById(R.id.rg_structure_type_4);
-                radioButton.setChecked(true);
-            }
-            break;
-            default: {
-                radioButton = view.findViewById(R.id.rg_structure_type_5);
-                radioButton.setChecked(true);
-                EditText rg_structure_type_5_et = view.findViewById(R.id.rg_structure_type_5_et);
-                rg_structure_type_5_et.setText(tBasic.getStructureType());
-            }
-            break;
         }
 
-        EditText edit_building_floors = view.findViewById(R.id.edit_historical_evolution);
+        EditText edit_building_floors = view.findViewById(R.id.edit_building_floors);
         edit_building_floors.setText(tBasic.getHistoricalEvolution());
 
         EditText edit_building_area = view.findViewById(R.id.edit_building_area);
@@ -320,145 +343,151 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         EditText edit_status_description = view.findViewById(R.id.edit_status_description);
         edit_status_description.setText(tBasic.getStatusDescription());
 
-        if (tBasic.getNaturalFactor() != null)
-        switch (tBasic.getNaturalFactor()) {
-            case "地震": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getNaturalFactor())) {
+            String[] getNaturalFactor = tBasic.getNaturalFactor().split(";");
+            for (String s : getNaturalFactor) {
+                switch (s) {
+                    case "地震": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "水灾": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_2);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "火灾": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "生物破坏": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_4);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "污染": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_5);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "雷电": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_6);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "风灾": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_7);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "泥石流": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_8);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "冰雹": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_9);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "腐蚀": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_10);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "沙漠化": {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_11);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    default: {
+                        checkBox = view.findViewById(R.id.checkbox_natural_factor_12);
+                        checkBox.setChecked(true);
+                        EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
+                        checkbox_natural_factor_12_et.setText(s.substring(7));
+                    }
+                    break;
+                }
             }
-            break;
-            case "水灾": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_2);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "火灾": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "生物破坏": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_4);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "污染": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_5);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "雷电": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_6);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "风灾": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_7);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "泥石流": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_8);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "冰雹": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_9);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "腐蚀": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_10);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "沙漠化": {
-                radioButton = view.findViewById(R.id.rg_natural_factor_11);
-                radioButton.setChecked(true);
-            }
-            break;
-            default: {
-                radioButton = view.findViewById(R.id.rg_natural_factor_12);
-                radioButton.setChecked(true);
-                EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor());
-            }
-            break;
         }
 
-        if (tBasic.getHumanFactor() != null)
-        switch (tBasic.getHumanFactor()) {
-            case "战争动乱": {
-                radioButton = view.findViewById(R.id.rg_human_factor_1);
-                radioButton.setChecked(true);
+        if (!StringUtils.isEmpty(tBasic.getHumanFactor())) {
+            String[] getHumanFactor = tBasic.getHumanFactor().split(";");
+            for (String s : getHumanFactor) {
+                switch (s) {
+                    case "战争动乱": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_1);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "生产生活活动": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_2);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "盗掘盗窃": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_3);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "不合理利用": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_4);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "违规修缮": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_5);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "年久失修": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_6);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    case "长期空置": {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_7);
+                        checkBox.setChecked(true);
+                    }
+                    break;
+                    default: {
+                        checkBox = view.findViewById(R.id.checkbox_human_factor_8);
+                        checkBox.setChecked(true);
+                        EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
+                        checkbox_natural_factor_12_et.setText(s.substring(7));
+                    }
+                    break;
+                }
             }
-            break;
-            case "生产生活活动": {
-                radioButton = view.findViewById(R.id.rg_human_factor_2);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "盗掘盗窃": {
-                radioButton = view.findViewById(R.id.rg_human_factor_3);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "不合理利用": {
-                radioButton = view.findViewById(R.id.rg_human_factor_4);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "违规修缮": {
-                radioButton = view.findViewById(R.id.rg_human_factor_5);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "年久失修": {
-                radioButton = view.findViewById(R.id.rg_human_factor_6);
-                radioButton.setChecked(true);
-            }
-            break;
-            case "长期空置": {
-                radioButton = view.findViewById(R.id.rg_human_factor_7);
-                radioButton.setChecked(true);
-            }
-            break;
-            default: {
-                radioButton = view.findViewById(R.id.rg_human_factor_8);
-                radioButton.setChecked(true);
-                EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                rg_natural_factor_12_et.setText(tBasic.getNaturalFactor());
-            }
-            break;
         }
 
-        String propertyType = tBasic.getPropertyType();
-        String[] strings = new String[0];
-        if (propertyType != null && propertyType.length() > 0)
-        strings = propertyType.split(",");
-        if (strings != null && strings.length > 0)
-        for (String string : strings) {
-            switch (string) {
-                case "国有": {
-                    CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
-                    checkbox_property_type_1.setChecked(true);
-                }
-                break;
-                case "集体": {
-                    CheckBox checkbox_property_type_2 = view.findViewById(R.id.checkbox_property_type_2);
-                    checkbox_property_type_2.setChecked(true);
-                }
-                break;
-                case "个人": {
-                    CheckBox checkbox_property_type_3 = view.findViewById(R.id.checkbox_property_type_3);
-                    checkbox_property_type_3.setChecked(true);
-                }
-                break;
-                default: {
-                    CheckBox checkbox_property_type_4 = view.findViewById(R.id.checkbox_property_type_4);
-                    checkbox_property_type_4.setChecked(true);
-                    EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-                    checkbox_property_type_et.setText(string);
+        if (!StringUtils.isEmpty(tBasic.getPropertyType())) {
+            String[] getPropertyType = tBasic.getPropertyType().split(";");
+            for (String s : getPropertyType) {
+                switch (s) {
+                    case "国有": {
+                        CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
+                        checkbox_property_type_1.setChecked(true);
+                    }
+                    break;
+                    case "集体": {
+                        CheckBox checkbox_property_type_2 = view.findViewById(R.id.checkbox_property_type_2);
+                        checkbox_property_type_2.setChecked(true);
+                    }
+                    break;
+                    case "个人": {
+                        CheckBox checkbox_property_type_3 = view.findViewById(R.id.checkbox_property_type_3);
+                        checkbox_property_type_3.setChecked(true);
+                    }
+                    break;
+                    default: {
+                        CheckBox checkbox_property_type_4 = view.findViewById(R.id.checkbox_property_type_4);
+                        checkbox_property_type_4.setChecked(true);
+                        EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
+                        checkbox_property_type_et.setText(s.substring(3));
+                    }
                 }
             }
         }

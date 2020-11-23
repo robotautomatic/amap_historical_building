@@ -126,27 +126,24 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 mapBuilding.put("architecturalAge", "");
         }
 
-        RadioGroup rg_building_category = view.findViewById(R.id.rg_building_category);
-        switch (rg_building_category.getCheckedRadioButtonId()) {
-            case R.id.rg_building_category_1: {
-                mapBuilding.put("buildingCategory", "居住建筑");
-            }
-            break;
-            case R.id.rg_building_category_2: {
-                mapBuilding.put("buildingCategory", "公共建筑");
-            }
-            break;
-            case R.id.rg_building_category_3: {
-                mapBuilding.put("buildingCategory", "工业建筑");
-            }
-            break;
-            case R.id.rg_building_category_4: {
-                mapBuilding.put("buildingCategory", "构筑物");
-            }
-            break;
-            default:
-                mapBuilding.put("buildingCategory", "");
+        CheckBox checkbox_building_category_1 = view.findViewById(R.id.checkbox_building_category_1);
+        CheckBox checkbox_building_category_2 = view.findViewById(R.id.checkbox_building_category_2);
+        CheckBox checkbox_building_category_3 = view.findViewById(R.id.checkbox_building_category_3);
+        CheckBox checkbox_building_category_4 = view.findViewById(R.id.checkbox_building_category_4);
+        String buildingCategory = "";
+        if (checkbox_building_category_1.isChecked()) {
+            buildingCategory = buildingCategory + "居住建筑;";
         }
+        if (checkbox_building_category_2.isChecked()) {
+            buildingCategory = buildingCategory + "公共建筑;";
+        }
+        if (checkbox_building_category_3.isChecked()) {
+            buildingCategory = buildingCategory + "工业建筑;";
+        }
+        if (checkbox_building_category_4.isChecked()) {
+            buildingCategory = buildingCategory + "构筑物;";
+        }
+        mapBuilding.put("valueElements", buildingCategory);
 
         EditText edit_building_description = view.findViewById(R.id.edit_building_description);
         mapBuilding.put("buildingDescription", String.valueOf(edit_building_description.getText()));
@@ -157,118 +154,111 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         EditText edit_architect_name = view.findViewById(R.id.edit_architect_name);
         mapBuilding.put("architectName", String.valueOf(edit_architect_name.getText()));
 
-        RadioGroup rg_value_elements = view.findViewById(R.id.rg_value_elements);
-        switch (rg_value_elements.getCheckedRadioButtonId()) {
-            case R.id.rg_value_elements_1: {
-                mapBuilding.put("valueElements", "平面布局");
-            }
-            break;
-            case R.id.rg_value_elements_2: {
-                EditText rg_value_elements_2_et = view.findViewById(R.id.rg_value_elements_2_et);
-                mapBuilding.put("valueElements", "主要立面," + rg_value_elements_2_et.getText());
-            }
-            break;
-            case R.id.rg_value_elements_3: {
-                mapBuilding.put("valueElements", "主体结构");
-            }
-            break;
-            case R.id.rg_value_elements_4: {
-                EditText rg_value_elements_4_et = view.findViewById(R.id.rg_value_elements_4_et);
-                mapBuilding.put("valueElements", "特色材料装饰和部位," + rg_value_elements_4_et.getText());
-            }
-            break;
-            case R.id.rg_value_elements_5: {
-                EditText rg_value_elements_5_et = view.findViewById(R.id.rg_value_elements_5_et);
-                mapBuilding.put("valueElements", "历史环境要素," + rg_value_elements_5_et.getText());
-            }
-            break;
-            default:
-                mapBuilding.put("valueElements", "");
+        CheckBox checkbox_value_elements_1 = view.findViewById(R.id.checkbox_value_elements_1);
+        CheckBox checkbox_value_elements_2 = view.findViewById(R.id.checkbox_value_elements_2);
+        CheckBox checkbox_value_elements_3 = view.findViewById(R.id.checkbox_value_elements_3);
+        CheckBox checkbox_value_elements_4 = view.findViewById(R.id.checkbox_value_elements_4);
+        CheckBox checkbox_value_elements_5 = view.findViewById(R.id.checkbox_value_elements_5);
+        String valueElements = "";
+        if (checkbox_value_elements_1.isChecked()) {
+            valueElements = valueElements + "平面布局;";
+        }
+        if (checkbox_value_elements_2.isChecked()) {
+            EditText checkbox_value_elements_2_et = view.findViewById(R.id.checkbox_value_elements_2_et);
+            valueElements = valueElements + "主要立面:" + checkbox_value_elements_2_et.getText().toString()+";";
+        }
+        if (checkbox_value_elements_3.isChecked()) {
+            valueElements = valueElements + "主体结构;";
+        }
+        if (checkbox_value_elements_4.isChecked()) {
+            EditText checkbox_value_elements_4_et = view.findViewById(R.id.checkbox_value_elements_4_et);
+            valueElements = valueElements + "特色材料装饰和部位:" + checkbox_value_elements_4_et.getText().toString()+";";
+        }
+        if (checkbox_value_elements_5.isChecked()) {
+            EditText checkbox_value_elements_5_et = view.findViewById(R.id.checkbox_value_elements_5_et);
+            valueElements = valueElements + "历史环境要素:" + checkbox_value_elements_5_et.getText().toString()+";";
+        }
+        mapBuilding.put("valueElements", "");
+
+        CheckBox checkbox_status_function_1 = view.findViewById(R.id.checkbox_status_function_1);
+        CheckBox checkbox_status_function_2 = view.findViewById(R.id.checkbox_status_function_2);
+        CheckBox checkbox_status_function_3 = view.findViewById(R.id.checkbox_status_function_3);
+        CheckBox checkbox_status_function_4 = view.findViewById(R.id.checkbox_status_function_4);
+        CheckBox checkbox_status_function_5 = view.findViewById(R.id.checkbox_status_function_5);
+        CheckBox checkbox_status_function_6 = view.findViewById(R.id.checkbox_status_function_6);
+        CheckBox checkbox_status_function_7 = view.findViewById(R.id.checkbox_status_function_7);
+        CheckBox checkbox_status_function_8 = view.findViewById(R.id.checkbox_status_function_8);
+        CheckBox checkbox_status_function_9 = view.findViewById(R.id.checkbox_status_function_9);
+        CheckBox checkbox_status_function_10 = view.findViewById(R.id.checkbox_status_function_10);
+        CheckBox checkbox_status_function_11 = view.findViewById(R.id.checkbox_status_function_11);
+        CheckBox checkbox_status_function_12 = view.findViewById(R.id.checkbox_status_function_12);
+        String statusFunction = "";
+        if (checkbox_status_function_1.isChecked()) {
+            statusFunction = statusFunction + "居住;";
+        }
+        if (checkbox_status_function_2.isChecked()) {
+            statusFunction = statusFunction + "商业;";
+        }
+        if (checkbox_status_function_3.isChecked()) {
+            statusFunction = statusFunction + "商住混合;";
+        }
+        if (checkbox_status_function_4.isChecked()) {
+            statusFunction = statusFunction + "办公;";
+        }
+        if (checkbox_status_function_5.isChecked()) {
+            statusFunction = statusFunction + "教育科研;";
+        }
+        if (checkbox_status_function_6.isChecked()) {
+            statusFunction = statusFunction + "文化展览;";
+        }
+        if (checkbox_status_function_7.isChecked()) {
+            statusFunction = statusFunction + "文娱设施;";
+        }
+        if (checkbox_status_function_8.isChecked()) {
+            statusFunction = statusFunction + "医疗卫生;";
+        }
+        if (checkbox_status_function_9.isChecked()) {
+            statusFunction = statusFunction + "宗教纪念;";
+        }
+        if (checkbox_status_function_10.isChecked()) {
+            statusFunction = statusFunction + "工业仓储;";
+        }
+        if (checkbox_status_function_11.isChecked()) {
+            statusFunction = statusFunction + "闲置空置;";
+        }
+        if (checkbox_status_function_12.isChecked()) {
+            EditText checkbox_status_function_12_et = view.findViewById(R.id.checkbox_status_function_12_et);
+            statusFunction = statusFunction + "其他:"+checkbox_status_function_12_et.getText().toString()+";";
         }
 
-        RadioGroup rg_status_function = view.findViewById(R.id.rg_status_function);
-        switch (rg_status_function.getCheckedRadioButtonId()) {
-            case R.id.rg_status_function_1: {
-                mapBuilding.put("statusFunction", "居住");
-            }
-            break;
-            case R.id.rg_status_function_2: {
-                mapBuilding.put("statusFunction", "商业");
-            }
-            break;
-            case R.id.rg_status_function_3: {
-                mapBuilding.put("statusFunction", "商住混合");
-            }
-            break;
-            case R.id.rg_status_function_4: {
-                mapBuilding.put("statusFunction", "办公");
-            }
-            break;
-            case R.id.rg_status_function_5: {
-                mapBuilding.put("statusFunction", "教育科研");
-            }
-            break;
-            case R.id.rg_status_function_6: {
-                mapBuilding.put("statusFunction", "文化展览");
-            }
-            break;
-            case R.id.rg_status_function_7: {
-                mapBuilding.put("statusFunction", "文娱设施");
-            }
-            break;
-            case R.id.rg_status_function_8: {
-                mapBuilding.put("statusFunction", "医疗卫生");
-            }
-            break;
-            case R.id.rg_status_function_9: {
-                mapBuilding.put("statusFunction", "宗教纪念");
-            }
-            break;
-            case R.id.rg_status_function_10: {
-                mapBuilding.put("statusFunction", "工业仓储");
-            }
-            break;
-            case R.id.rg_status_function_11: {
-                mapBuilding.put("statusFunction", "闲置空置");
-            }
-            break;
-            case R.id.rg_status_function_12: {
-                EditText rg_status_function_12_et = view.findViewById(R.id.rg_status_function_12_et);
-                mapBuilding.put("statusFunction", rg_status_function_12_et.getText().toString());
-            }
-            break;
-            default:
                 mapBuilding.put("statusFunction", "");
-        }
 
-        RadioGroup rg_structure_type = view.findViewById(R.id.rg_structure_type);
-        switch (rg_structure_type.getCheckedRadioButtonId()) {
-            case R.id.rg_structure_type_1: {
-                mapBuilding.put("structureType", "木结构");
-            }
-            break;
-            case R.id.rg_structure_type_2: {
-                mapBuilding.put("structureType", "砖木结构");
-            }
-            break;
-            case R.id.rg_structure_type_3: {
-                mapBuilding.put("structureType", "砖混结构");
-            }
-            break;
-            case R.id.rg_structure_type_4: {
-                mapBuilding.put("structureType", "钢混结构");
-            }
-            break;
-            case R.id.rg_structure_type_5: {
-                EditText rg_structure_type_5_et = view.findViewById(R.id.rg_structure_type_5_et);
-                mapBuilding.put("structureType", rg_structure_type_5_et.getText().toString());
-            }
-            break;
-            default:
+        CheckBox checkbox_structure_type_1 = view.findViewById(R.id.checkbox_structure_type_1);
+        CheckBox checkbox_structure_type_2 = view.findViewById(R.id.checkbox_structure_type_1);
+        CheckBox checkbox_structure_type_3 = view.findViewById(R.id.checkbox_structure_type_3);
+        CheckBox checkbox_structure_type_4 = view.findViewById(R.id.checkbox_structure_type_4);
+        CheckBox checkbox_structure_type_5 = view.findViewById(R.id.checkbox_structure_type_5);
+        String structureType = "";
+        if (checkbox_structure_type_1.isChecked()) {
+            structureType = structureType + "木结构;";
+        }
+        if (checkbox_structure_type_2.isChecked()) {
+            structureType = structureType + "砖木结构;";
+        }
+        if (checkbox_structure_type_3.isChecked()) {
+            structureType = structureType + "砖混结构;";
+        }
+        if (checkbox_structure_type_4.isChecked()) {
+            structureType = structureType + "钢混结构;";
+        }
+        if (checkbox_structure_type_5.isChecked()) {
+            EditText rg_structure_type_5_et = view.findViewById(R.id.checkbox_structure_type_5_et);
+            structureType = structureType + "其他结构:"+rg_structure_type_5_et.getText().toString()+";";
+        }
                 mapBuilding.put("structureType", "");
-        }
 
-        EditText edit_building_floors = view.findViewById(R.id.edit_historical_evolution);
+
+        EditText edit_building_floors = view.findViewById(R.id.edit_building_floors);
         mapBuilding.put("buildingFloors", String.valueOf(edit_building_floors.getText()));
 
         EditText edit_building_area = view.findViewById(R.id.edit_building_area);
@@ -280,99 +270,96 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         EditText edit_status_description = view.findViewById(R.id.edit_status_description);
         mapBuilding.put("statusDescription", String.valueOf(edit_status_description.getText()));
 
-        RadioGroup rg_natural_factor = view.findViewById(R.id.rg_natural_factor);
-        switch (rg_natural_factor.getCheckedRadioButtonId()) {
-            case R.id.rg_natural_factor_1: {
-                mapBuilding.put("naturalFactor", "地震");
-            }
-            break;
-            case R.id.rg_natural_factor_2: {
-                mapBuilding.put("naturalFactor", "水灾");
-            }
-            break;
-            case R.id.rg_natural_factor_3: {
-                mapBuilding.put("naturalFactor", "火灾");
-            }
-            break;
-            case R.id.rg_natural_factor_4: {
-                mapBuilding.put("naturalFactor", "生物破坏");
-            }
-            break;
-            case R.id.rg_natural_factor_5: {
-                mapBuilding.put("naturalFactor", "污染");
-            }
-            break;
-            case R.id.rg_natural_factor_6: {
-                mapBuilding.put("naturalFactor", "雷电");
-            }
-            break;
-            case R.id.rg_natural_factor_7: {
-                mapBuilding.put("naturalFactor", "风灾");
-            }
-            break;
-            case R.id.rg_natural_factor_8: {
-                mapBuilding.put("naturalFactor", "泥石流");
-            }
-            break;
-            case R.id.rg_natural_factor_9: {
-                mapBuilding.put("naturalFactor", "冰雹");
-            }
-            break;
-            case R.id.rg_natural_factor_10: {
-                mapBuilding.put("naturalFactor", "腐蚀");
-            }
-            break;
-            case R.id.rg_natural_factor_11: {
-                mapBuilding.put("naturalFactor", "沙漠化");
-            }
-            break;
-            case R.id.rg_natural_factor_12: {
-                EditText rg_natural_factor_12_et = view.findViewById(R.id.rg_natural_factor_12_et);
-                mapBuilding.put("naturalFactor", "其他自然因素," + rg_natural_factor_12_et.getText());
-            }
-            break;
-            default:
-                mapBuilding.put("naturalFactor", "");
+
+        CheckBox checkbox_natural_factor_1 = view.findViewById(R.id.checkbox_natural_factor_1);
+        CheckBox checkbox_natural_factor_2 = view.findViewById(R.id.checkbox_natural_factor_2);
+        CheckBox checkbox_natural_factor_3 = view.findViewById(R.id.checkbox_natural_factor_3);
+        CheckBox checkbox_natural_factor_4 = view.findViewById(R.id.checkbox_natural_factor_4);
+        CheckBox checkbox_natural_factor_5 = view.findViewById(R.id.checkbox_natural_factor_5);
+        CheckBox checkbox_natural_factor_6 = view.findViewById(R.id.checkbox_natural_factor_6);
+        CheckBox checkbox_natural_factor_7 = view.findViewById(R.id.checkbox_natural_factor_7);
+        CheckBox checkbox_natural_factor_8 = view.findViewById(R.id.checkbox_natural_factor_8);
+        CheckBox checkbox_natural_factor_9 = view.findViewById(R.id.checkbox_natural_factor_9);
+        CheckBox checkbox_natural_factor_10 = view.findViewById(R.id.checkbox_natural_factor_10);
+        CheckBox checkbox_natural_factor_11 = view.findViewById(R.id.checkbox_natural_factor_11);
+        CheckBox checkbox_natural_factor_12 = view.findViewById(R.id.checkbox_natural_factor_12);
+        String naturalFactor = "";
+        if (checkbox_natural_factor_1.isChecked()) {
+            naturalFactor = naturalFactor + "地震;";
+        }
+        if (checkbox_natural_factor_2.isChecked()) {
+            naturalFactor = naturalFactor + "水灾;";
+        }
+        if (checkbox_natural_factor_3.isChecked()) {
+            naturalFactor = naturalFactor + "火灾;";
+        }
+        if (checkbox_natural_factor_4.isChecked()) {
+            naturalFactor = naturalFactor + "生物破坏;";
+        }
+        if (checkbox_natural_factor_5.isChecked()) {
+            naturalFactor = naturalFactor + "污染;";
+        }
+        if (checkbox_natural_factor_6.isChecked()) {
+            naturalFactor = naturalFactor + "雷电;";
+        }
+        if (checkbox_natural_factor_7.isChecked()) {
+            naturalFactor = naturalFactor + "风灾;";
+        }
+        if (checkbox_natural_factor_8.isChecked()) {
+            naturalFactor = naturalFactor + "泥石流;";
+        }
+        if (checkbox_natural_factor_9.isChecked()) {
+            naturalFactor = naturalFactor + "冰雹;";
+        }
+        if (checkbox_natural_factor_10.isChecked()) {
+            naturalFactor = naturalFactor + "腐蚀;";
+        }
+        if (checkbox_natural_factor_11.isChecked()) {
+            naturalFactor = naturalFactor + "沙漠化;";
+        }
+        if (checkbox_natural_factor_12.isChecked()) {
+            EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
+            mapBuilding.put("naturalFactor", "其他自然因素," + checkbox_natural_factor_12_et.getText());
+            naturalFactor = naturalFactor + "其他:"+ checkbox_natural_factor_12_et.getText().toString()+";";
         }
 
-        RadioGroup rg_human_factor = view.findViewById(R.id.rg_human_factor);
-        switch (rg_human_factor.getCheckedRadioButtonId()) {
-            case R.id.rg_human_factor_1: {
-                mapBuilding.put("humanFactor", "战争动乱");
-            }
-            break;
-            case R.id.rg_human_factor_2: {
-                mapBuilding.put("humanFactor", "生产生活活动");
-            }
-            break;
-            case R.id.rg_human_factor_3: {
-                mapBuilding.put("humanFactor", "盗掘盗窃");
-            }
-            break;
-            case R.id.rg_human_factor_4: {
-                mapBuilding.put("humanFactor", "不合理利用");
-            }
-            break;
-            case R.id.rg_human_factor_5: {
-                mapBuilding.put("humanFactor", "违规修缮");
-            }
-            break;
-            case R.id.rg_human_factor_6: {
-                mapBuilding.put("humanFactor", "年久失修");
-            }
-            break;
-            case R.id.rg_human_factor_7: {
-                mapBuilding.put("humanFactor", "长期空置");
-            }
-            break;
-            case R.id.rg_human_factor_8: {
-                EditText rg_human_factor_8_et = view.findViewById(R.id.rg_human_factor_8_et);
-                mapBuilding.put("humanFactor", rg_human_factor_8_et.getText().toString());
-            }
-            break;
-            default:
-                mapBuilding.put("humanFactor", "");
+                mapBuilding.put("naturalFactor", "");
+
+        CheckBox checkbox_human_factor_1 = view.findViewById(R.id.checkbox_human_factor_1);
+        CheckBox checkbox_human_factor_2 = view.findViewById(R.id.checkbox_human_factor_2);
+        CheckBox checkbox_human_factor_3 = view.findViewById(R.id.checkbox_human_factor_3);
+        CheckBox checkbox_human_factor_4 = view.findViewById(R.id.checkbox_human_factor_4);
+        CheckBox checkbox_human_factor_5 = view.findViewById(R.id.checkbox_human_factor_5);
+        CheckBox checkbox_human_factor_6 = view.findViewById(R.id.checkbox_human_factor_6);
+        CheckBox checkbox_human_factor_7 = view.findViewById(R.id.checkbox_human_factor_7);
+        CheckBox checkbox_human_factor_8 = view.findViewById(R.id.checkbox_human_factor_8);
+        String humanFactor = "";
+        if (checkbox_human_factor_1.isChecked()) {
+            humanFactor = humanFactor + "战争动乱;";
         }
+        if (checkbox_human_factor_2.isChecked()) {
+            humanFactor = humanFactor + "生产生活活动;";
+        }
+        if (checkbox_human_factor_3.isChecked()) {
+            humanFactor = humanFactor + "盗掘盗窃;";
+        }
+        if (checkbox_human_factor_4.isChecked()) {
+            humanFactor = humanFactor + "不合理利用;";
+        }
+        if (checkbox_human_factor_5.isChecked()) {
+            humanFactor = humanFactor + "违规修缮;";
+        }
+        if (checkbox_human_factor_6.isChecked()) {
+            humanFactor = humanFactor + "年久失修;";
+        }
+        if (checkbox_human_factor_7.isChecked()) {
+            humanFactor = humanFactor + "长期空置;";
+        }
+        if (checkbox_human_factor_8.isChecked()) {
+            EditText checkbox_human_factor_8_et = view.findViewById(R.id.checkbox_human_factor_8_et);
+            humanFactor = humanFactor + "其他人为因素:"+ checkbox_human_factor_8.getText().toString()+";";
+        }
+        mapBuilding.put("humanFactor", "");
 
         CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
         CheckBox checkbox_property_type_2 = view.findViewById(R.id.checkbox_property_type_2);
@@ -380,17 +367,17 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         CheckBox checkbox_property_type_4 = view.findViewById(R.id.checkbox_property_type_4);
         String propertyType = "";
         if (checkbox_property_type_1.isChecked()) {
-            propertyType = propertyType + "国有,";
+            propertyType = propertyType + "国有;";
         }
         if (checkbox_property_type_2.isChecked()) {
-            propertyType = propertyType + "集体,";
+            propertyType = propertyType + "集体;";
         }
         if (checkbox_property_type_3.isChecked()) {
-            propertyType = propertyType + "个人,";
+            propertyType = propertyType + "个人;";
         }
         if (checkbox_property_type_4.isChecked()) {
             EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-            propertyType = propertyType + checkbox_property_type_et.getText();
+            propertyType = propertyType + "其他:"+checkbox_property_type_et.getText()+";";
         }
         mapBuilding.put("propertyType", propertyType);
 
