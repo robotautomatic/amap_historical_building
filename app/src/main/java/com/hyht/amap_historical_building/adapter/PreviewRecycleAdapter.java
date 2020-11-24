@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +28,12 @@ import com.xuexiang.xui.widget.toast.XToast;
 import me.jessyan.progressmanager.ProgressListener;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.progressmanager.body.ProgressInfo;
-import okhttp3.OkHttpClient;
+import okhttp3.*;
 
+import java.io.IOException;
 import java.util.*;
+
+import static com.xuexiang.xutil.XUtil.runOnUiThread;
 
 public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAdapter.ViewHolder>{
     private Context context;
@@ -47,11 +51,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
         this.uriList = uriList;
         previewInfos = new ArrayList<>();
         successUrl = new HashMap<>();
-/*        for (Uri s : uriList
-        ) {
-            ImageViewInfo imageViewInfo = new ImageViewInfo(s.toString());
-            previewInfos.add(imageViewInfo);
-        }*/
+
         viewClickListener = new OnAdapterItemClickListener() {
             @Override
             public View.OnClickListener onItemClick(int i) {
@@ -86,14 +86,13 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 };
             }
         };
+
         for (int i = 0; i < uriList.size(); i++) {
             int finalI = i;
-            System.out.println(ProgressManager.getInstance());
             ProgressManager.getInstance().addResponseListener(uriList.get(i).toString(), new ProgressListener() {
                 @Override
                 public void onProgress(ProgressInfo progressInfo) {
-                    System.out.println("the "+ finalI +"image is download -->"+progressInfo.getPercent());
-                    System.out.println("the "+ finalI +"image download speed -->"+progressInfo.getSpeed());
+//Todo 加上图片加载的进度显示
                 }
 
                 @Override

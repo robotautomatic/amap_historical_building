@@ -2,13 +2,12 @@ package com.hyht.amap_historical_building;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerYiWuPoint,10.5f));
 
 
-
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
@@ -176,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         });//绑定监听器
         search.searchDistrictAnsy();//开始搜索
     }
+
 
     public void addPermission() {/*
         System.out.println(PermissionUtils.getPermissions());PermissionUtils.getPermissions();
@@ -263,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                         Button btn_exit = new DefaultButton(MainActivity.this).getDefaultButton();
                         btn_exit.setText("退出");
 
-                        while (linearLayout.getChildCount() > 5) {
+                        while (linearLayout.getChildCount() > 6) {
                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }
                         DialogSaveOverlay dialogSaveOverlay;
@@ -405,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
         aMap.setOnInfoWindowClickListener(null);
         aMap.setOnMapClickListener(null);
         LinearLayout linearLayout = findViewById(R.id.linear_bt);
-        while (linearLayout.getChildCount() > 5) {
+        while (linearLayout.getChildCount() > 6) {
             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
         }
         DialogSelectAllOverlays dialogSelectAllOverlays = new DialogSelectAllOverlays(MainActivity.this, aMap);
@@ -422,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
                         aMap.setOnInfoWindowClickListener(null);
                         aMap.setOnMapClickListener(null);
                         LinearLayout linearLayout = findViewById(R.id.linear_bt);
-                        while (linearLayout.getChildCount() > 5) {
+                        while (linearLayout.getChildCount() > 6) {
                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }
                         switch (position) {
@@ -456,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
                         aMap.setOnInfoWindowClickListener(null);
                         aMap.setOnMapClickListener(null);
                         LinearLayout linearLayout = findViewById(R.id.linear_bt);
-                        while (linearLayout.getChildCount() > 5) {
+                        while (linearLayout.getChildCount() > 6) {
                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }
                         switch (position) {
@@ -477,7 +476,9 @@ public class MainActivity extends AppCompatActivity {
                                             BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(latLngs.get(latLngs.size() - 1),latLng));
                                             distance = distance.add((BigDecimal) markers.get(markers.size()-1).getObject());
                                             distance = distance.setScale(1,2);
-                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(distance + "米"));
+                                            View view = null;
+                                            view = View.inflate(MainActivity.this, R.layout.custom_marker, null);
+                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(distance + "米").icon(BitmapDescriptorFactory.fromView(view)));
                                             marker.setObject(distance);
                                         }else {
                                             marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet("起点"));
@@ -833,7 +834,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         aMap.clear(true);
                                         aMap.removeOnMapClickListener(areaMapClickListener);
-                                        while (linearLayout.getChildCount() > 5) {
+                                        while (linearLayout.getChildCount() > 6) {
                                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                                         }
                                     }
