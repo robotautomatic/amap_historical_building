@@ -9,10 +9,13 @@
                android:layout_gravity="center"
     />
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/tv_custom_marker"
               android:layout_gravity="center"
-              android:textSize="16dp"
-              android:inputType="textMultiLine"
-              android:maxLines="2"
+              android:maxEms="5"
+              android:gravity="center"
+              android:textSize="10dp"
+              android:maxLines="1"
+              android:ellipsize="end"
               android:text="一二三四五六七八九十"/>
 
 </LinearLayout>

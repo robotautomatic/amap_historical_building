@@ -6,17 +6,14 @@ import com.amap.api.maps.model.*;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hyht.amap_historical_building.dialog.DialogOverlayDetail;
 import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.listener.OnInFoWindowClickListenerShowDetail;
 import com.hyht.amap_historical_building.utils.EntityToOverlay;
 import com.hyht.amap_historical_building.utils.GetCoordinateUtil;
-import com.hyht.amap_historical_building.utils.TransformToMapOverlay;
 import com.xuexiang.xui.widget.toast.XToast;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 
 public class SelectOverlays {
     private Context context;
@@ -43,11 +40,11 @@ public class SelectOverlays {
                 ) {
                     List<LatLng> latLngList = new GetCoordinateUtil().getGeoPointList(tBasic);
                     if(latLngList.size() == 1 && (categories == 0 || categories == 1)){
-                        entityToOverlay = new EntityToOverlay(aMap, tBasic);
+                        entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
                         entityToOverlay.transform();
                     }
                     if ((latLngList.size()>1) && (categories == 0 || categories == 2)){
-                        entityToOverlay = new EntityToOverlay(aMap, tBasic);
+                        entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
                         entityToOverlay.transform();
                     }
                 }

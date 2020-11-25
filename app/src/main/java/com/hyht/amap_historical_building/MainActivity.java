@@ -27,6 +27,7 @@ import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.column.Column;
 import com.bin.david.form.data.table.TableData;
 import com.hyht.amap_historical_building.callback.SingleButtonCallBackDialogSearch;
+import com.hyht.amap_historical_building.dialog.BottomSheetDrawBuilding;
 import com.hyht.amap_historical_building.dialog.DialogSaveOverlay;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
 import com.hyht.amap_historical_building.entity.PolygonBasic;
@@ -242,8 +243,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void drawBottomSheetGrid() {
+        new BottomSheetDrawBuilding(this, aMap).getBottomSheet().build().show();
+/*
         final BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(this);
-        builder
+*/
+        /*builder
                 .addItem(R.drawable.draw_point, "绘制建筑点", 0, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
                 .addItem(R.drawable.draw_polygon, "绘制建筑范围", 1, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
                 .setOnSheetItemClickListener(new BottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
@@ -395,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         XToast.normal(getContext(), "tag:" + tag + ", content:" + itemView.toString()).show();
                     }
-                }).build().show();
+                }).build().show();*/
     }
 
     void selectAllOverlays() {
@@ -476,9 +480,7 @@ public class MainActivity extends AppCompatActivity {
                                             BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(latLngs.get(latLngs.size() - 1),latLng));
                                             distance = distance.add((BigDecimal) markers.get(markers.size()-1).getObject());
                                             distance = distance.setScale(1,2);
-                                            View view = null;
-                                            view = View.inflate(MainActivity.this, R.layout.custom_marker, null);
-                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(distance + "米").icon(BitmapDescriptorFactory.fromView(view)));
+                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(distance + "米"));
                                             marker.setObject(distance);
                                         }else {
                                             marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet("起点"));
@@ -728,7 +730,7 @@ public class MainActivity extends AppCompatActivity {
                                                             @Override
                                                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                                                 for (TBasic tBasic : areaInner) {
-                                                                    Marker marker = new EntityToOverlay(aMap, tBasic).transform();
+                                                                    Marker marker = new EntityToOverlay(aMap, tBasic, MainActivity.this).transform();
                                                                     for (Marker innerMarker : innerMarkers) {
                                                                         if (innerMarker.getPosition() == null){
                                                                         }else if(innerMarker.getPosition().equals(marker.getPosition())){
