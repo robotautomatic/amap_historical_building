@@ -31,6 +31,8 @@ public class EntityToOverlay {
         if(latLngList.size() == 1){
             textViewCustomMarker.setText(tBasic.getBuildingName());
             marker = aMap.addMarker(new MarkerOptions().position(latLngList.get(0))
+                    .title("建筑名称：" + tBasic.getBuildingName())
+                    .snippet("建筑编号：" + tBasic.getBuildingNumber())
                     .anchor(0.5f,0.6f)
                     .icon(BitmapDescriptorFactory.fromView(view)));
             marker.setObject(tBasic);
@@ -54,6 +56,8 @@ public class EntityToOverlay {
             LatLng centerPoint = new LatLng(latitude/latLngList.size(), longitude/latLngList.size());
             textViewCustomMarker.setText(tBasic.getBuildingName());
             marker = aMap.addMarker(new MarkerOptions().position(centerPoint)
+                    .title("建筑名称：" + tBasic.getBuildingName())
+                    .snippet("建筑编号：" + tBasic.getBuildingNumber())
                     .anchor(0.5f,0.6f)
                     .icon(BitmapDescriptorFactory.fromView(view)));
             PolygonBasic polygonBasic = new PolygonBasic();

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +23,7 @@ import com.bumptech.glide.request.target.Target;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.entity.ImageViewInfo;
 import com.xuexiang.xui.widget.imageview.preview.PreviewBuilder;
+import com.xuexiang.xui.widget.progress.HorizontalProgressView;
 import com.xuexiang.xui.widget.toast.XToast;
 import me.jessyan.progressmanager.ProgressListener;
 import me.jessyan.progressmanager.ProgressManager;
@@ -86,21 +86,6 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 };
             }
         };
-
-        for (int i = 0; i < uriList.size(); i++) {
-            int finalI = i;
-            ProgressManager.getInstance().addResponseListener(uriList.get(i).toString(), new ProgressListener() {
-                @Override
-                public void onProgress(ProgressInfo progressInfo) {
-//Todo 加上图片加载的进度显示
-                }
-
-                @Override
-                public void onError(long id, Exception e) {
-                    System.out.println("progress error");
-                }
-            });
-        }
     }
 
     @NonNull
@@ -113,6 +98,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
     @Override
     public void onBindViewHolder(@NonNull PreviewRecycleAdapter.ViewHolder holder, int position) {
         holder.llDelete.setVisibility(View.INVISIBLE);
+        holder.progressLoadingDraw.setVisibility(View.VISIBLE);
 
         RequestBuilder<Drawable> thumbnailRequest = Glide
                 .with(context)
@@ -130,6 +116,19 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                     }
                 });
 
+        ProgressManager.getInstance().addResponseListener(uriList.get(position).toString(), new ProgressListener() {
+            @Override
+            public void onProgress(ProgressInfo progressInfo) {
+//Todo 加上图片加载的进度显示
+                holder.progressLoadingDraw.setProgress(progressInfo.getPercent());
+            }
+
+            @Override
+            public void onError(long id, Exception e) {
+                holder.progressLoadingDraw.setVisibility(View.GONE);
+                System.out.println("progress error");
+            }
+        });
 
 //.signature()
         Glide.with(context).load(uriList.get(position))
@@ -147,6 +146,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                                 XToast.normal(context,"原图加载失败").show();
                             }
                         });
+                        holder.progressLoadingDraw.setVisibility(View.GONE);
                         return false;
                     }
 
@@ -155,6 +155,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                         successUrl.put(position, true);
                         System.out.println("load "+ position);
                         holder.ivSelectPic.setOnClickListener(viewClickListener.onItemClick(position));
+                        holder.progressLoadingDraw.setVisibility(View.GONE);
                         return false;
                     }
                 })
@@ -174,6 +175,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivSelectPic;
         LinearLayout llDelete;
+        HorizontalProgressView progressLoadingDraw;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -185,6 +187,8 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 }
             });
             llDelete = itemView.findViewById(R.id.ll_delete);
+            progressLoadingDraw = itemView.findViewById(R.id.progress_loading_draw);
+            progressLoadingDraw.setVisibility(View.GONE);
         }
     }
 }

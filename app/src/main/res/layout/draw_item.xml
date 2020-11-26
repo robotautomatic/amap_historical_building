@@ -10,7 +10,21 @@
             android:layout_centerInParent="true"
             android:background="#F4F4F4"
                 app:srcCompat="@drawable/ic_add_image" />
+    <com.xuexiang.xui.widget.progress.HorizontalProgressView
+            android:layout_centerInParent="true"
+            android:id="@+id/progress_loading_draw"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            app:hpv_end_color="@color/colorPrimary"
 
+            app:hpv_isTracked="true"
+            app:hpv_progress_duration="1800"
+            app:hpv_progress_textColor="#696969"
+            app:hpv_progress_textSize="12dp"
+            app:hpv_progress_textVisibility="true"
+            app:hpv_start_color="@color/picture_color_blue"
+            app:hpv_track_color="#f4f4f4"
+            app:hpv_track_width="8dp"/>
     <LinearLayout
             android:id="@+id/ll_delete"
             android:layout_width="30dp"
