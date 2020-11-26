@@ -1,5 +1,6 @@
 package com.hyht.amap_historical_building;
 
+import okhttp3.internal.Util;
 import org.junit.Test;
 
 import java.util.*;
@@ -15,10 +16,9 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
-        String a ="qwe";
+        String a =";q;w;;e;";
         String b = "ase";
-        System.out.println(a.charAt(2) != b.charAt(2));
-        Map<Map<String,String>, Boolean> map = new HashMap<>();
+        System.out.println(Arrays.toString(a.split(";")));
     }
     @Test
     public void slowestKey() {

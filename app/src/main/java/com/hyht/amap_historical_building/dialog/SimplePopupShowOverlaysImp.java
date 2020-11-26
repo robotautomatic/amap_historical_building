@@ -1,4 +1,4 @@
-package com.hyht.amap_historical_building;
+package com.hyht.amap_historical_building.dialog;
 
 import android.content.Context;
 import com.amap.api.maps.AMap;
@@ -6,6 +6,7 @@ import com.amap.api.maps.model.*;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyht.amap_historical_building.EntService;
 import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.listener.OnInFoWindowClickListenerShowDetail;
 import com.hyht.amap_historical_building.utils.EntityToOverlay;
@@ -15,17 +16,20 @@ import com.xuexiang.xui.widget.toast.XToast;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class SelectOverlays {
+public class SimplePopupShowOverlaysImp {
     private Context context;
     private AMap aMap;
 
-    public SelectOverlays(Context context, AMap aMap, int categories ) {
+    public SimplePopupShowOverlaysImp(Context context, AMap aMap, int categories ) {
         this.context = context;
         this.aMap = aMap;
         select(categories);
     }
 
     void select(int categories){
+        if (categories == 3){
+            return;
+        }
         EntService entService = new EntService(context);
         entService.buildSelect(new EntService.VolleyCallback() {
             @Override
@@ -54,7 +58,7 @@ public class SelectOverlays {
 
             @Override
             public void onError(VolleyError error) {
-                XToast.normal(context, "错误，无法获取信息" + error);
+                XToast.normal(context, "错误，无法获取建筑物信息" + error);
             }
         });
     }

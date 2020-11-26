@@ -23,7 +23,7 @@ public class EntService {
     }
 
     //查询所有的绘图
-    void buildSelect(final VolleyCallback callback) {
+    public void buildSelect(final VolleyCallback callback) {
         //创建一个请求队列
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         //创建一个请求
