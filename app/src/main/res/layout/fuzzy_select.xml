@@ -13,6 +13,8 @@
             app:met_regexp=""
             app:met_errorMessage="格式错误"
             app:met_validateOnFocusLost="true"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text=""/>
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -34,6 +36,8 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="层"/>
     </LinearLayout>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text=""/>
 
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:orientation="horizontal">
@@ -56,7 +60,8 @@
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="平方米"/>
     </LinearLayout>
-
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text=""/>
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"

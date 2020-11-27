@@ -25,7 +25,7 @@ public class EntityToOverlay {
 
     public Marker transform(){
         List<LatLng> latLngList = new GetCoordinateUtil().getGeoPointList(tBasic);
-        Marker marker = null;
+        Marker marker;
         View view = View.inflate(context, R.layout.custom_marker, null);
         TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
         if(latLngList.size() == 1){
@@ -67,6 +67,6 @@ public class EntityToOverlay {
             
             return marker;
         }
-        return marker;
+        return null;
     }
 }

@@ -181,7 +181,6 @@ public class BottomSheetDrawBuilding {
                             break;
 
                         }
-                        XToast.normal(getContext(), "tag:" + tag + ", content:" + itemView.toString()).show();
                     }
                 });
     }

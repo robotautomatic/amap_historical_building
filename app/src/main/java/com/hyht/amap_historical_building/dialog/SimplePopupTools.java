@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
@@ -66,26 +67,39 @@ public class SimplePopupTools {
                         }
                         switch (position) {
                             case 0: {
+                                List<LatLng> latLngs = new ArrayList<>();
+                                List<Marker> markers = new ArrayList<>();
                                 PolylineOptions polylineOptions = new PolylineOptions();
                                 Polyline polyline = aMap.addPolyline(polylineOptions);
                                 polyline.setWidth(5);
-                                List<LatLng> latLngs = new ArrayList<>();
-                                List<Marker> markers = new ArrayList<>();
                                 Button btn_exit = new DefaultButton(context).getDefaultButton();
                                 btn_exit.setText("退出");
+
 
                                 AMap.OnMapClickListener mapClickListener_distance = new AMap.OnMapClickListener() {
                                     @Override
                                     public void onMapClick(LatLng latLng) {
                                         Marker marker;
                                         if (markers.size() > 0){
+                                            View view = View.inflate(context, R.layout.custom_marker, null);
+                                            TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
                                             BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(latLngs.get(latLngs.size() - 1),latLng));
                                             distance = distance.add((BigDecimal) markers.get(markers.size()-1).getObject());
                                             distance = distance.setScale(1,2);
-                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(distance + "米"));
+                                            textViewCustomMarker.setText(distance + "米");
+                                            marker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                    .anchor(0.5f,0.6f)
+                                                    .icon(BitmapDescriptorFactory.fromView(view))
+                                                    .title("点击删除").snippet(distance + "米"));
                                             marker.setObject(distance);
                                         }else {
-                                            marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet("起点"));
+                                            View view = View.inflate(context, R.layout.custom_marker, null);
+                                            TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                            textViewCustomMarker.setText("起点");
+                                            marker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                    .anchor(0.5f,0.6f)
+                                                    .icon(BitmapDescriptorFactory.fromView(view))
+                                                    .title("点击删除").snippet("起点"));
                                             marker.setObject(new BigDecimal(0));
                                         }
                                         marker.showInfoWindow();
@@ -98,28 +112,76 @@ public class SimplePopupTools {
                                 aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
                                     @Override
                                     public void onInfoWindowClick(Marker marker) {
-                                        int markerIndex = markers.indexOf(marker);
-                                        markers.remove(marker);
-                                        latLngs.remove(marker.getPosition());
-                                        polyline.setPoints(latLngs);
-                                        marker.destroy();
-                                        for (int i = markerIndex; i < markers.size(); i++) {
-                                            if (i == 0){
-                                                markers.get(i).setSnippet("起点");
-                                                markers.get(i).setObject(new BigDecimal(0));
-                                            }else {
-                                                BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(markers.get(i).getPosition(),markers.get(i - 1).getPosition()));
-                                                distance = distance.add((BigDecimal) markers.get(i - 1).getObject());
-                                                distance = distance.setScale(1,2);
-                                                markers.get(i).setSnippet(distance + "米");
-                                                markers.get(i).setObject(distance);
+                                        if (markers.contains(marker)) {
+                                            int markerIndex = markers.indexOf(marker);
+                                            markers.remove(marker);
+                                            latLngs.remove(marker.getPosition());
+                                            polyline.setPoints(latLngs);
+                                            marker.destroy();
+                                            for (int i = markerIndex; i < markers.size(); i++) {
+                                                if (i == 0) {
+                                                    View view = View.inflate(context, R.layout.custom_marker, null);
+                                                    TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                                    textViewCustomMarker.setText("起点");
+                                                    markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view));
+                                                    markers.get(i).setSnippet("起点");
+                                                    markers.get(i).setObject(new BigDecimal(0));
+                                                } else {
+                                                    View view = View.inflate(context, R.layout.custom_marker, null);
+                                                    TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                                    BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(markers.get(i).getPosition(), markers.get(i - 1).getPosition()));
+                                                    distance = distance.add((BigDecimal) markers.get(i - 1).getObject());
+                                                    distance = distance.setScale(1, 2);
+                                                    textViewCustomMarker.setText(distance + "米");
+                                                    markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view));
+                                                    markers.get(i).setSnippet(distance + "米");
+                                                    markers.get(i).setObject(distance);
+                                                }
                                             }
                                         }
                                     }
                                 });
+                                aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        if (markers.contains(marker)){
+                                            marker.showInfoWindow();
+                                        }
+                                        else {
+                                            Marker newMarker;
+                                            LatLng latLng = marker.getPosition();
+                                            if (markers.size() > 0){
+                                                View view = View.inflate(context, R.layout.custom_marker, null);
+                                                TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                                BigDecimal distance = new BigDecimal(AMapUtils.calculateLineDistance(latLngs.get(latLngs.size() - 1),latLng));
+                                                distance = distance.add((BigDecimal) markers.get(markers.size()-1).getObject());
+                                                distance = distance.setScale(1,2);
+                                                textViewCustomMarker.setText(distance + "米");
+                                                newMarker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                        .anchor(0.5f,0.6f)
+                                                        .icon(BitmapDescriptorFactory.fromView(view))
+                                                        .title("点击删除").snippet(distance + "米"));
+                                                newMarker.setObject(distance);
+                                            }else {
+                                                View view = View.inflate(context, R.layout.custom_marker, null);
+                                                TextView textViewCustomMarker1 = view.findViewById(R.id.tv_custom_marker);
+                                                newMarker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                        .anchor(0.5f,0.6f)
+                                                        .icon(BitmapDescriptorFactory.fromView(view))
+                                                        .title("点击删除").snippet("起点"));
+                                                newMarker.setObject(new BigDecimal(0));
+                                            }
+                                            newMarker.showInfoWindow();
+                                            markers.add(newMarker);
+                                            latLngs.add(latLng);
+                                            polyline.setPoints(latLngs);
+                                        }
+                                        return true;
+                                    }
+                                });
 
                                 Button btn_rollback = new DefaultButton(context).getDefaultButton();
-                                btn_rollback.setText("回退 ");
+                                btn_rollback.setText("回退");
                                 linearLayout.addView(btn_rollback);
                                 btn_rollback.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -129,6 +191,8 @@ public class SimplePopupTools {
                                             markers.remove(latLngs.size() - 1);
                                             latLngs.remove(latLngs.size() - 1);
                                             polyline.setPoints(latLngs);
+                                            if (markers.size()>0)
+                                                markers.get(markers.size()-1).showInfoWindow();
                                         }
                                     }
                                 });
@@ -182,12 +246,22 @@ public class SimplePopupTools {
                                         double area = AMapUtils.calculateArea(latLngs);
                                         BigDecimal polygonArea = new BigDecimal(area);
                                         polygonArea = polygonArea.setScale(1,2);
-                                        marker = aMap.addMarker(new MarkerOptions().position(latLng).title("点击删除").snippet(polygonArea + "平方米"));
+                                        View view = View.inflate(context, R.layout.custom_marker, null);
+                                        TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                        textViewCustomMarker.setText(polygonArea + "平方米");
+                                        marker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                .anchor(0.5f,0.6f)
+                                                .icon(BitmapDescriptorFactory.fromView(view))
+                                                .title("点击删除").snippet(polygonArea + "平方米"));
                                         marker.showInfoWindow();
                                         marker.setObject(area);
                                         for (int i = 0; i < markers.size(); i++) {
+                                            View view1 = View.inflate(context, R.layout.custom_marker, null);
+                                            TextView textViewCustomMarker1 = view.findViewById(R.id.tv_custom_marker);
+                                            textViewCustomMarker.setText(polygonArea + "平方米");
                                             markers.get(i).setObject(area);
                                             markers.get(i).setSnippet(polygonArea + "平方米");
+                                            markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view1));
                                         }
                                         markers.add(marker);
                                         polygonDraw.setPoints(latLngs);
@@ -198,17 +272,61 @@ public class SimplePopupTools {
                                 aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
                                     @Override
                                     public void onInfoWindowClick(Marker marker) {
-                                        markers.remove(marker);
-                                        latLngs.remove(marker.getPosition());
-                                        marker.destroy();
-                                        double area = AMapUtils.calculateArea(latLngs);
-                                        BigDecimal polygonArea = new BigDecimal(area);
-                                        polygonArea = polygonArea.setScale(1,2);
-                                        for (int i = 0; i < markers.size(); i++) {
-                                            markers.get(i).setObject(area);
-                                            markers.get(i).setSnippet(polygonArea + "平方米");
+                                        if (markers.contains(marker)) {
+                                            markers.remove(marker);
+                                            latLngs.remove(marker.getPosition());
+                                            marker.destroy();
+                                            double area = AMapUtils.calculateArea(latLngs);
+                                            BigDecimal polygonArea = new BigDecimal(area);
+                                            polygonArea = polygonArea.setScale(1, 2);
+                                            for (int i = 0; i < markers.size(); i++) {
+                                                markers.get(i).setObject(area);
+                                                markers.get(i).setSnippet(polygonArea + "平方米");
+                                                View view = View.inflate(context, R.layout.custom_marker, null);
+                                                TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                                textViewCustomMarker.setText(polygonArea + "平方米");
+                                                markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view));
+                                            }
+                                            polygonDraw.setPoints(latLngs);
                                         }
-                                        polygonDraw.setPoints(latLngs);
+                                    }
+                                });
+
+                                aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        if (markers.contains(marker)){
+                                            marker.showInfoWindow();
+                                        }
+                                        else {
+                                            Marker newMarker;
+                                            LatLng latLng = marker.getPosition();
+                                            latLngs.add(latLng);
+                                            double area = AMapUtils.calculateArea(latLngs);
+                                            BigDecimal polygonArea = new BigDecimal(area);
+                                            polygonArea = polygonArea.setScale(1,2);
+                                            View view = View.inflate(context, R.layout.custom_marker, null);
+                                            TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
+                                            textViewCustomMarker.setText(polygonArea + "平方米");
+                                            newMarker = aMap.addMarker(new MarkerOptions().position(latLng)
+                                                    .anchor(0.5f,0.6f)
+                                                    .icon(BitmapDescriptorFactory.fromView(view))
+                                                    .title("点击删除").snippet(polygonArea + "平方米"));
+                                            newMarker.showInfoWindow();
+                                            newMarker.setObject(area);
+                                            for (int i = 0; i < markers.size(); i++) {
+                                                View view1 = View.inflate(context, R.layout.custom_marker, null);
+                                                TextView textViewCustomMarker1 = view.findViewById(R.id.tv_custom_marker);
+                                                textViewCustomMarker1.setText(polygonArea + "平方米");
+                                                markers.get(i).setObject(area);
+                                                markers.get(i).setSnippet(polygonArea + "平方米");
+                                                markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view1));
+                                            }
+                                            markers.add(newMarker);
+                                            polygonDraw.setPoints(latLngs);
+                                            polygonDraw.setVisible(true);
+                                        }
+                                        return true;
                                     }
                                 });
 
@@ -227,9 +345,15 @@ public class SimplePopupTools {
                                             BigDecimal polygonArea = new BigDecimal(area);
                                             polygonArea = polygonArea.setScale(1,2);
                                             for (int i = 0; i < markers.size(); i++) {
+                                                View view = View.inflate(context, R.layout.custom_marker, null);
+                                                TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
                                                 markers.get(i).setObject(area);
                                                 markers.get(i).setSnippet(polygonArea + "平方米");
+                                                textViewCustomMarker.setText(polygonArea + "平方米");
+                                                markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view));
                                             }
+                                            if (markers.size()>0)
+                                            markers.get(markers.size()-1).showInfoWindow();
                                         }
                                     }
                                 });

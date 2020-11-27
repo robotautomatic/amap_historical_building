@@ -135,7 +135,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.picture_icon_no_data)
                 .error(R.drawable.picture_icon_data_error)
-/*                .thumbnail(thumbnailRequest)*/
+                .thumbnail(thumbnailRequest)
 
                 .listener(new RequestListener<Drawable>() {
                     @Override
