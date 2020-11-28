@@ -97,7 +97,6 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
 
     @Override
     public void onBindViewHolder(@NonNull PreviewRecycleAdapter.ViewHolder holder, int position) {
-        holder.llDelete.setVisibility(View.INVISIBLE);
         holder.progressLoadingDraw.setVisibility(View.VISIBLE);
 
         RequestBuilder<Drawable> thumbnailRequest = Glide
@@ -187,6 +186,7 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
                 }
             });
             llDelete = itemView.findViewById(R.id.ll_delete);
+            llDelete.setVisibility(View.GONE);
             progressLoadingDraw = itemView.findViewById(R.id.progress_loading_draw);
             progressLoadingDraw.setVisibility(View.GONE);
         }

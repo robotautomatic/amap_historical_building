@@ -257,8 +257,8 @@ public class SimplePopupTools {
                                         marker.setObject(area);
                                         for (int i = 0; i < markers.size(); i++) {
                                             View view1 = View.inflate(context, R.layout.custom_marker, null);
-                                            TextView textViewCustomMarker1 = view.findViewById(R.id.tv_custom_marker);
-                                            textViewCustomMarker.setText(polygonArea + "平方米");
+                                            TextView textViewCustomMarker1 = view1.findViewById(R.id.tv_custom_marker);
+                                            textViewCustomMarker1.setText(polygonArea + "平方米");
                                             markers.get(i).setObject(area);
                                             markers.get(i).setSnippet(polygonArea + "平方米");
                                             markers.get(i).setIcon(BitmapDescriptorFactory.fromView(view1));
@@ -316,7 +316,7 @@ public class SimplePopupTools {
                                             newMarker.setObject(area);
                                             for (int i = 0; i < markers.size(); i++) {
                                                 View view1 = View.inflate(context, R.layout.custom_marker, null);
-                                                TextView textViewCustomMarker1 = view.findViewById(R.id.tv_custom_marker);
+                                                TextView textViewCustomMarker1 = view1.findViewById(R.id.tv_custom_marker);
                                                 textViewCustomMarker1.setText(polygonArea + "平方米");
                                                 markers.get(i).setObject(area);
                                                 markers.get(i).setSnippet(polygonArea + "平方米");
