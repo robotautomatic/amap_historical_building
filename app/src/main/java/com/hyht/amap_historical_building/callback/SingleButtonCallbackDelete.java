@@ -44,9 +44,9 @@ public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCa
                         String basicUrl = Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId();
                         deleteNetwork(basicUrl);
                         String drawUrl = Constant.TD_DELETE + "?basicId=" + tBasic.getBasicId();
-                        deleteNetwork(basicUrl);
+                        deleteNetwork(drawUrl);
                         String imageUrl = Constant.TI_DELETE + "?basicId=" + tBasic.getBasicId();
-                        deleteNetwork(basicUrl);
+                        deleteNetwork(imageUrl);
                     }
                 })
                 .negativeText("取消")

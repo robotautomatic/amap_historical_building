@@ -180,7 +180,6 @@ public class DialogOverlayDetail {
 
             @Override
             public void onSuccess(List<TDraw> response) {
-                System.out.println("td rrrr = "+ response);
                 for (TDraw tDraw : response
                      ) {
                    drawUriList.add(Uri.parse(Constant.BASE_URL + tDraw.getDrawPath()));
@@ -213,7 +212,6 @@ public class DialogOverlayDetail {
                 ) {
                     imageUriList.add(Uri.parse(Constant.BASE_URL + tImage.getImagePath()));
                 }
-                System.out.println("iiiiii"+imageUriList);
                 RecyclerView imageRecyclerView = materialDialog.getCustomView().findViewById(R.id.rv_image);
                 LinearLayoutManager imageLinearLayoutManager = new LinearLayoutManager(context);
                 imageLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

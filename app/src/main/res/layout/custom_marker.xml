@@ -14,8 +14,8 @@
               android:maxEms="5"
               android:gravity="center"
               android:textSize="10dp"
-              android:maxLines="2"
+              android:maxLines="1"
               android:ellipsize="end"
-              android:text="一二三四五六七八九十是撒多"/>
+              android:text=""/>
 
 </LinearLayout>

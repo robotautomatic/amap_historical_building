@@ -35,15 +35,12 @@ public class SingleButtonCallBackShowOverlayOnMap implements MaterialDialog.Sing
 
         }else {
             List<Marker> markers =  aMap.getMapScreenMarkers();
-            System.out.println(markers.size());
             Marker marker = new EntityToOverlay(aMap, tBasic,context).transform();
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(marker.getPosition());
             aMap.animateCamera(cameraUpdate);
             aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
             marker.showInfoWindow();
             for (Marker marker1 : markers) {
-                System.out.println(marker.getPosition());
-                System.out.println(marker1.getPosition());
                 if (marker.getPosition().equals(marker1.getPosition())){
                     if (marker1.getObject() instanceof PolygonBasic){
                         ((PolygonBasic) marker1.getObject()).getPolygon().remove();

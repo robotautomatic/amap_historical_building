@@ -85,7 +85,6 @@ public class VolleyUtils {
                 for(final JsonElement elem : array){
                     newsList_new.add(new Gson().fromJson(elem, clazz));
                 }
-                System.out.println("gson.fromJson(response, clazz) ======= "+newsList_new);
                 listener.onSuccess(newsList_new);
             }
         }, new Response.ErrorListener() {
@@ -113,10 +112,8 @@ public class VolleyUtils {
             public void onResponse(String response) {
                 Log.e("onResponse", "response-->" + response);
 
-                System.out.println("sys response = "+response);
                 Gson gson = new Gson();
                 List<Object> newsList_new = gson.fromJson(response, new TypeToken<List<Object>>() {}.getType());
-                System.out.println("gson.fromJson(response, clazz) = "+newsList_new);
                 listener.onSuccess(gson.fromJson(response, clazz));
             }
         }, new Response.ErrorListener() {

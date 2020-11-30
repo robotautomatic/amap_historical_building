@@ -429,7 +429,6 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
                 FileInputStream fis = null;
                 String picture = "";
 
-                System.out.println("ddddme"        + drawMediaList.size());
                 if (drawMediaList.size() > 0) {
                     for (LocalMedia drawMedia : drawMediaList
                     ) {

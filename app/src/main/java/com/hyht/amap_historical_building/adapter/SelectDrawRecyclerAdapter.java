@@ -48,7 +48,6 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
             holder.ivSelectPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("position=="+position);
                     PictureSelector.create((Activity) context)
                             .openGallery(PictureMimeType.ofImage())
                             .imageEngine(GlideEngine.createGlideEngine())
@@ -60,9 +59,6 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
                                     // 结果回调
                                     localMediaList.clear();
                                     localMediaList.addAll(result);
-                                    System.out.println("result=="+result);
-                                    System.out.println("localMediaList=="+localMediaList);
-                                    System.out.println(localMediaList.toString());
                                     notifyDataSetChanged();
                                 }
 
@@ -79,7 +75,6 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
             holder.ivSelectPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("position=="+position);
                     PictureSelector.create((Activity) context).openGallery(PictureMimeType.ofImage()).openExternalPreview(position - 1, localMediaList);
                 }
             });

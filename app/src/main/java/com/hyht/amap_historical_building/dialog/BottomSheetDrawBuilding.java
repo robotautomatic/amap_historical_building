@@ -62,7 +62,6 @@ public class BottomSheetDrawBuilding {
                                     @Override
                                     public void onMapClick(LatLng latLng) {
                                         marker.setPosition(latLng);
-                                        System.out.println(marker.getId());
                                     }
                                 };
                                 aMap.setOnMapClickListener(mapClickListener_point);

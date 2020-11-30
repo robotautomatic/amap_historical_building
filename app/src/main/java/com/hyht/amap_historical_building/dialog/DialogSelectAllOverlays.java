@@ -75,7 +75,6 @@ public class DialogSelectAllOverlays {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("errorerrorerror = " + error);
                 XToast.normal(context, "错误，无法获取信息" + error.getMessage()).show();
             }
         });
