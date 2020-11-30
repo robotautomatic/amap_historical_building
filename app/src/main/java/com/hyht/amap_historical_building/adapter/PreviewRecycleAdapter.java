@@ -110,7 +110,6 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        XToast.normal(context,"原图加载中").show();
                         return false;
                     }
                 });
@@ -118,7 +117,6 @@ public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAd
         ProgressManager.getInstance().addResponseListener(uriList.get(position).toString(), new ProgressListener() {
             @Override
             public void onProgress(ProgressInfo progressInfo) {
-//Todo 加上图片加载的进度显示
                 holder.progressLoadingDraw.setProgress(progressInfo.getPercent());
             }
 

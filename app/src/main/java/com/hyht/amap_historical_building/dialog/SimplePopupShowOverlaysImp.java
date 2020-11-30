@@ -58,7 +58,7 @@ public class SimplePopupShowOverlaysImp {
 
             @Override
             public void onError(VolleyError error) {
-                XToast.normal(context, "错误，无法获取建筑物信息" + error);
+                XToast.normal(context, "错误，无法获取建筑物信息" + error).show();
             }
         });
     }

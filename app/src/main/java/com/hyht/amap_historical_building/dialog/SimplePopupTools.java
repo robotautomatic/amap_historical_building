@@ -217,8 +217,16 @@ public class SimplePopupTools {
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        aMap.clear(true);
+                                        /*aMap.clear(true);*/
                                         aMap.removeOnMapClickListener(mapClickListener_distance);
+                                        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker) {
+                                                marker.showInfoWindow();
+                                                return false;
+                                            }
+                                        });
+                                        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
                                         linearLayout.removeView(btn_exit);
                                         linearLayout.removeView(btn_clear);
                                         linearLayout.removeView(btn_rollback);
@@ -378,8 +386,16 @@ public class SimplePopupTools {
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        aMap.clear(true);
+                                        /*aMap.clear(true);*/
                                         aMap.removeOnMapClickListener(mapClickListener_distance);
+                                        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker) {
+                                                marker.showInfoWindow();
+                                                return false;
+                                            }
+                                        });
+                                        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
                                         linearLayout.removeView(btn_exit);
                                         linearLayout.removeView(btn_clear);
                                         linearLayout.removeView(btn_rollback);
@@ -560,8 +576,16 @@ public class SimplePopupTools {
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        aMap.clear(true);
+                                        /*aMap.clear(true);*/
                                         aMap.removeOnMapClickListener(areaMapClickListener);
+                                        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker) {
+                                                marker.showInfoWindow();
+                                                return false;
+                                            }
+                                        });
+                                        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
                                         while (linearLayout.getChildCount() > 6) {
                                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                                         }

@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });//绑定监听器
         search.searchDistrictAnsy();//开始搜索
+        new SimplePopupShowOverlaysImp(this, aMap, 0);
     }
 
 
@@ -245,14 +246,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void selectAllOverlays() {
-        aMap.clear(true);
+/*        aMap.clear(true);
         aMap.setOnMarkerClickListener(null);
         aMap.setOnInfoWindowClickListener(null);
         aMap.setOnMapClickListener(null);
         LinearLayout linearLayout = findViewById(R.id.linear_bt);
         while (linearLayout.getChildCount() > 6) {
             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
-        }
+        }*/
         new DialogSelectAllOverlays(MainActivity.this, aMap);
     }
 
