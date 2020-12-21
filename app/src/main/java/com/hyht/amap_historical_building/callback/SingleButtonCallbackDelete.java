@@ -13,6 +13,7 @@ import com.hyht.amap_historical_building.Constant;
 import com.hyht.amap_historical_building.MainActivity;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
+import com.hyht.amap_historical_building.dialog.SimplePopupShowOverlaysImp;
 import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.utils.VolleyUtils;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
@@ -61,10 +62,12 @@ public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCa
     }
     private void deleteNetwork(String url){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest request_Delete = new StringRequest(StringRequest.Method.DELETE, Constant.TB_DELETE + "?basicId=" + tBasic.getBasicId(), new Response.Listener<String>() {
+        StringRequest request_Delete = new StringRequest(StringRequest.Method.DELETE, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("delete success", "删除成功---->" + response);
+                aMap.clear(true);
+                new SimplePopupShowOverlaysImp(context, aMap, 0);
             }
         }, new Response.ErrorListener() {
             @Override

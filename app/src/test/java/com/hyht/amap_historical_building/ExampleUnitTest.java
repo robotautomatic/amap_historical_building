@@ -1,5 +1,6 @@
 package com.hyht.amap_historical_building;
 
+import com.hyht.amap_historical_building.utils.*;
 import okhttp3.internal.Util;
 import org.junit.Test;
 
@@ -14,11 +15,61 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
+    public void GaussToBl() {
+        double x = 3229318.104;
+        double y = 501388.440;
+        Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
+
+        System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL(x, y-500000)));
+    }
+
+
+    @Test
+    public void testCoordinate() {
+        double x = 3231564.918;
+        double y = 505843.495;
+        Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
+
+        System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL(x, y)));
+
+        System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL2(x, y)));
+        System.out.println("GaussToBL = " + Arrays.toString(GaussXYDeal.GaussToBL(x, y)));
+        GaussXYDeal.GaussToBLToGauss(29.131235288, 120.001882597);
+        Conversion conversion = new Conversion();
+
+        System.out.println(conversion.UTMXYToLatLon(y, -x));
+        System.out.println(conversion.UTMXYToLatLon(-y, x));
+        System.out.println(conversion.UTMXYToLatLon(-x, y));
+        System.out.println(conversion.UTMXYToLatLon(x, -y));
+        System.out.println(conversion.MapXYToLatLon(y, x,0));
+        System.out.println(conversion.MapXYToLatLon(x, y,120.00));
+
+        double[] doubles = new double[2];
+        GeoConvert.MapXYToLatLon(x,y,119,doubles);
+        System.out.println("ddddd = " + Arrays.toString(doubles));
+
+        double[] doubles2 = new double[2];
+        GeoConvert.UTMXYToLatLon(x,y,119,false,doubles2);
+        System.out.println("2222 = " + Arrays.toString(doubles));
+        System.out.println(conversion.UTMXYToLatLon(x, y));
+        System.out.println(conversion.UTMXYToLatLon(y, x, 119,false));
+        System.out.println("GaussToBL = " + Arrays.toString(GaussXYDeal.GaussToBL(y, x)));
+    }
+    @Test
+    public void testCoordinate2(){
+        double x = 29.27621459140641;
+        double y = 120.04554543168692;GaussXYDeal.GaussToBLToGauss(x,y);
+        Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
+        System.out.println("BLToGauss = " + Arrays.toString(wgs84CoordinateConverter.BLToGauss(x,y)));
+    }
+    @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-        String a =";q;w;;e;";
-        String b = "ase";
-        System.out.println(Arrays.toString(a.split(";")));
+
+        List<Integer> a = new ArrayList();
+        a.add(1);
+        a.add(2);
+        String b="123";
+        System.out.println(Integer.parseInt(b)+1);
     }
     @Test
     public void slowestKey() {

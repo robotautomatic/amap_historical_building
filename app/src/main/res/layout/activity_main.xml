@@ -36,8 +36,6 @@
                   android:gravity="right"
                   android:orientation="vertical">
 
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                   android:id="@+id/imageeeee"/>
         <com.xuexiang.xui.widget.textview.supertextview.SuperButton
                 style="@style/SuperButton.Blue"
                 android:text=""
@@ -92,7 +90,7 @@
                 android:elevation="3dp"
                 android:paddingVertical="5dp"
                 android:id="@+id/btn_overlay"
-                android:drawableBottom="@drawable/ic_show_overlay"
+                android:drawableBottom="@drawable/ic_build"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="8dp"

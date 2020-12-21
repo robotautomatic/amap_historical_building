@@ -24,7 +24,7 @@ public class SimplePopupShowOverlays {
 
     private void GenerateSimplePopupShow(Context context, AMap aMap) {
         mListPopup = new XUISimplePopup(context, new String[]{
-                "全部显示", "建筑点", "建筑范围", "取消显示",})
+                "全部显示", "点状建筑", "建筑范围", "取消显示",})
                 .create(DensityUtils.dp2px(getContext(), 170), new XUISimplePopup.OnPopupItemClickListener() {
                     @Override
                     public void onItemClick(XUISimpleAdapter adapter, AdapterItem item, int position) {

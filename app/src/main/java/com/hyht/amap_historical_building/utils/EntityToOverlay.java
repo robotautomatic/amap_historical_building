@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CoordinateConverter;
 import com.amap.api.maps.model.*;
 import com.hyht.amap_historical_building.MainActivity;
 import com.hyht.amap_historical_building.R;
@@ -25,6 +26,19 @@ public class EntityToOverlay {
 
     public Marker transform(){
         List<LatLng> latLngList = new GetCoordinateUtil().getGeoPointList(tBasic);
+/*        if (latLngList!=null || tBasic.getPositionCoordinates().split("/")[0].split(",").length == 11){
+            CoordinateConverter converter  = new CoordinateConverter(context);
+// CoordType.GPS 待转换坐标类型
+            converter.from(CoordinateConverter.CoordType.GPS);
+// sourceLatLng待转换坐标点 LatLng类型
+            for (int i = 0; i < latLngList.size(); i++) {
+                System.out.println("1111111111     "+latLngList.get(i));
+                converter.coord(latLngList.get(i));
+                System.out.println(converter.convert());
+                latLngList.set(i,converter.convert());
+                System.out.println("2222222222     "+latLngList.get(i));
+            }
+        }*/
         Marker marker;
         View view = View.inflate(context, R.layout.custom_marker, null);
         TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);
@@ -33,7 +47,7 @@ public class EntityToOverlay {
             marker = aMap.addMarker(new MarkerOptions().position(latLngList.get(0))
                     .title("建筑名称：" + tBasic.getBuildingName())
                     .snippet("建筑编号：" + tBasic.getBuildingNumber())
-                    .anchor(0.5f,0.6f)
+                    .anchor(0.5f,0.7f)
                     .icon(BitmapDescriptorFactory.fromView(view)));
             marker.setObject(tBasic);
             return marker;
@@ -58,7 +72,7 @@ public class EntityToOverlay {
             marker = aMap.addMarker(new MarkerOptions().position(centerPoint)
                     .title("建筑名称：" + tBasic.getBuildingName())
                     .snippet("建筑编号：" + tBasic.getBuildingNumber())
-                    .anchor(0.5f,0.6f)
+                    .anchor(0.5f,0.7f)
                     .icon(BitmapDescriptorFactory.fromView(view)));
             PolygonBasic polygonBasic = new PolygonBasic();
             polygonBasic.setPolygon(polygon);

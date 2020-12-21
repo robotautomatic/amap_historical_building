@@ -205,12 +205,13 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                                     checkbox_value_elements_2_et.setText(s.substring(5));
                                 }
                                 break;
-                                case "特色材料": {
+                                case "特色材料装饰和部位": {
                                     checkBox = view.findViewById(R.id.checkbox_value_elements_4);
                                     checkBox.setChecked(true);
                                     EditText checkbox_value_elements_4_et = view.findViewById(R.id.checkbox_value_elements_4_et);
-                                    checkbox_value_elements_4_et.setText(s.substring(5));
+                                    checkbox_value_elements_4_et.setText(s.substring(10));
                                 }
+                                break;
                                 case "历史环境": {
                                     checkBox = view.findViewById(R.id.checkbox_value_elements_5);
                                     checkBox.setChecked(true);
@@ -229,7 +230,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
             String[] getStatusFunction = tBasic.getStatusFunction().split(";");
             for (String s : getStatusFunction) {
 
-                switch (tBasic.getStatusFunction()) {
+                switch (s) {
                     case "居住": {
                         checkBox = view.findViewById(R.id.checkbox_status_function_1);
                         checkBox.setChecked(true);
@@ -332,7 +333,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
         }
 
         EditText edit_building_floors = view.findViewById(R.id.edit_building_floors);
-        edit_building_floors.setText(tBasic.getHistoricalEvolution());
+        edit_building_floors.setText(tBasic.getBuildingFloors());
 
         EditText edit_building_area = view.findViewById(R.id.edit_building_area);
         edit_building_area.setText(tBasic.getBuildingArea());

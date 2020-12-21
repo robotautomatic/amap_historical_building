@@ -8,12 +8,14 @@ import android.widget.LinearLayout;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.*;
 import com.hyht.amap_historical_building.R;
+import com.hyht.amap_historical_building.listener.OnInFoWindowClickListenerShowDetail;
 import com.hyht.amap_historical_building.utils.DefaultButton;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheetItemView;
 import com.xuexiang.xui.widget.toast.XToast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.xuexiang.xui.XUI.getContext;
@@ -29,6 +31,8 @@ public class BottomSheetDrawBuilding {
     }
     private void GenerateBottomSheet(Context context, AMap aMap){
         builder = new BottomSheet.BottomGridSheetBuilder(context);
+        View view = View.inflate(context, R.layout.custom_marker, null);
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromView(view);
         builder
                 .addItem(R.drawable.draw_point, "绘制建筑点", 0, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
                 .addItem(R.drawable.draw_polygon, "绘制建筑范围", 1, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
@@ -41,7 +45,7 @@ public class BottomSheetDrawBuilding {
                         dialog.dismiss();
                         int tag = (int) itemView.getTag();
 
-                        aMap.clear();
+                        /*aMap.clear();*/
                         aMap.setOnMarkerClickListener(null);
                         aMap.setOnInfoWindowClickListener(null);
 
@@ -56,7 +60,11 @@ public class BottomSheetDrawBuilding {
                         DialogSaveOverlay dialogSaveOverlay;
                         switch (tag) {
                             case 0: {
-                                Marker marker = aMap.addMarker(new MarkerOptions().position(null).title(null).snippet(null));
+                                aMap.clear(true);
+                                new SimplePopupShowOverlaysImp(context, aMap, 0);
+                                Marker marker = aMap.addMarker(new MarkerOptions().position(null)
+                                        .anchor(0.5f,0.7f)
+                                        .icon(bitmapDescriptor));
                                 marker.setDraggable(true);
                                 AMap.OnMapClickListener mapClickListener_point = new AMap.OnMapClickListener() {
                                     @Override
@@ -82,8 +90,18 @@ public class BottomSheetDrawBuilding {
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        aMap.clear(true);
+                                        /*aMap.clear(true);*/
                                         aMap.removeOnMapClickListener(mapClickListener_point);
+                                        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker) {
+                                                marker.showInfoWindow();
+                                                return false;
+                                            }
+                                        });
+                                        aMap.clear(true);
+                                        new SimplePopupShowOverlaysImp(context, aMap, 0);
+                                        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
                                         linearLayout.removeView(btn_save);
                                         linearLayout.removeView(btn_exit);
                                     }
@@ -91,6 +109,8 @@ public class BottomSheetDrawBuilding {
                             }
                             break;
                             case 1: {
+                                aMap.clear(true);
+                                new SimplePopupShowOverlaysImp(context, aMap, 0);
                                 PolygonOptions polygonOptions = new PolygonOptions();
                                 polygonOptions.strokeWidth(5) // 多边形的边框
                                         .strokeColor(0xAA000000) // 边框颜色
@@ -101,7 +121,9 @@ public class BottomSheetDrawBuilding {
                                 AMap.OnMapClickListener mapClickListener_point = new AMap.OnMapClickListener() {
                                     @Override
                                     public void onMapClick(LatLng latLng) {
-                                        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("删除").snippet(null));
+                                        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("删除")
+                                                .anchor(0.5f,0.7f)
+                                                .icon(bitmapDescriptor).snippet(null));
                                         markers.add(marker);
                                         latLngs.add(latLng);
                                         polygonDraw.setPoints(latLngs);
@@ -168,8 +190,21 @@ public class BottomSheetDrawBuilding {
                                 btn_exit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        aMap.clear(true);
+                                        /*aMap.clear(true);*/
                                         aMap.removeOnMapClickListener(mapClickListener_point);
+
+                                        aMap.removeOnMapClickListener(mapClickListener_point);
+                                        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker) {
+                                                marker.showInfoWindow();
+                                                return false;
+                                            }
+                                        });
+                                        aMap.clear(true);
+                                        new SimplePopupShowOverlaysImp(context, aMap, 0);
+                                        aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
+                                        linearLayout.removeView(btn_save);
                                         linearLayout.removeView(btn_save);
                                         linearLayout.removeView(btn_exit);
                                         linearLayout.removeView(btn_clear);

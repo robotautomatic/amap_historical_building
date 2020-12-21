@@ -16,13 +16,10 @@ import com.bin.david.form.data.table.TableData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hyht.amap_historical_building.Constant;
-import com.hyht.amap_historical_building.EntService;
-import com.hyht.amap_historical_building.MainActivity;
 import com.hyht.amap_historical_building.R;
 import com.hyht.amap_historical_building.dialog.DialogSelectAllOverlays;
 import com.hyht.amap_historical_building.entity.TBasic;
 import com.hyht.amap_historical_building.listener.OnColumnItemClickListener;
-import com.hyht.amap_historical_building.utils.VolleyUtils;
 import com.xuexiang.xui.widget.dialog.DialogLoader;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
@@ -32,8 +29,6 @@ import com.xuexiang.xui.widget.toast.XToast;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
-import static com.xuexiang.xui.XUI.getContext;
 
 public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleButtonCallback {
     Context context;

@@ -2,13 +2,9 @@ package com.hyht.amap_historical_building;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
-import android.widget.*;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
@@ -23,39 +19,18 @@ import com.amap.api.services.district.DistrictItem;
 import com.amap.api.services.district.DistrictResult;
 import com.amap.api.services.district.DistrictSearch;
 import com.amap.api.services.district.DistrictSearchQuery;
-import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.data.column.Column;
-import com.bin.david.form.data.table.TableData;
-import com.hyht.amap_historical_building.callback.SingleButtonCallBackDialogSearch;
 import com.hyht.amap_historical_building.dialog.*;
-import com.hyht.amap_historical_building.entity.PolygonBasic;
-import com.hyht.amap_historical_building.entity.TBasic;
-import com.hyht.amap_historical_building.listener.OnColumnItemClickListener;
-import com.hyht.amap_historical_building.listener.OnInFoWindowClickListenerShowDetail;
-import com.hyht.amap_historical_building.utils.DefaultButton;
-import com.hyht.amap_historical_building.utils.EntityToOverlay;
-import com.hyht.amap_historical_building.utils.GetCoordinateUtil;
-import com.hyht.amap_historical_building.utils.VolleyUtils;
 import com.luck.picture.lib.tools.ValueOf;
 import com.xuexiang.xui.adapter.simple.AdapterItem;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
 import com.xuexiang.xui.utils.DensityUtils;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
-import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
-import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheetItemView;
-import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
-import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
 import com.xuexiang.xui.widget.textview.supertextview.SuperButton;
-import com.xuexiang.xui.widget.toast.XToast;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static com.xuexiang.xui.XUI.getContext;
-import static java.util.stream.Collectors.toList;
 
 public class MainActivity extends AppCompatActivity {
 

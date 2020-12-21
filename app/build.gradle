@@ -8,7 +8,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 2
-        versionName "1.0.2"
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -89,7 +89,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     //表格
-    implementation 'com.github.huangyanbin:SmartTable:2.2.0'
+    //implementation 'com.github.huangyanbin:SmartTable:2.2.0'
     //选择图片
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
     //lombok

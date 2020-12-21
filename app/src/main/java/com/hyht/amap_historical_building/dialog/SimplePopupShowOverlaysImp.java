@@ -43,13 +43,15 @@ public class SimplePopupShowOverlaysImp {
                 for (TBasic tBasic : basicList
                 ) {
                     List<LatLng> latLngList = new GetCoordinateUtil().getGeoPointList(tBasic);
-                    if(latLngList.size() == 1 && (categories == 0 || categories == 1)){
-                        entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
-                        entityToOverlay.transform();
-                    }
-                    if ((latLngList.size()>1) && (categories == 0 || categories == 2)){
-                        entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
-                        entityToOverlay.transform();
+                    if (latLngList != null) {
+                        if (latLngList.size() == 1 && (categories == 0 || categories == 1)) {
+                            entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
+                            entityToOverlay.transform();
+                        }
+                        if ((latLngList.size() > 1) && (categories == 0 || categories == 2)) {
+                            entityToOverlay = new EntityToOverlay(aMap, tBasic, context);
+                            entityToOverlay.transform();
+                        }
                     }
                 }
 

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
@@ -30,9 +31,9 @@ public class SingleButtonCallBackShowOverlayOnMap implements MaterialDialog.Sing
     @Override
     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
         dialog.dismiss();
-        if (tBasic.getPositionCoordinates() == null || tBasic.getPositionCoordinates().isEmpty() || tBasic.getPositionCoordinates().length() <35){
+        String positionCoordinates = tBasic.getPositionCoordinates();
+        if (positionCoordinates == null || positionCoordinates.isEmpty() || positionCoordinates.length() <20){
             XToast.normal(context,"没有坐标数据").show();
-
         }else {
             List<Marker> markers =  aMap.getMapScreenMarkers();
             Marker marker = new EntityToOverlay(aMap, tBasic,context).transform();
