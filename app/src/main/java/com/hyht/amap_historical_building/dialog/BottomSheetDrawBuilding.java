@@ -53,7 +53,7 @@ public class BottomSheetDrawBuilding {
                         btn_save.setText("保存");
                         Button btn_exit = new DefaultButton(context).getDefaultButton();
                         btn_exit.setText("退出");
-
+                        System.out.println(linearLayout.getChildCount());
                         while (linearLayout.getChildCount() > 6) {
                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                         }

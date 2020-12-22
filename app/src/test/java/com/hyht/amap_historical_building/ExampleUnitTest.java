@@ -21,47 +21,17 @@ public class ExampleUnitTest {
         Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
 
         System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL(x, y-500000)));
+
+        System.out.println(PositionUtil.gps84_To_Gcj02(29.180884082634584, 120.01427426098363));
+        System.out.println(PositionUtil.gps84_To_Gcj02(29.180870506137452, 120.01427425238207));
+        //29.178128210,120.01876284/
+
+        //[29.18088408179141, 120.01427426098357] [29.180884082634584, 120.01427426098363]
+        //(29.17817449193069,120.0189040039506)
+        //(29.178174492774506,120.01890400395071)
+        //(29.178160905890778,120.01890399422963)
     }
 
-
-    @Test
-    public void testCoordinate() {
-        double x = 3231564.918;
-        double y = 505843.495;
-        Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
-
-        System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL(x, y)));
-
-        System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL2(x, y)));
-        System.out.println("GaussToBL = " + Arrays.toString(GaussXYDeal.GaussToBL(x, y)));
-        GaussXYDeal.GaussToBLToGauss(29.131235288, 120.001882597);
-        Conversion conversion = new Conversion();
-
-        System.out.println(conversion.UTMXYToLatLon(y, -x));
-        System.out.println(conversion.UTMXYToLatLon(-y, x));
-        System.out.println(conversion.UTMXYToLatLon(-x, y));
-        System.out.println(conversion.UTMXYToLatLon(x, -y));
-        System.out.println(conversion.MapXYToLatLon(y, x,0));
-        System.out.println(conversion.MapXYToLatLon(x, y,120.00));
-
-        double[] doubles = new double[2];
-        GeoConvert.MapXYToLatLon(x,y,119,doubles);
-        System.out.println("ddddd = " + Arrays.toString(doubles));
-
-        double[] doubles2 = new double[2];
-        GeoConvert.UTMXYToLatLon(x,y,119,false,doubles2);
-        System.out.println("2222 = " + Arrays.toString(doubles));
-        System.out.println(conversion.UTMXYToLatLon(x, y));
-        System.out.println(conversion.UTMXYToLatLon(y, x, 119,false));
-        System.out.println("GaussToBL = " + Arrays.toString(GaussXYDeal.GaussToBL(y, x)));
-    }
-    @Test
-    public void testCoordinate2(){
-        double x = 29.27621459140641;
-        double y = 120.04554543168692;GaussXYDeal.GaussToBLToGauss(x,y);
-        Wgs84CoordinateConverter wgs84CoordinateConverter = new Wgs84CoordinateConverter();
-        System.out.println("BLToGauss = " + Arrays.toString(wgs84CoordinateConverter.BLToGauss(x,y)));
-    }
     @Test
     public void addition_isCorrect() {
 

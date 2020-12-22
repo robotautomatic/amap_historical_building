@@ -26,19 +26,6 @@ public class EntityToOverlay {
 
     public Marker transform(){
         List<LatLng> latLngList = new GetCoordinateUtil().getGeoPointList(tBasic);
-/*        if (latLngList!=null || tBasic.getPositionCoordinates().split("/")[0].split(",").length == 11){
-            CoordinateConverter converter  = new CoordinateConverter(context);
-// CoordType.GPS 待转换坐标类型
-            converter.from(CoordinateConverter.CoordType.GPS);
-// sourceLatLng待转换坐标点 LatLng类型
-            for (int i = 0; i < latLngList.size(); i++) {
-                System.out.println("1111111111     "+latLngList.get(i));
-                converter.coord(latLngList.get(i));
-                System.out.println(converter.convert());
-                latLngList.set(i,converter.convert());
-                System.out.println("2222222222     "+latLngList.get(i));
-            }
-        }*/
         Marker marker;
         View view = View.inflate(context, R.layout.custom_marker, null);
         TextView textViewCustomMarker = view.findViewById(R.id.tv_custom_marker);

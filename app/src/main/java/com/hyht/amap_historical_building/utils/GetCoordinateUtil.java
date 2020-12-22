@@ -24,9 +24,9 @@ public class GetCoordinateUtil {
             ) {
                 String[] pointAddition = s.split(",");
                 try {
-                    if (pointAddition[0].length() == 11){
+                    if (Double.valueOf(pointAddition[0]) > 1000){
                         double[] coordinate = wgs84CoordinateConverter.GaussToBL(Double.valueOf(pointAddition[0]), Double.valueOf(pointAddition[1])-500000);
-                        LatLng point = new LatLng(coordinate[0],coordinate[1]);
+                        LatLng point = PositionUtil.gps84_To_Gcj02(coordinate[0],coordinate[1]);
                         points.add(point);
                     }else {
                         LatLng point = new LatLng(Double.valueOf(pointAddition[0]), Double.valueOf(pointAddition[1]));

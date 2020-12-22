@@ -20,6 +20,7 @@ import com.amap.api.services.district.DistrictResult;
 import com.amap.api.services.district.DistrictSearch;
 import com.amap.api.services.district.DistrictSearchQuery;
 import com.hyht.amap_historical_building.dialog.*;
+import com.hyht.amap_historical_building.utils.Wgs84CoordinateConverter;
 import com.luck.picture.lib.tools.ValueOf;
 import com.xuexiang.xui.adapter.simple.AdapterItem;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
@@ -29,6 +30,7 @@ import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
 import com.xuexiang.xui.widget.textview.supertextview.SuperButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.xuexiang.xui.XUI.getContext;
 
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });//绑定监听器
         search.searchDistrictAnsy();//开始搜索
         new SimplePopupShowOverlaysImp(this, aMap, 0);
+
     }
 
 
