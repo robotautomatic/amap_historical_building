@@ -3,6 +3,9 @@ package com.hyht.amap_historical_building.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import androidx.annotation.NonNull;
 import com.amap.api.maps.AMap;
 import com.android.volley.RequestQueue;
@@ -12,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.column.Column;
+import com.bin.david.form.data.format.draw.MultiLineDrawFormat;
 import com.bin.david.form.data.table.TableData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +29,7 @@ import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 import com.xuexiang.xui.widget.toast.XToast;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogSelectAllOverlays {
@@ -48,43 +53,16 @@ public class DialogSelectAllOverlays {
                 final Gson gson = new Gson();
                 final List<TBasic> basicList = gson.fromJson(response, type);
 
-                View view = View.inflate(context,R.layout.dialog_select_overlay,null);
-                //普通列
-                //basicList.get(0).setBuildingNumber("11111111111111111111111111111111");
-/*                for (int i = 3; i < basicList.size(); i++) {
-                    basicList.remove(i);
-                }*/
-                Column<String> column1 = new Column<>("建筑名称", "buildingName");
-                Column<String> column2 = new Column<>("编号", "buildingNumber");
-                final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", basicList, column1, column2);
-                //设置数据
-                SmartTable table = view.findViewById(R.id.table);
-                table.getConfig().setShowXSequence(false).setShowYSequence(false);
-                //table.setZoom(true,3);是否缩放
-                table.setTableData(tableData);
-                table.setCanVerticalScroll(false);
-
-
-
 
                 MaterialDialog materialDialog = new MaterialDialog.Builder(context)
-                        .customView(view, true)
+                        .customView(R.layout.dialog_select_overlay, false)
                         .iconRes(R.drawable.ic_build)
                         .title("历史建筑列表")
                         .positiveText("确认")
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                System.out.println("d view w = "+dialog.getWindow().getAttributes().width);
-                                System.out.println("d view h = "+dialog.getWindow().getAttributes().height);
-                                System.out.println("root view w = "+dialog.getCustomView().findViewById(R.id.table).getRootView().getWidth());
-                                System.out.println("root view h = "+dialog.getCustomView().findViewById(R.id.table).getRootView().getHeight());
-                                System.out.println("view w = "+dialog.getCustomView().findViewById(R.id.table).getWidth());
-                                System.out.println("view h = "+dialog.getCustomView().findViewById(R.id.table).getHeight());
-                                Activity activity = (Activity)context;
-                                System.out.println(activity.getWindowManager().getDefaultDisplay().getWidth());
 
-                                System.out.println(activity.getWindowManager().getDefaultDisplay().getHeight());
                             }
                         })
                         .neutralText("搜索")
@@ -93,8 +71,16 @@ public class DialogSelectAllOverlays {
                         .build();
 
 
-
-                table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
+                Column<String> column1 = new Column<>("建筑名称", "buildingName", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*3));
+                Column<String> column2 = new Column<>("编号", "buildingNumber", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*2));
+                final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", basicList, column1, column2);
+                //设置数据
+                SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
+                table.getConfig().setShowXSequence(false).setShowYSequence(false).setShowTableTitle(false);
+                table.getConfig().setHorizontalPadding(0);table.getConfig().setColumnTitleHorizontalPadding(0);
+                //table.setZoom(true,3);是否缩放
+                table.setTableData(tableData);
+                /*table.setCanVerticalScroll(false);*/
                 column1.setOnColumnItemClickListener(new OnColumnItemClickListener(context, basicList, materialDialog, aMap));
                 column2.setOnColumnItemClickListener(new OnColumnItemClickListener(context, basicList, materialDialog, aMap));
                 materialDialog.show();

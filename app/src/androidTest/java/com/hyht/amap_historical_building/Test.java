@@ -17,7 +17,6 @@ public class Test {
         double[] doubles = wgs84CoordinateConverter.GaussToBL(x, y);
         System.out.println("GaussToBL = " + Arrays.toString(wgs84CoordinateConverter.GaussToBL(x, y)));
 
-
         CoordinateConverter converter  = new CoordinateConverter(InstrumentationRegistry.getTargetContext());
         converter.from(CoordinateConverter.CoordType.GPS);
         converter.coord(new LatLng(doubles[0],doubles[1]));

@@ -10,6 +10,7 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.*;
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.column.Column;
+import com.bin.david.form.data.format.draw.MultiLineDrawFormat;
 import com.bin.david.form.data.table.TableData;
 import com.hyht.amap_historical_building.Constant;
 import com.hyht.amap_historical_building.R;
@@ -236,7 +237,7 @@ public class SimplePopupTools {
                                                 return false;
                                             }
                                         });
-                                        new SimplePopupShowOverlaysImp(context, aMap, position);
+                                        new SimplePopupShowOverlaysImp(context, aMap, 0);
                                         aMap.clear(true);
                                         aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
                                         linearLayout.removeView(btn_exit);
@@ -430,7 +431,7 @@ public class SimplePopupTools {
                                             }
                                         });
                                         aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
-                                        new SimplePopupShowOverlaysImp(context, aMap, position);
+                                        new SimplePopupShowOverlaysImp(context, aMap, 0);
                                         linearLayout.removeView(btn_exit);
                                         linearLayout.removeView(btn_clear);
                                         linearLayout.removeView(btn_rollback);
@@ -530,19 +531,21 @@ public class SimplePopupTools {
                                                         .cancelable(false)
                                                         .show();
                                                 TextView areaSearchTV = materialDialog.getCustomView().findViewById(R.id.area_search_tv);
-                                                areaSearchTV.setText("共查询到建筑物："+innerMarkers.size()+"处");
+                                                areaSearchTV.setText("共查询到建筑物："+areaInner.size()+"处");
                                                 //普通列
-                                                Column<String> column1 = new Column<>("建筑名称", "buildingName");
+                                                Column<String> column1 = new Column<>("建筑名称", "buildingName", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*3));
                                                 column1.setOnColumnItemClickListener(new OnColumnItemClickListener(context, areaInner, materialDialog, aMap));
-                                                Column<String> column2 = new Column<>("面积（㎡）", "buildingArea");
+                                                Column<String> column2 = new Column<>("面积（㎡）", "buildingArea", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*2));
                                                 column2.setOnColumnItemClickListener(new OnColumnItemClickListener(context, areaInner, materialDialog, aMap));
                                                 final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", areaInner, column1, column2);
                                                 //设置数据
                                                 SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
-                                                table.getConfig().setShowXSequence(false).setShowYSequence(false);
-                                                table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
+                                                /*table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);*/
+                                                table.getConfig().setShowXSequence(false).setShowYSequence(false).setShowTableTitle(false);
+                                                table.getConfig().setHorizontalPadding(0);table.getConfig().setColumnTitleHorizontalPadding(0);
                                                 //table.setZoom(true,3);是否缩放
                                                 table.setTableData(tableData);
+                                                /*table.setCanVerticalScroll(false);*/
                                             }
 
                                             @Override
@@ -624,7 +627,7 @@ public class SimplePopupTools {
                                         polygonDraw.setVisible(false);
                                         aMap.runOnDrawFrame();
 
-                                        /*aMap.clear(true);*/
+                                        aMap.clear(true);
                                         aMap.removeOnMapClickListener(areaMapClickListener);
                                         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
                                             @Override
@@ -634,7 +637,7 @@ public class SimplePopupTools {
                                             }
                                         });
                                         aMap.setOnInfoWindowClickListener(new OnInFoWindowClickListenerShowDetail(context, aMap));
-                                        new SimplePopupShowOverlaysImp(context, aMap, position);
+                                        new SimplePopupShowOverlaysImp(context, aMap, 0);
                                         while (linearLayout.getChildCount() > 6) {
                                             linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
                                         }
@@ -684,17 +687,19 @@ public class SimplePopupTools {
                                                         TextView areaSearchTV = materialDialog.getCustomView().findViewById(R.id.area_search_tv);
                                                         areaSearchTV.setText("共查询到建筑物："+response.size()+"处");
                                                         //普通列
-                                                        Column<String> column1 = new Column<>("建筑名称", "buildingName");
+                                                        Column<String> column1 = new Column<>("建筑名称", "buildingName", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*3));
                                                         column1.setOnColumnItemClickListener(new OnColumnItemClickListener(context, response, materialDialog, aMap));
-                                                        Column<String> column2 = new Column<>("面积（㎡）", "buildingArea");
+                                                        Column<String> column2 = new Column<>("面积（㎡）", "buildingArea", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*2));
                                                         column2.setOnColumnItemClickListener(new OnColumnItemClickListener(context, response, materialDialog, aMap));
                                                         final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", response, column1, column2);
                                                         //设置数据
                                                         SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
-                                                        table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
-                                                        table.getConfig().setShowXSequence(false).setShowYSequence(false);
+                                                        /*table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);*/
+                                                        table.getConfig().setShowXSequence(false).setShowYSequence(false).setShowTableTitle(false);
+                                                        table.getConfig().setHorizontalPadding(0);table.getConfig().setColumnTitleHorizontalPadding(0);
                                                         //table.setZoom(true,3);是否缩放
                                                         table.setTableData(tableData);
+                                                        /*table.setCanVerticalScroll(false);*/
 
                                                     }
 

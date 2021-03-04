@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bin.david.form.core.SmartTable;
 import com.bin.david.form.data.column.Column;
+import com.bin.david.form.data.format.draw.MultiLineDrawFormat;
 import com.bin.david.form.data.table.TableData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -77,16 +78,19 @@ public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleBu
                                             .show();
 
                                     //普通列
-                                    Column<String> column1 = new Column<>("建筑名称", "buildingName");
+                                    Column<String> column1 = new Column<>("建筑名称", "buildingName", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*3));
                                     column1.setOnColumnItemClickListener(new OnColumnItemClickListener(context, basicList, materialDialog, aMap));
-                                    Column<String> column2 = new Column<>("编号", "buildingNumber");
+                                    Column<String> column2 = new Column<>("编号", "buildingNumber", new MultiLineDrawFormat<String>(materialDialog.getWindow().getAttributes().width/5*2));
                                     column2.setOnColumnItemClickListener(new OnColumnItemClickListener(context, basicList, materialDialog, aMap));
                                     final TableData<TBasic> tableData = new TableData<TBasic>("建筑基本档案", basicList, column1, column2);
                                     //设置数据
                                     SmartTable table = materialDialog.getCustomView().findViewById(R.id.table);
-                                    table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);
-                                    table.getConfig().setShowXSequence(false).setShowYSequence(false);
+                                    /*table.getConfig().setMinTableWidth(materialDialog.getWindow().getAttributes().width);*/
+                                    table.getConfig().setShowXSequence(false).setShowYSequence(false).setShowTableTitle(false);
+                                    table.getConfig().setHorizontalPadding(0);table.getConfig().setColumnTitleHorizontalPadding(0);
+                                    //table.setZoom(true,3);是否缩放
                                     table.setTableData(tableData);
+                                    /*table.setCanVerticalScroll(false);*/
 
                                 }
                             }, new Response.ErrorListener() {
