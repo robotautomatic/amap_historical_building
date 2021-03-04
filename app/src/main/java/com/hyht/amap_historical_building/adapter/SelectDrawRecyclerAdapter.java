@@ -21,9 +21,12 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xui.widget.progress.HorizontalProgressView;
 
 import java.util.List;
-
+/**
+ * 绘制建筑后，选择需要添加上传的图片，显示在recycleView中的adapter
+ */
 public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRecyclerAdapter.ViewHolder> {
     private List<LocalMedia> localMediaList;
     private Context context;
@@ -101,11 +104,14 @@ public class SelectDrawRecyclerAdapter extends RecyclerView.Adapter<SelectDrawRe
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivSelectPic;
         LinearLayout llDelete;
+        HorizontalProgressView progressView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSelectPic = itemView.findViewById(R.id.iv_select_pic);
             llDelete = itemView.findViewById(R.id.ll_delete);
+            progressView = itemView.findViewById(R.id.progress_loading_draw);
+            progressView.setVisibility(View.GONE);
         }
     }
 

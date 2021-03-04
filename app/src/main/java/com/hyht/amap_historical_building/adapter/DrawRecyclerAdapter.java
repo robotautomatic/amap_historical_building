@@ -22,11 +22,16 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
+import com.xuexiang.xui.widget.progress.HorizontalProgressView;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 已废弃，功能已用SelectDrawRecyclerAdapter实现，暂留用作参考
+ * 绘制建筑后，选择需要添加上传的图片，显示在recycleView中的adapter
+ */
 public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapter.ViewHolder> {
     private List<TDraw> drawList;
     private Context context;
@@ -47,7 +52,7 @@ public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageView delete = holder.itemView.findViewById(R.id.iv_delete);
         ImageView select = holder.itemView.findViewById(R.id.iv_select_pic);
-        if (position == 0) {
+        if (position == 0) {//第一个图片用作添加图片
             delete.setVisibility(View.INVISIBLE);
             select.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,11 +187,14 @@ public class DrawRecyclerAdapter extends RecyclerView.Adapter<DrawRecyclerAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivSelectPic;
         LinearLayout llDelete;
+        HorizontalProgressView progressView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSelectPic = itemView.findViewById(R.id.iv_select_pic);
             llDelete = itemView.findViewById(R.id.ll_delete);
+            progressView = itemView.findViewById(R.id.progress_loading_draw);
+            progressView.setVisibility(View.GONE);
         }
     }
 

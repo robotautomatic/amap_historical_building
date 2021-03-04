@@ -31,7 +31,9 @@ import com.xuexiang.xui.widget.toast.XToast;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 选择显示建筑物类型弹窗
+ */
 public class DialogSelectAllOverlays {
     private Context context;
     private AMap aMap;

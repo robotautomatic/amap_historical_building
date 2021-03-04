@@ -12,7 +12,9 @@ import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.hyht.amap_historical_building.entity.TBasic;
 
 import java.util.List;
-
+/**
+ * 将实体类转化成地图上的覆盖物
+ */
 public class EntityToOverlay {
     private AMap aMap;
     private TBasic tBasic;

@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Volley封装
+ */
 public class VolleyUtils {
     private static RequestQueue mQueue;
     private ImageLoader mLoader;

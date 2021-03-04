@@ -7,6 +7,9 @@ import com.hyht.amap_historical_building.entity.PolygonBasic;
 import com.xuexiang.xui.widget.dialog.materialdialog.DialogAction;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
+/**
+ * 点击将建筑图片从地图上隐藏
+ */
 public class SingleButtonCallBackHideOverlayOnMap implements MaterialDialog.SingleButtonCallback {
     private Marker marker;
     private AMap aMap;

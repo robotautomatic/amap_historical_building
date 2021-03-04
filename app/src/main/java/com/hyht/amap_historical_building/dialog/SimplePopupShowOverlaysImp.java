@@ -15,7 +15,9 @@ import com.xuexiang.xui.widget.toast.XToast;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+/**
+ * 选择建筑物类型简易弹窗的功能实现
+ */
 public class SimplePopupShowOverlaysImp {
     private Context context;
     private AMap aMap;

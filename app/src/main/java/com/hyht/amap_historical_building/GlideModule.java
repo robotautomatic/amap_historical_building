@@ -12,6 +12,9 @@ import okhttp3.OkHttpClient;
 
 import java.io.InputStream;
 
+/**
+ * Glided的配置，可用作注册组件，这里用作注册progressManager的进度监听
+ */
 @com.bumptech.glide.annotation.GlideModule
 public class GlideModule extends AppGlideModule {
     @Override

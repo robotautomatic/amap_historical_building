@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.just.agentweb.AgentWeb;
 
+/**
+ * 自定义web浏览器
+ */
 public class WebActivity extends AppCompatActivity {
     AgentWeb mAgentWeb;
     @Override

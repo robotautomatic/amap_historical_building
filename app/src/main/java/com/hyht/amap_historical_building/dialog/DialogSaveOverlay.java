@@ -25,7 +25,9 @@ import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 保存建筑物弹窗
+ */
 public class DialogSaveOverlay {
     private Context context;
     private List<LatLng> latLngList = new ArrayList<>();

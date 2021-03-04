@@ -8,7 +8,9 @@ import com.hyht.amap_historical_building.entity.TBasic;
 import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 import java.util.List;
-
+/**
+ * 条目点击监听
+ */
 public class OnColumnItemClickListener implements com.bin.david.form.listener.OnColumnItemClickListener {
     private Context context;
     private List<TBasic> basicList;

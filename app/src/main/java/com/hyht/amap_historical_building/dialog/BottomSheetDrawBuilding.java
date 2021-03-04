@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.xuexiang.xui.XUI.getContext;
-
+/**
+ * 绘制建筑物弹窗
+ */
 public class BottomSheetDrawBuilding {
     BottomSheet.BottomGridSheetBuilder builder;
     Context context;

@@ -18,6 +18,9 @@ import com.xuexiang.xutil.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 修改编辑建筑物详情
+ */
 public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleButtonCallback {
     private TBasic tBasic;
     private Context context;

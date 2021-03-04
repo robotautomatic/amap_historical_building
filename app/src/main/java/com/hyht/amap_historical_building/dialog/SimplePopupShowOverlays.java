@@ -12,6 +12,9 @@ import com.xuexiang.xui.widget.popupwindow.popup.XUISimplePopup;
 
 import static com.xuexiang.xui.XUI.getContext;
 
+/**
+ * 选择建筑物类型简易弹窗
+ */
 public class SimplePopupShowOverlays {
     XUISimplePopup mListPopup;
     Context context;

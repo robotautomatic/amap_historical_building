@@ -17,6 +17,9 @@ import com.xuexiang.xui.widget.toast.XToast;
 
 import java.util.List;
 
+/**
+ * 将建筑图片从地图上显示并跳转至
+ */
 public class SingleButtonCallBackShowOverlayOnMap implements MaterialDialog.SingleButtonCallback {
     private AMap aMap;
     private TBasic tBasic;

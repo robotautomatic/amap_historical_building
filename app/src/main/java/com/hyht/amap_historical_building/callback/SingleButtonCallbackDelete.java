@@ -22,6 +22,9 @@ import com.xuexiang.xui.widget.toast.XToast;
 
 import static com.xuexiang.xui.utils.ResUtils.getColor;
 
+/**
+ * 删除建筑物
+ */
 public class SingleButtonCallbackDelete implements MaterialDialog.SingleButtonCallback {
     private TBasic tBasic;
     private Context context;

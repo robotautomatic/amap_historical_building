@@ -33,6 +33,9 @@ import java.util.Map;
 
 import static com.xuexiang.xui.XUI.getContext;
 
+/**
+ * 保存或修改建筑物
+ */
 public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleButtonCallback {
     private Context context;
     private AMap aMap;

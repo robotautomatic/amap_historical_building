@@ -10,10 +10,14 @@ import com.xuexiang.xui.widget.toast.XToast;
 
 import static com.xuexiang.xui.XUI.getContext;
 
+/**
+ * 对volley进行封装，快速建筑实体类
+ */
 public class EntService {
     private Context context;
     private String urlStr = Constant.TB_GETAll;
 
+    //如有需要可以修改url
     public void setUrlStr(String urlStr) {
         this.urlStr = urlStr;
     }

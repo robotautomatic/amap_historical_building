@@ -31,6 +31,9 @@ import com.xuexiang.xui.widget.toast.XToast;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * 模糊查询建筑物
+ */
 public class SingleButtonCallBackDialogSearch implements MaterialDialog.SingleButtonCallback {
     Context context;
     AMap aMap;

@@ -34,6 +34,7 @@ import java.util.Arrays;
 
 import static com.xuexiang.xui.XUI.getContext;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.map)
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerYiWuPoint,10.5f));
 
 
+        //设置当前的定位
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //安卓动态添加权限
     public void addPermission() {/*
         System.out.println(PermissionUtils.getPermissions());PermissionUtils.getPermissions();
         PermissionUtils.isGranted();
@@ -167,14 +169,14 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
-
+    //app右边按钮
     @OnClick({R.id.switchLayer, R.id.btn_draw, R.id.btn_select, R.id.btn_overlay, R.id.btn_tools})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.switchLayer:
+            case R.id.switchLayer://切换地图底图类型
                 selectLayer(view);
                 break;
-            case R.id.btn_draw:
+            case R.id.btn_draw://绘制建筑
                 drawBottomSheetGrid();
                 break;
             case R.id.btn_select:
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
+    //切换地图底图类型
     void selectLayer(View v) {
         mListPopup = new XUISimplePopup(this, new String[]{
                 "普通地图", "卫星地图", "导航地图", "夜景地图",})
@@ -219,27 +221,22 @@ public class MainActivity extends AppCompatActivity {
         mListPopup.showDown(v);
     }
 
+    //绘制建筑
     void drawBottomSheetGrid() {
         new BottomSheetDrawBuilding(this, aMap).getBottomSheet().build().show();
     }
 
+    //查找所有的建筑
     void selectAllOverlays() {
-/*        aMap.clear(true);
-        aMap.setOnMarkerClickListener(null);
-        aMap.setOnInfoWindowClickListener(null);
-        aMap.setOnMapClickListener(null);
-        LinearLayout linearLayout = findViewById(R.id.linear_bt);
-        while (linearLayout.getChildCount() > 6) {
-            linearLayout.removeViewAt(linearLayout.getChildCount() - 1);
-        }*/
         new DialogSelectAllOverlays(MainActivity.this, aMap);
     }
 
+    //选择在地图上显示的建筑类型
     void showOverlays(View v) {
         new SimplePopupShowOverlays(this, aMap).GetSimplePopup().showDown(v);
     }
 
-
+    //其他的地图工具
     private void showTools(View view) {
         new SimplePopupTools(this, aMap).GetSimplePopup().showDown(view);
     }

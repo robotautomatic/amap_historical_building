@@ -7,7 +7,9 @@ import com.hyht.amap_historical_building.R;
 import com.xuexiang.xui.widget.layout.XUIButton;
 
 import static com.xuexiang.xui.utils.ResUtils.getDrawable;
-
+/**
+ * 封装的默认按钮样式
+ */
 public class DefaultButton {
     Context context;
     Button btn_default;

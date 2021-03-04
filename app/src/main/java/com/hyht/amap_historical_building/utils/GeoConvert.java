@@ -1,5 +1,7 @@
 package com.hyht.amap_historical_building.utils;
-
+/**
+ * 坐标转化工具
+ */
 public class GeoConvert {
 
     /* Ellipsoid model constants (actual values here are for WGS84) */

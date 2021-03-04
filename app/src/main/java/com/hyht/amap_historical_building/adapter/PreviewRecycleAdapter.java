@@ -34,7 +34,9 @@ import java.io.IOException;
 import java.util.*;
 
 import static com.xuexiang.xutil.XUtil.runOnUiThread;
-
+/**
+ * 打开建筑详情，显示在recycleView中的adapter
+ */
 public class PreviewRecycleAdapter extends RecyclerView.Adapter<PreviewRecycleAdapter.ViewHolder>{
     private Context context;
     private List<Uri> uriList;

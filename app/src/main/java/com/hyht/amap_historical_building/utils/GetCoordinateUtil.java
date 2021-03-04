@@ -6,7 +6,9 @@ import com.hyht.amap_historical_building.entity.TBasic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * 坐标转化
+ */
 public class GetCoordinateUtil {
 
     public List<LatLng> getGeoPointList(TBasic tBasic){

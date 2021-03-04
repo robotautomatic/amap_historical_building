@@ -36,7 +36,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.xuexiang.xui.XUI.getContext;
-
+/**
+ * 建筑物工具的简易弹窗
+ */
 public class SimplePopupTools {
     XUISimplePopup mListPopup;
     Context context;

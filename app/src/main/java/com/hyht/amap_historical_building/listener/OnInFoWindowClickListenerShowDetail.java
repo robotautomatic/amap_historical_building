@@ -5,7 +5,9 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
 import com.hyht.amap_historical_building.dialog.DialogOverlayDetail;
 import com.hyht.amap_historical_building.entity.TBasic;
-
+/**
+ * 点击监听
+ */
 public class OnInFoWindowClickListenerShowDetail implements AMap.OnInfoWindowClickListener {
     private Context context;
     private AMap aMap;

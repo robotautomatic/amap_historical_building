@@ -5,6 +5,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.xuexiang.xui.XUI;
 
+/**
+ * 该类用作加载XUI框架
+ */
 public class MyApp extends Application {
 
     public static RequestQueue queue;

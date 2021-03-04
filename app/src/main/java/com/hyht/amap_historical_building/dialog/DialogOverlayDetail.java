@@ -39,7 +39,9 @@ import okhttp3.OkHttpClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 建筑物详情弹窗
+ */
 public class DialogOverlayDetail {
     private Context context;
     private TBasic tBasic;
