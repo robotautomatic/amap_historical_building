@@ -95,14 +95,14 @@
                     android:layout_height="wrap_content"
                     style="@style/TextStyle.Content"
                     android:id="@+id/rg_architectural_age_1"
-                    android:text="清代以前（1644年以前）">
+                    android:text="清代以前（1664年以前）">
             </RadioButton>
             <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextStyle.Content"
                     android:id="@+id/rg_architectural_age_2"
-                    android:text="清代（1644-1911年）">
+                    android:text="清代（1664-1911年）">
             </RadioButton>
             <RadioButton
                     android:layout_width="wrap_content"

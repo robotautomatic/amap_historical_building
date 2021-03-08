@@ -106,11 +106,11 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         RadioGroup rg_architectural_age = view.findViewById(R.id.rg_architectural_age);
         switch (rg_architectural_age.getCheckedRadioButtonId()) {
             case R.id.rg_architectural_age_1: {
-                mapBuilding.put("architecturalAge", "清代以前（1644年以前）");
+                mapBuilding.put("architecturalAge", "清代以前（1664年以前）");
             }
             break;
             case R.id.rg_architectural_age_2: {
-                mapBuilding.put("architecturalAge", "清代（1644-1911年）");
+                mapBuilding.put("architecturalAge", "清代（1664-1911年）");
             }
             break;
             case R.id.rg_architectural_age_3: {
@@ -181,7 +181,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
             EditText checkbox_value_elements_5_et = view.findViewById(R.id.checkbox_value_elements_5_et);
             valueElements = valueElements + "历史环境要素:" + checkbox_value_elements_5_et.getText().toString()+";";
         }
-        mapBuilding.put("valueElements", "");
+        mapBuilding.put("valueElements", valueElements);
 
         CheckBox checkbox_status_function_1 = view.findViewById(R.id.checkbox_status_function_1);
         CheckBox checkbox_status_function_2 = view.findViewById(R.id.checkbox_status_function_2);
@@ -231,13 +231,13 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         }
         if (checkbox_status_function_12.isChecked()) {
             EditText checkbox_status_function_12_et = view.findViewById(R.id.checkbox_status_function_12_et);
-            statusFunction = statusFunction + "其他:"+checkbox_status_function_12_et.getText().toString()+";";
+            statusFunction = statusFunction + checkbox_status_function_12_et.getText().toString()+";";
         }
 
-                mapBuilding.put("statusFunction", "");
+                mapBuilding.put("statusFunction", statusFunction);
 
         CheckBox checkbox_structure_type_1 = view.findViewById(R.id.checkbox_structure_type_1);
-        CheckBox checkbox_structure_type_2 = view.findViewById(R.id.checkbox_structure_type_1);
+        CheckBox checkbox_structure_type_2 = view.findViewById(R.id.checkbox_structure_type_2);
         CheckBox checkbox_structure_type_3 = view.findViewById(R.id.checkbox_structure_type_3);
         CheckBox checkbox_structure_type_4 = view.findViewById(R.id.checkbox_structure_type_4);
         CheckBox checkbox_structure_type_5 = view.findViewById(R.id.checkbox_structure_type_5);
@@ -256,9 +256,9 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         }
         if (checkbox_structure_type_5.isChecked()) {
             EditText rg_structure_type_5_et = view.findViewById(R.id.checkbox_structure_type_5_et);
-            structureType = structureType + "其他结构:"+rg_structure_type_5_et.getText().toString()+";";
+            structureType = structureType + rg_structure_type_5_et.getText().toString()+";";
         }
-                mapBuilding.put("structureType", "");
+                mapBuilding.put("structureType", structureType);
 
 
         EditText edit_building_floors = view.findViewById(R.id.edit_building_floors);
@@ -323,10 +323,10 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         if (checkbox_natural_factor_12.isChecked()) {
             EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
             mapBuilding.put("naturalFactor", "其他自然因素," + checkbox_natural_factor_12_et.getText());
-            naturalFactor = naturalFactor + "其他:"+ checkbox_natural_factor_12_et.getText().toString()+";";
+            naturalFactor = naturalFactor + checkbox_natural_factor_12_et.getText().toString()+";";
         }
 
-                mapBuilding.put("naturalFactor", "");
+                mapBuilding.put("naturalFactor", naturalFactor);
 
         CheckBox checkbox_human_factor_1 = view.findViewById(R.id.checkbox_human_factor_1);
         CheckBox checkbox_human_factor_2 = view.findViewById(R.id.checkbox_human_factor_2);
@@ -360,9 +360,9 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         }
         if (checkbox_human_factor_8.isChecked()) {
             EditText checkbox_human_factor_8_et = view.findViewById(R.id.checkbox_human_factor_8_et);
-            humanFactor = humanFactor + "其他人为因素:"+ checkbox_human_factor_8.getText().toString()+";";
+            humanFactor = humanFactor + checkbox_human_factor_8.getText().toString()+";";
         }
-        mapBuilding.put("humanFactor", "");
+        mapBuilding.put("humanFactor", humanFactor);
 
         CheckBox checkbox_property_type_1 = view.findViewById(R.id.checkbox_property_type_1);
         CheckBox checkbox_property_type_2 = view.findViewById(R.id.checkbox_property_type_2);
@@ -380,7 +380,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
         }
         if (checkbox_property_type_4.isChecked()) {
             EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-            propertyType = propertyType + "其他:"+checkbox_property_type_et.getText()+";";
+            propertyType = propertyType + checkbox_property_type_et.getText()+";";
         }
         mapBuilding.put("propertyType", propertyType);
 
@@ -425,6 +425,7 @@ public class SingleButtonCallbackSaveOrUpdate implements MaterialDialog.SingleBu
 
             @Override
             public void onSuccess(TBasic response) {
+                System.out.println(mapBuilding);
                 Log.e("success", "response---->" + response);
                 XToast.normal(context, "保存成功").show();
                 int id = response.getBasicId();

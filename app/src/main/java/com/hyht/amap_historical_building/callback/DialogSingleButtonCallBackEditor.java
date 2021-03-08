@@ -119,12 +119,12 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
 
         if (tBasic.getArchitecturalAge() != null)
         switch (tBasic.getArchitecturalAge()) {
-            case "清代以前（1644年以前）": {
+            case "清代以前（1664年以前）": {
                 radioButton = view.findViewById(R.id.rg_architectural_age_1);
                 radioButton.setChecked(true);
             }
             break;
-            case "清代（1644-1911年）": {
+            case "清代（1664-1911年）": {
                 radioButton = view.findViewById(R.id.rg_architectural_age_2);
                 radioButton.setChecked(true);
             }
@@ -293,7 +293,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                         checkBox = view.findViewById(R.id.checkbox_status_function_12);
                         checkBox.setChecked(true);
                         EditText checkbox_status_function_12_et = view.findViewById(R.id.checkbox_status_function_12_et);
-                        checkbox_status_function_12_et.setText(s.substring(3));
+                        checkbox_status_function_12_et.setText(s);
                     }
                     break;
                 }
@@ -328,7 +328,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                         checkBox = view.findViewById(R.id.checkbox_structure_type_5);
                         checkBox.setChecked(true);
                         EditText checkbox_structure_type_5_et = view.findViewById(R.id.checkbox_structure_type_5_et);
-                        checkbox_structure_type_5_et.setText(s.substring(5));
+                        checkbox_structure_type_5_et.setText(s);
                     }
                     break;
                 }
@@ -410,7 +410,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                         checkBox = view.findViewById(R.id.checkbox_natural_factor_12);
                         checkBox.setChecked(true);
                         EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
-                        checkbox_natural_factor_12_et.setText(s.substring(7));
+                        checkbox_natural_factor_12_et.setText(s);
                     }
                     break;
                 }
@@ -459,8 +459,8 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                     default: {
                         checkBox = view.findViewById(R.id.checkbox_human_factor_8);
                         checkBox.setChecked(true);
-                        EditText checkbox_natural_factor_12_et = view.findViewById(R.id.checkbox_natural_factor_12_et);
-                        checkbox_natural_factor_12_et.setText(s.substring(7));
+                        EditText checkbox_human_factor_8_et = view.findViewById(R.id.checkbox_human_factor_8_et);
+                        checkbox_human_factor_8_et.setText(s);
                     }
                     break;
                 }
@@ -490,7 +490,7 @@ public class DialogSingleButtonCallBackEditor implements MaterialDialog.SingleBu
                         CheckBox checkbox_property_type_4 = view.findViewById(R.id.checkbox_property_type_4);
                         checkbox_property_type_4.setChecked(true);
                         EditText checkbox_property_type_et = view.findViewById(R.id.checkbox_property_type_et);
-                        checkbox_property_type_et.setText(s.substring(3));
+                        checkbox_property_type_et.setText(s);
                     }
                 }
             }
